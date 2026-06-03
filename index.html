@@ -2,132 +2,176 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>小银盒 - 设备异常报告汇总</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小银盒 · 设备异常报告</title>
 <style>
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; }
-  .header { background:linear-gradient(135deg,#1a237e,#283593); color:#fff; padding:24px 32px; }
-  .header h1 { font-size:22px; }
-  .header .meta { font-size:12px; opacity:.8; margin-top:6px; }
-  .container { max-width:1800px; margin:24px auto; padding:0 16px; }
-  .section { background:#fff; border-radius:10px; padding:20px;
-              box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:24px; }
-  .section h3 { font-size:15px; color:#555; margin-bottom:14px; }
-  .filter-bar { display:flex; gap:12px; align-items:center; margin-bottom:14px; flex-wrap:wrap; }
-  .filter-bar label { font-size:13px; color:#666; }
-  .filter-bar select, .filter-bar input {
-    padding:6px 10px; border:1px solid #ddd; border-radius:6px; font-size:13px; outline:none; }
-  .filter-bar input { width:200px; }
-  .filter-bar button {
-    padding:6px 14px; background:#1a237e; color:#fff;
-    border:none; border-radius:6px; font-size:13px; cursor:pointer; }
-  .filter-bar button:hover { background:#283593; }
-  table { width:100%; border-collapse:collapse; font-size:13px; }
-  th { background:#f5f5f5; padding:9px 12px; text-align:left;
-        border-bottom:2px solid #ddd; white-space:nowrap; }
-  td { padding:8px 12px; border-bottom:1px solid #eee; vertical-align:top; }
-  tr:hover td { background:#fafafa; }
-  tr.hidden { display:none; }
-  a { color:#1d4ed8; text-decoration:none; }
-  a:hover { text-decoration:underline; }
-  .foot-note { color:#999; font-size:11px; margin-top:8px; }
+:root {
+  --blue:#1e3a8a; --blue-light:#3b82f6; --bg:#f1f5f9;
+  --card:#fff; --border:#e2e8f0; --text:#1e293b; --muted:#64748b;
+  --red:#ef4444; --orange:#f97316; --yellow:#eab308; --green:#22c55e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+
+/* ── header ── */
+.header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 50%,#1d4ed8 100%);
+  color:#fff;padding:28px 40px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 50%,rgba(99,102,241,.25) 0%,transparent 60%)}
+.header h1{font-size:26px;font-weight:700;letter-spacing:2px;position:relative}
+.header h1 span{font-size:13px;font-weight:400;opacity:.7;margin-left:12px;letter-spacing:0}
+.header .meta{font-size:12px;opacity:.65;margin-top:8px;position:relative;line-height:2}
+
+/* ── layout ── */
+.container{max-width:1600px;margin:28px auto;padding:0 24px}
+.section{background:var(--card);border-radius:14px;padding:24px 28px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);margin-bottom:24px}
+.section-title{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.section-title h3{font-size:15px;font-weight:600;color:var(--text)}
+.section-title .count{background:#f1f5f9;color:var(--muted);font-size:11px;
+  padding:2px 8px;border-radius:20px;font-weight:500}
+
+/* ── filter bar ── */
+.fb{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+.fb label{font-size:12px;color:var(--muted);font-weight:500}
+.fb select,.fb input{padding:7px 12px;border:1px solid var(--border);border-radius:8px;
+  font-size:13px;outline:none;background:#fff;color:var(--text);transition:border .2s}
+.fb select:focus,.fb input:focus{border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+.fb input{width:220px}
+.fb button{padding:7px 16px;background:var(--blue);color:#fff;border:none;
+  border-radius:8px;font-size:13px;cursor:pointer;font-weight:500;transition:background .2s}
+.fb button:hover{background:#1d4ed8}
+
+/* ── table ── */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead tr{background:#f8fafc}
+th{padding:10px 14px;text-align:left;font-size:12px;font-weight:600;
+   color:var(--muted);text-transform:uppercase;letter-spacing:.5px;
+   border-bottom:2px solid var(--border);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.6}
+tbody tr{transition:background .15s}
+tbody tr:hover td{background:#f8fafc}
+tbody tr:last-child td{border-bottom:none}
+tr.hidden{display:none}
+td.ts{color:var(--muted);font-size:12px;white-space:nowrap}
+td.small{font-size:12px;color:#475569}
+td.center{text-align:center}
+td.summary{max-width:280px}
+
+/* ── badges & tags ── */
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;
+  font-size:12px;font-weight:600;letter-spacing:.3px}
+.badge.green{background:#dcfce7;color:#15803d}
+.badge.yellow{background:#fef9c3;color:#92400e}
+.badge.orange{background:#ffedd5;color:#c2410c}
+.badge.red{background:#fee2e2;color:#b91c1c}
+.factory-tag{display:inline-block;padding:3px 10px;border-radius:6px;
+  font-size:12px;font-weight:600;background:#e0e7ff;color:#3730a3}
+.ver-tag{display:inline-block;padding:2px 10px;border-radius:20px;
+  font-size:12px;font-weight:600;background:#f1f5f9;color:#475569;
+  border:1px solid var(--border)}
+.report-link{color:var(--blue-light);text-decoration:none;
+  display:inline-flex;align-items:center;gap:5px;font-size:12px;
+  font-weight:500;white-space:nowrap}
+.report-link:hover{text-decoration:underline}
+.fdot{display:inline-block;width:8px;height:8px;border-radius:50%;
+  margin-right:6px;vertical-align:middle}
+.foot-note{color:var(--muted);font-size:11px;margin-top:14px;
+  padding-top:12px;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>小银盒</h1>
-  <div class="meta">最后更新: 2026-06-03 19:12:26 &nbsp;|&nbsp;
-    共 5 份报告 &nbsp;|&nbsp; 备注可在 GitHub 编辑 index.json 维护</div>
+  <h1>小银盒 <span>设备异常分析平台</span></h1>
+  <div class="meta">
+    最后更新: 2026-06-03 19:19:41 &nbsp;·&nbsp; 共 5 份报告
+    &nbsp;·&nbsp; <a href="https://github.com/linxiaoshi/device-anomaly-report/edit/main/index.json"
+       style="color:rgba(255,255,255,.8);font-size:11px">编辑 index.json</a>
+  </div>
 </div>
 <div class="container">
 
   <div class="section">
-    <h3>版本设备清单</h3>
-    <div class="filter-bar">
+    <div class="section-title">
+      <h3>版本设备清单</h3>
+      <span class="count">4 条</span>
+    </div>
+    <div class="fb">
       <label>工厂</label>
-      <select id="devFactory" onchange="applyDevFilter()">
+      <select id="devFactory" onchange="adf()">
         <option value="">全部工厂</option>
         <option value="锦达">锦达</option>
         <option value="众能">众能</option>
         <option value="实验室挂测">实验室挂测</option>
       </select>
-      <button onclick="resetDevFilter()">重置</button>
+      <button onclick="rdf()">重置</button>
     </div>
+    <div class="table-wrap">
     <table>
-      <thead>
-        <tr><th>工厂</th><th>版本</th><th>网关编号</th><th>上电日期</th><th>备注</th></tr>
-      </thead>
-      <tbody id="devBody">
-        <tr data-factory="锦达"><td>锦达</td><td>V1</td><td style='font-size:12px'>862538063596098<br>862538065271484</td><td></td><td></td></tr>
-<tr data-factory="众能"><td>众能</td><td>V1</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td></td><td></td></tr>
-<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V3</td><td style='font-size:12px'>862538065269827（塔石）</td><td></td><td>兼容有人模组</td></tr>
-<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V2</td><td style='font-size:12px'></td><td></td><td></td></tr>
-
-      </tbody>
+      <thead><tr><th>工厂</th><th>版本</th><th>网关编号</th><th>上电日期</th><th>备注</th></tr></thead>
+      <tbody id="devBody"><tr data-factory="锦达"><td><span class="fdot" style="background:#0ea5e9"></span>锦达</td><td><span class='ver-tag'>V1</span></td><td class='small'>862538063596098<br>862538065271484</td><td></td><td class='small'></td></tr>
+<tr data-factory="众能"><td><span class="fdot" style="background:#8b5cf6"></span>众能</td><td><span class='ver-tag'>V1</span></td><td class='small'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td></td><td class='small'></td></tr>
+<tr data-factory="实验室挂测"><td><span class="fdot" style="background:#10b981"></span>实验室挂测</td><td><span class='ver-tag'>V3</span></td><td class='small'>862538065269827（塔石）</td><td></td><td class='small'>兼容有人模组</td></tr>
+<tr data-factory="实验室挂测"><td><span class="fdot" style="background:#10b981"></span>实验室挂测</td><td><span class='ver-tag'>V2</span></td><td class='small'></td><td></td><td class='small'></td></tr>
+</tbody>
     </table>
+    </div>
   </div>
 
   <div class="section">
-    <h3>报告汇总</h3>
-    <div class="filter-bar">
+    <div class="section-title">
+      <h3>报告汇总</h3>
+      <span class="count">5 份</span>
+    </div>
+    <div class="fb">
       <label>工厂</label>
-      <select id="factoryFilter" onchange="applyFilter()">
+      <select id="ff" onchange="af()">
         <option value="">全部工厂</option>
 <option value="众能">众能</option>
 <option value="实验室挂测">实验室挂测</option>
 
       </select>
       <label>关键词</label>
-      <input id="kwFilter" type="text" placeholder="网关 / 报告 / 备注..." oninput="applyFilter()">
-      <button onclick="resetFilter()">重置</button>
+      <input id="kf" type="text" placeholder="网关 / 报告 / 备注..." oninput="af()">
+      <button onclick="rf()">重置</button>
     </div>
+    <div class="table-wrap">
     <table>
-      <thead>
-        <tr>
-          <th>生成时间</th><th>工厂</th><th>网关</th><th>报告</th>
-          <th>总体情况</th><th>不应答率</th><th>丢包率</th><th>备注</th>
-        </tr>
-      </thead>
-      <tbody id="reportBody">
-        <tr data-factory="众能"><td>2026-06-03 19:04</td><td>众能</td><td style='font-size:12px'>862538065269629<br>862538065271856<br>862538063597617</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031738.html' target='_blank'>report_202606031738.html</a></td><td style='font-size:12px'>862538065269629（塔石V1）：67台，153条，65台双异常<br>862538065271856（塔石V1）：66台，748条，66台双异常<br>862538063597617（塔石V1）：67台，540条，67台双异常</td><td><span style='color:#e74c3c;font-weight:600'>0.47%</span></td><td><span style='color:#e74c3c;font-weight:600'>0.99%</span></td><td style='font-size:12px'></td></tr>
-<tr data-factory="众能"><td>2026-06-03 18:28</td><td>众能</td><td style='font-size:12px'>862538065269629<br>862538065271856<br>862538063597617</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031819.html' target='_blank'>report_202606031819.html</a></td><td style='font-size:12px'>862538065269629（塔石V1）：67台，153条，65台双异常<br>862538065271856（塔石V1）：66台，748条，66台双异常<br>862538063597617（塔石V1）：67台，540条，67台双异常</td><td><span style='color:#e74c3c;font-weight:600'>0.47%</span></td><td><span style='color:#e74c3c;font-weight:600'>0.99%</span></td><td style='font-size:12px'></td></tr>
-<tr data-factory="实验室挂测"><td>2026-06-03 17:02</td><td>实验室挂测</td><td style='font-size:12px'>862538065269827（塔石）<br>862790076588006<br>862790076580094<br>862790074669196</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031702.html' target='_blank'>report_202606031702.html</a></td><td style='font-size:12px'>862538065269827（塔石）：2台，0条，无异常<br>862790076588006：3台，0条，无异常<br>862790076580094：3台，0条，无异常<br>862790074669196：4台，0条，无异常</td><td><span style=''>0.00%</span></td><td><span style=''>0.00%</span></td><td style='font-size:12px'></td></tr>
-<tr data-factory="实验室挂测"><td>2026-06-02 17:51</td><td>实验室挂测</td><td style='font-size:12px'>862538065269827(塔石V3)<br>862790076588006(有人)<br>862790076580094(有人)<br>862790074669196(有人)</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021751.html' target='_blank'>report_202606021751.html</a></td><td style='font-size:12px'>269827（塔石V3）：2台，0条，无异常<br>588006（有人）：3台，4条，不应答<br>580094（有人）：3台，0条，无异常<br>669196（有人）：4台，9条，不应答</td><td><span style='color:#e74c3c;font-weight:600'>0.67%</span></td><td><span style=''>0.00%</span></td><td style='font-size:12px'></td></tr>
-<tr data-factory="众能"><td>2026-06-02 17:45</td><td>众能</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021745.html' target='_blank'>report_202606021745.html</a></td><td style='font-size:12px'>269629（塔石V1）：65台，108条，65台双异常<br>271856（塔石V1）：66台，317条，66台双异常<br>597617（塔石V1）：67台，5137条，67台双异常</td><td><span style='color:#e74c3c;font-weight:600'>1.37%</span></td><td><span style='color:#e74c3c;font-weight:600'>14.43%</span></td><td style='font-size:12px'></td></tr>
-
-      </tbody>
+      <thead><tr>
+        <th>生成时间</th><th>工厂</th><th>网关</th><th>报告</th>
+        <th>总体情况</th><th>不应答率</th><th>丢包率</th><th>备注</th>
+      </tr></thead>
+      <tbody id="rb"><tr data-factory="众能"><td class='ts'>2026-06-03 19:04</td><td><span class='factory-tag'>众能</span></td><td class='small'>862538065269629<br>862538065271856<br>862538063597617</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031738.html' target='_blank' class='report-link'><svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/></svg> report_202606031738.html</a></td><td class='small summary'>862538065269629（塔石V1）：67台，153条，65台双异常<br>862538065271856（塔石V1）：66台，748条，66台双异常<br>862538063597617（塔石V1）：67台，540条，67台双异常</td><td class='center'><span class="badge yellow">0.47%</span></td><td class='center'><span class="badge yellow">0.99%</span></td><td class='small'></td></tr>
+<tr data-factory="众能"><td class='ts'>2026-06-03 18:28</td><td><span class='factory-tag'>众能</span></td><td class='small'>862538065269629<br>862538065271856<br>862538063597617</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031819.html' target='_blank' class='report-link'><svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/></svg> report_202606031819.html</a></td><td class='small summary'>862538065269629（塔石V1）：67台，153条，65台双异常<br>862538065271856（塔石V1）：66台，748条，66台双异常<br>862538063597617（塔石V1）：67台，540条，67台双异常</td><td class='center'><span class="badge yellow">0.47%</span></td><td class='center'><span class="badge yellow">0.99%</span></td><td class='small'></td></tr>
+<tr data-factory="实验室挂测"><td class='ts'>2026-06-03 17:02</td><td><span class='factory-tag'>实验室挂测</span></td><td class='small'>862538065269827（塔石）<br>862790076588006<br>862790076580094<br>862790074669196</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031702.html' target='_blank' class='report-link'><svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/></svg> report_202606031702.html</a></td><td class='small summary'>862538065269827（塔石）：2台，0条，无异常<br>862790076588006：3台，0条，无异常<br>862790076580094：3台，0条，无异常<br>862790074669196：4台，0条，无异常</td><td class='center'><span class="badge green">0.00%</span></td><td class='center'><span class="badge green">0.00%</span></td><td class='small'></td></tr>
+<tr data-factory="实验室挂测"><td class='ts'>2026-06-02 17:51</td><td><span class='factory-tag'>实验室挂测</span></td><td class='small'>862538065269827(塔石V3)<br>862790076588006(有人)<br>862790076580094(有人)<br>862790074669196(有人)</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021751.html' target='_blank' class='report-link'><svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/></svg> report_202606021751.html</a></td><td class='small summary'>269827（塔石V3）：2台，0条，无异常<br>588006（有人）：3台，4条，不应答<br>580094（有人）：3台，0条，无异常<br>669196（有人）：4台，9条，不应答</td><td class='center'><span class="badge yellow">0.67%</span></td><td class='center'><span class="badge green">0.00%</span></td><td class='small'></td></tr>
+<tr data-factory="众能"><td class='ts'>2026-06-02 17:45</td><td><span class='factory-tag'>众能</span></td><td class='small'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021745.html' target='_blank' class='report-link'><svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/></svg> report_202606021745.html</a></td><td class='small summary'>269629（塔石V1）：65台，108条，65台双异常<br>271856（塔石V1）：66台，317条，66台双异常<br>597617（塔石V1）：67台，5137条，67台双异常</td><td class='center'><span class="badge orange">1.37%</span></td><td class='center'><span class="badge red">14.43%</span></td><td class='small'></td></tr>
+</tbody>
     </table>
+    </div>
     <p class="foot-note">* 备注多行用分号分隔，在 GitHub 仓库编辑 index.json 维护</p>
   </div>
 
 </div>
 <script>
-function applyFilter() {
-  var fac = document.getElementById('factoryFilter').value.toLowerCase();
-  var kw  = document.getElementById('kwFilter').value.toLowerCase();
-  document.querySelectorAll('#reportBody tr').forEach(function(tr) {
-    var text   = tr.innerText.toLowerCase();
-    var rowFac = (tr.dataset.factory || '').toLowerCase();
-    var ok = (!fac || rowFac === fac) && (!kw || text.indexOf(kw) >= 0);
-    tr.classList.toggle('hidden', !ok);
+function af(){
+  var f=document.getElementById('ff').value.toLowerCase(),
+      k=document.getElementById('kf').value.toLowerCase();
+  document.querySelectorAll('#rb tr').forEach(function(t){
+    var ok=(!f||(t.dataset.factory||'').toLowerCase()===f)&&
+            (!k||t.innerText.toLowerCase().indexOf(k)>=0);
+    t.classList.toggle('hidden',!ok);
   });
 }
-function resetFilter() {
-  document.getElementById('factoryFilter').value = '';
-  document.getElementById('kwFilter').value = '';
-  applyFilter();
-}
-function applyDevFilter() {
-  var fac = document.getElementById('devFactory').value.toLowerCase();
-  document.querySelectorAll('#devBody tr').forEach(function(tr) {
-    var rowFac = (tr.dataset.factory || '').toLowerCase();
-    tr.classList.toggle('hidden', !(!fac || rowFac === fac));
+function rf(){document.getElementById('ff').value='';document.getElementById('kf').value='';af()}
+function adf(){
+  var f=document.getElementById('devFactory').value.toLowerCase();
+  document.querySelectorAll('#devBody tr').forEach(function(t){
+    t.classList.toggle('hidden',!(!f||(t.dataset.factory||'').toLowerCase()===f));
   });
 }
-function resetDevFilter() {
-  document.getElementById('devFactory').value = '';
-  applyDevFilter();
-}
+function rdf(){document.getElementById('devFactory').value='';adf()}
 </script>
 </body>
 </html>
