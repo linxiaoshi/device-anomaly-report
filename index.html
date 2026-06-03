@@ -36,10 +36,36 @@
 <body>
 <div class="header">
   <h1>小银盒</h1>
-  <div class="meta">最后更新: 2026-06-03 19:04:59 &nbsp;|&nbsp;
+  <div class="meta">最后更新: 2026-06-03 19:08:45 &nbsp;|&nbsp;
     共 5 份报告 &nbsp;|&nbsp; 备注可在 GitHub 编辑 index.json 维护</div>
 </div>
 <div class="container">
+
+  <div class="section">
+    <h3>版本设备清单</h3>
+    <div class="filter-bar">
+      <label>工厂</label>
+      <select id="devFactory" onchange="applyDevFilter()">
+        <option value="">全部工厂</option>
+        <option value="锦达">锦达</option>
+        <option value="众能">众能</option>
+        <option value="实验室挂测">实验室挂测</option>
+      </select>
+      <button onclick="resetDevFilter()">重置</button>
+    </div>
+    <table>
+      <thead>
+        <tr><th>工厂</th><th>版本</th><th>网关编号</th><th>上电日期</th><th>备注</th></tr>
+      </thead>
+      <tbody id="devBody">
+        <tr data-factory="锦达"><td>锦达</td><td>V1</td><td style='font-size:12px'>862538063596098<br>862538065271484</td><td></td><td></td></tr>
+<tr data-factory="众能"><td>众能</td><td>V1</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td></td><td></td></tr>
+<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V3</td><td style='font-size:12px'>862538065269827（塔石）</td><td></td><td>兼容有人模组</td></tr>
+<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V2</td><td style='font-size:12px'></td><td></td><td></td></tr>
+
+      </tbody>
+    </table>
+  </div>
 
   <div class="section">
     <h3>报告汇总</h3>
@@ -72,30 +98,6 @@
       </tbody>
     </table>
     <p class="foot-note">* 备注多行用分号分隔，在 GitHub 仓库编辑 index.json 维护</p>
-  </div>
-
-  <div class="section">
-    <h3>版本设备清单</h3>
-    <div class="filter-bar">
-      <label>工厂</label>
-      <select id="devFactory" onchange="applyDevFilter()">
-        <option value="">全部工厂</option>
-        <option value="众能">众能</option>
-        <option value="实验室挂测">实验室挂测</option>
-      </select>
-      <button onclick="resetDevFilter()">重置</button>
-    </div>
-    <table>
-      <thead>
-        <tr><th>工厂</th><th>版本</th><th>网关编号</th><th>备注</th></tr>
-      </thead>
-      <tbody id="devBody">
-        <tr data-factory="众能"><td>众能</td><td>V1</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td></td></tr>
-<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V3</td><td style='font-size:12px'>862538065269827（塔石）</td><td>兼容有人模组</td></tr>
-<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V2</td><td style='font-size:12px'></td><td></td></tr>
-
-      </tbody>
-    </table>
   </div>
 
 </div>
