@@ -10,26 +10,51 @@
   .header h1 { font-size:22px; }
   .header .meta { font-size:12px; opacity:.8; margin-top:6px; }
   .container { max-width:1800px; margin:24px auto; padding:0 16px; }
-  .section { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:24px; }
+  .section { background:#fff; border-radius:10px; padding:20px;
+              box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:24px; }
   .section h3 { font-size:15px; color:#555; margin-bottom:14px; }
+  .filter-bar { display:flex; gap:12px; align-items:center; margin-bottom:14px; flex-wrap:wrap; }
+  .filter-bar label { font-size:13px; color:#666; }
+  .filter-bar select, .filter-bar input {
+    padding:6px 10px; border:1px solid #ddd; border-radius:6px; font-size:13px; outline:none; }
+  .filter-bar input { width:200px; }
+  .filter-bar button {
+    padding:6px 14px; background:#1a237e; color:#fff;
+    border:none; border-radius:6px; font-size:13px; cursor:pointer; }
+  .filter-bar button:hover { background:#283593; }
   table { width:100%; border-collapse:collapse; font-size:13px; }
-  th { background:#f5f5f5; padding:9px 12px; text-align:left; border-bottom:2px solid #ddd; white-space:nowrap; }
+  th { background:#f5f5f5; padding:9px 12px; text-align:left;
+        border-bottom:2px solid #ddd; white-space:nowrap; }
   td { padding:8px 12px; border-bottom:1px solid #eee; vertical-align:top; }
   tr:hover td { background:#fafafa; }
+  tr.hidden { display:none; }
   a { color:#1d4ed8; text-decoration:none; }
   a:hover { text-decoration:underline; }
-  .note { color:#999; font-size:11px; margin-top:8px; }
+  .foot-note { color:#999; font-size:11px; margin-top:8px; }
 </style>
 </head>
 <body>
 <div class="header">
   <h1>小银盒</h1>
-  <div class="meta">最后更新: 2026-06-03 18:50:15 &nbsp;|&nbsp; 共 4 份报告 &nbsp;|&nbsp; 备注可在 GitHub 编辑 index.json 维护</div>
+  <div class="meta">最后更新: 2026-06-03 19:00:56 &nbsp;|&nbsp;
+    共 4 份报告 &nbsp;|&nbsp; 备注可在 GitHub 编辑 index.json 维护</div>
 </div>
 <div class="container">
 
   <div class="section">
     <h3>报告汇总</h3>
+    <div class="filter-bar">
+      <label>工厂</label>
+      <select id="factoryFilter" onchange="applyFilter()">
+        <option value="">全部工厂</option>
+<option value="众能">众能</option>
+<option value="实验室挂测">实验室挂测</option>
+
+      </select>
+      <label>关键词</label>
+      <input id="kwFilter" type="text" placeholder="网关 / 报告 / 备注..." oninput="applyFilter()">
+      <button onclick="resetFilter()">重置</button>
+    </div>
     <table>
       <thead>
         <tr>
@@ -37,28 +62,69 @@
           <th>总体情况</th><th>不应答率</th><th>丢包率</th><th>备注</th>
         </tr>
       </thead>
-      <tbody><tr><td>2026-06-02 17:45</td><td>众能</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021745.html' target='_blank'>report_202606021745.html</a></td><td style='font-size:12px'>269629（塔石V1）：65台，108条，65台双异常；271856（塔石V1）：66台，317条，66台双异常；597617（塔石V1）：67台，5137条，67台双异常</td><td><span style='color:#e74c3c;font-weight:600'>1.37%</span></td><td><span style='color:#e74c3c;font-weight:600'>14.43%</span></td><td style='font-size:12px'></td></tr>
-<tr><td>2026-06-02 17:51</td><td>实验室挂测</td><td style='font-size:12px'>862538065269827(塔石V3)<br>862790076588006(有人)<br>862790076580094(有人)<br>862790074669196(有人)</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021751.html' target='_blank'>report_202606021751.html</a></td><td style='font-size:12px'>269827（塔石V3）：2台，0条，无异常；588006（有人）：3台，4条，不应答；580094（有人）：3台，0条，无异常；669196（有人）：4台，9条，不应答</td><td><span style='color:#e74c3c;font-weight:600'>0.67%</span></td><td><span style=''>0.00%</span></td><td style='font-size:12px'></td></tr>
-<tr><td>2026-06-03 17:02</td><td>实验室挂测</td><td style='font-size:12px'>862538065269827（塔石）<br>862790076588006<br>862790076580094<br>862790074669196</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031702.html' target='_blank'>report_202606031702.html</a></td><td style='font-size:12px'>862538065269827（塔石）：2台，0条，无异常；862790076588006：3台，0条，无异常；862790076580094：3台，0条，无异常；862790074669196：4台，0条，无异常</td><td><span style=''></span></td><td><span style=''></span></td><td style='font-size:12px'></td></tr>
-<tr><td>2026-06-03 18:28</td><td>众能</td><td style='font-size:12px'>862538065269629<br>862538065271856<br>862538063597617</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031819.html' target='_blank'>report_202606031819.html</a></td><td style='font-size:12px'>862538065269629（塔石V1）：67台，153条，65台双异常；862538065271856（塔石V1）：66台，748条，66台双异常；862538063597617（塔石V1）：67台，540条，67台双异常</td><td><span style=''></span></td><td><span style=''></span></td><td style='font-size:12px'></td></tr>
-</tbody>
+      <tbody id="reportBody">
+        <tr data-factory="众能"><td>2026-06-02 17:45</td><td>众能</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021745.html' target='_blank'>report_202606021745.html</a></td><td style='font-size:12px'>269629（塔石V1）：65台，108条，65台双异常<br>271856（塔石V1）：66台，317条，66台双异常<br>597617（塔石V1）：67台，5137条，67台双异常</td><td><span style='color:#e74c3c;font-weight:600'>1.37%</span></td><td><span style='color:#e74c3c;font-weight:600'>14.43%</span></td><td style='font-size:12px'></td></tr>
+<tr data-factory="实验室挂测"><td>2026-06-02 17:51</td><td>实验室挂测</td><td style='font-size:12px'>862538065269827(塔石V3)<br>862790076588006(有人)<br>862790076580094(有人)<br>862790074669196(有人)</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606021751.html' target='_blank'>report_202606021751.html</a></td><td style='font-size:12px'>269827（塔石V3）：2台，0条，无异常<br>588006（有人）：3台，4条，不应答<br>580094（有人）：3台，0条，无异常<br>669196（有人）：4台，9条，不应答</td><td><span style='color:#e74c3c;font-weight:600'>0.67%</span></td><td><span style=''>0.00%</span></td><td style='font-size:12px'></td></tr>
+<tr data-factory="实验室挂测"><td>2026-06-03 17:02</td><td>实验室挂测</td><td style='font-size:12px'>862538065269827（塔石）<br>862790076588006<br>862790076580094<br>862790074669196</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031702.html' target='_blank'>report_202606031702.html</a></td><td style='font-size:12px'>862538065269827（塔石）：2台，0条，无异常<br>862790076588006：3台，0条，无异常<br>862790076580094：3台，0条，无异常<br>862790074669196：4台，0条，无异常</td><td><span style=''></span></td><td><span style=''></span></td><td style='font-size:12px'></td></tr>
+<tr data-factory="众能"><td>2026-06-03 18:28</td><td>众能</td><td style='font-size:12px'>862538065269629<br>862538065271856<br>862538063597617</td><td><a href='https://linxiaoshi.github.io/device-anomaly-report/report_202606031819.html' target='_blank'>report_202606031819.html</a></td><td style='font-size:12px'>862538065269629（塔石V1）：67台，153条，65台双异常<br>862538065271856（塔石V1）：66台，748条，66台双异常<br>862538063597617（塔石V1）：67台，540条，67台双异常</td><td><span style=''></span></td><td><span style=''></span></td><td style='font-size:12px'></td></tr>
+
+      </tbody>
     </table>
-    <p class="note">* 如需添加备注，请在 GitHub 仓库编辑 index.json，修改对应记录的 note 字段（多行用分号分隔）</p>
+    <p class="foot-note">* 备注多行用分号分隔，在 GitHub 仓库编辑 index.json 维护</p>
   </div>
 
   <div class="section">
     <h3>版本设备清单</h3>
+    <div class="filter-bar">
+      <label>工厂</label>
+      <select id="devFactory" onchange="applyDevFilter()">
+        <option value="">全部工厂</option>
+        <option value="众能">众能</option>
+        <option value="实验室挂测">实验室挂测</option>
+      </select>
+      <button onclick="resetDevFilter()">重置</button>
+    </div>
     <table>
       <thead>
         <tr><th>工厂</th><th>版本</th><th>网关编号</th><th>备注</th></tr>
       </thead>
-      <tbody><tr><td>众能</td><td>V1</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td></td></tr>
-<tr><td>实验室挂测</td><td>V3</td><td style='font-size:12px'>862538065269827（塔石）</td><td>兼容有人模组</td></tr>
-<tr><td>实验室挂测</td><td>V2</td><td style='font-size:12px'></td><td></td></tr>
-</tbody>
+      <tbody id="devBody">
+        <tr data-factory="众能"><td>众能</td><td>V1</td><td style='font-size:12px'>862538065269629（塔石V1）<br>862538065271856（塔石V1）<br>862538063597617（塔石V1）</td><td></td></tr>
+<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V3</td><td style='font-size:12px'>862538065269827（塔石）</td><td>兼容有人模组</td></tr>
+<tr data-factory="实验室挂测"><td>实验室挂测</td><td>V2</td><td style='font-size:12px'></td><td></td></tr>
+
+      </tbody>
     </table>
   </div>
 
 </div>
+<script>
+function applyFilter() {
+  var fac = document.getElementById('factoryFilter').value.toLowerCase();
+  var kw  = document.getElementById('kwFilter').value.toLowerCase();
+  document.querySelectorAll('#reportBody tr').forEach(function(tr) {
+    var text   = tr.innerText.toLowerCase();
+    var rowFac = (tr.dataset.factory || '').toLowerCase();
+    var ok = (!fac || rowFac === fac) && (!kw || text.indexOf(kw) >= 0);
+    tr.classList.toggle('hidden', !ok);
+  });
+}
+function resetFilter() {
+  document.getElementById('factoryFilter').value = '';
+  document.getElementById('kwFilter').value = '';
+  applyFilter();
+}
+function applyDevFilter() {
+  var fac = document.getElementById('devFactory').value.toLowerCase();
+  document.querySelectorAll('#devBody tr').forEach(function(tr) {
+    var rowFac = (tr.dataset.factory || '').toLowerCase();
+    tr.classList.toggle('hidden', !(!fac || rowFac === fac));
+  });
+}
+function resetDevFilter() {
+  document.getElementById('devFactory').value = '';
+  applyDevFilter();
+}
+</script>
 </body>
 </html>
