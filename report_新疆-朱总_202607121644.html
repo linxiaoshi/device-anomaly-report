@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【新疆-朱总】设备数据异常分析报告（3个网关）</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; }
+  .header { background:linear-gradient(135deg,#1a237e,#283593); color:#fff; padding:24px 32px; }
+  .header h1 { font-size:22px; }
+  .header .meta { font-size:12px; opacity:.8; margin-top:6px; line-height:1.8; }
+  .container { max-width:1400px; margin:24px auto; padding:0 16px; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+  .card { background:#fff; border-radius:10px; padding:20px 24px; flex:1; min-width:160px;
+           box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:5px solid #ccc; }
+  .card.blue   { border-color:#3498db; }
+  .card.orange { border-color:#f39c12; }
+  .card.yellow { border-color:#f1c40f; }
+  .card.red    { border-color:#e74c3c; }
+  .card.purple { border-color:#9b59b6; }
+  .card.green  { border-color:#27ae60; }
+  .card .num   { font-size:34px; font-weight:700; }
+  .card .label { font-size:12px; color:#888; margin-top:4px; }
+  .card .sub   { font-size:11px; color:#bbb; margin-top:2px; }
+  .gw-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:24px; }
+  .section { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:24px; }
+  .section h3 { font-size:15px; margin-bottom:14px; color:#555; }
+  .gw-label { display:inline-block; padding:2px 10px; border-radius:4px; font-size:12px;
+               font-weight:600; margin-bottom:10px; }
+  .gw1 { background:#dbeafe; color:#1d4ed8; }
+  .gw2 { background:#dcfce7; color:#15803d; }
+  .gw3 { background:#fef9c3; color:#854d0e; }
+  .gw4 { background:#fce7f3; color:#9d174d; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f5f5f5; padding:8px 10px; text-align:left; border-bottom:2px solid #ddd; white-space:nowrap; }
+  td { padding:7px 10px; border-bottom:1px solid #eee; white-space:nowrap; }
+  tr:hover td { background:#fafafa; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; }
+  .badge.both    { background:#e74c3c; color:#fff; }
+  .badge.msgid   { background:#f39c12; color:#fff; }
+  .badge.timeout { background:#f1c40f; color:#333; }
+  .row-both td   { background:#fde8e8; }
+  .row-msgid td  { background:#fff8e1; }
+  .row-timeout td{ background:#fffde7; }
+  .note { font-size:12px; color:#999; margin-top:8px; }
+  @media(max-width:900px) { .gw-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>【新疆-朱总】设备数据异常分析报告（3个网关）</h1>
+  <div class="meta">
+    生成时间: 2026-07-12 16:47:41 &nbsp;|&nbsp;
+    数据时间范围: 2026071114 ~ 2026071214 &nbsp;|&nbsp;
+    异常判定: 上报间隔 &gt; 4 分钟 或 msgid 不连续<br>
+    网关1 (862538065274058（塔石V3-关通道）): history_data_862538065274058_202607121636.xlsx
+    网关2 (862538065369593（塔石V3-关通道）): history_data_862538065369593_202607121636.xlsx
+    网关3 (862538065272268（塔石V3-关通道）): history_data_862538065272268_202607121636.xlsx
+  </div>
+</div>
+<div class="container">
+
+  <!-- 汇总卡片 -->
+  <div class="cards">
+    <div class="card blue">
+      <div class="num">128</div>
+      <div class="label">总设备数（所有网关合计）</div>
+    </div>
+    <div class="card orange">
+      <div class="num">10</div>
+      <div class="label">msgid 不连续设备数</div>
+    </div>
+    <div class="card yellow">
+      <div class="num">16</div>
+      <div class="label">不应答设备数</div>
+    </div>
+    <div class="card red">
+      <div class="num">1</div>
+      <div class="label">两种异常同时存在设备数</div>
+    </div>
+    <div class="card purple">
+      <div class="num">28</div>
+      <div class="label">异常记录总数</div>
+      <div class="sub">
+        <span style="color:#e74c3c;font-weight:600">不应答 18 条（0.01%）</span> &nbsp;|&nbsp;
+        <span style="color:#e74c3c;font-weight:600">丢包 10 条（<0.01%）</span>
+      </div>
+    </div>
+    <div class="card green">
+      <div class="num">0.02%</div>
+      <div class="label">总异常率</div>
+      <div class="sub">异常记录 28 / up/supply 记录 151433</div>
+    </div>
+  </div>
+
+  <!-- 网关设备汇总 -->
+  <div class="gw-grid">
+    
+    <div class="section">
+      <h3>网关1 设备异常汇总</h3>
+      <span class="gw-label gw1">862538065274058（塔石V3-关通道）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 0 &nbsp;|&nbsp;
+        异常记录: 1 &nbsp;|&nbsp;
+        msgid不连续: 0 台 &nbsp;|&nbsp;
+        不应答: 1 台 &nbsp;|&nbsp;
+        双异常: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 1 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>862538065274058</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+    <div class="section">
+      <h3>网关2 设备异常汇总</h3>
+      <span class="gw-label gw2">862538065369593（塔石V3-关通道）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 67 &nbsp;|&nbsp;
+        异常记录: 22 &nbsp;|&nbsp;
+        msgid不连续: 10 台 &nbsp;|&nbsp;
+        不应答: 12 台 &nbsp;|&nbsp;
+        双异常: 1 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 21 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>X8625380653695930163</td><td>2</td><td><span class="badge both">msgid不连续+不应答</span></td></tr>
+<tr><td>X8625380653695930110</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930111</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930117</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930106</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930118</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930119</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930122</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930120</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930148</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930153</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930156</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930126</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380653695930157</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930158</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930160</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930159</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930161</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930162</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930164</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380653695930165</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+    <div class="section">
+      <h3>网关3 设备异常汇总</h3>
+      <span class="gw-label gw3">862538065272268（塔石V3-关通道）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 61 &nbsp;|&nbsp;
+        异常记录: 5 &nbsp;|&nbsp;
+        msgid不连续: 0 台 &nbsp;|&nbsp;
+        不应答: 3 台 &nbsp;|&nbsp;
+        双异常: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 3 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>X8625380652722680210</td><td>2</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652722680260</td><td>2</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652722680228</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+  </div>
+
+  <!-- 异常明细 -->
+  <div class="section">
+    <details>
+      <summary style="cursor:pointer;font-size:15px;font-weight:600;color:#555;padding:4px 0;user-select:none;">
+        异常明细（每个网关按间隔秒数降序前 50 条）
+      </summary>
+      <div style="margin-top:14px;overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>网关</th><th>异常类型</th><th>设备</th>
+              <th>上一次msgid</th><th>上一次上报时间</th><th>上一次运行时长</th><th>上一次转速</th>
+              <th>本次msgid</th><th>本次上报时间</th><th>本次运行时长</th><th>本次转速</th>
+              <th>间隔秒数</th><th>msgid跳号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-timeout"><td>862538065274058</td><td><span class="badge timeout">不应答</span></td><td>862538065274058</td><td></td><td>2026-07-11 14:00:00</td><td></td><td></td><td></td><td>2026-07-12 14:00:00</td><td></td><td></td><td>86400</td><td></td></tr>
+<tr class="row-timeout"><td>862538065272268</td><td><span class="badge timeout">不应答</span></td><td>X8625380652722680260</td><td>1738</td><td>2026-07-11 23:25:57</td><td>1075434.0</td><td>0.0</td><td>1739</td><td>2026-07-12 04:19:45</td><td>1075434.0</td><td>0.0</td><td>17628</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065272268</td><td><span class="badge timeout">不应答</span></td><td>X8625380652722680260</td><td>1804</td><td>2026-07-12 05:35:13</td><td>1077888.0</td><td>0.0</td><td>1805</td><td>2026-07-12 06:24:58</td><td>1077831.0</td><td>0.0</td><td>2985</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065272268</td><td><span class="badge timeout">不应答</span></td><td>X8625380652722680210</td><td>2203</td><td>2026-07-12 08:30:12</td><td>1348419.0</td><td>59.0</td><td>2204</td><td>2026-07-12 09:01:18</td><td>1348421.0</td><td>637.0</td><td>1866</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065272268</td><td><span class="badge timeout">不应答</span></td><td>X8625380652722680210</td><td>2015</td><td>2026-07-12 04:40:23</td><td>1347183.0</td><td>632.0</td><td>2016</td><td>2026-07-12 04:50:27</td><td>1347080.0</td><td>59.0</td><td>604</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065272268</td><td><span class="badge timeout">不应答</span></td><td>X8625380652722680228</td><td>1942</td><td>2026-07-12 10:33:36</td><td>1260500.0</td><td>59.0</td><td>1943</td><td>2026-07-12 10:41:26</td><td>1260500.0</td><td>59.0</td><td>470</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930119</td><td>1254</td><td>2026-07-11 21:47:00</td><td>198.0</td><td>600.0</td><td>1255</td><td>2026-07-11 21:53:45</td><td>90.0</td><td>601.0</td><td>405</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930126</td><td>1829</td><td>2026-07-12 09:29:48</td><td>126.0</td><td>600.0</td><td>1830</td><td>2026-07-12 09:35:53</td><td>63.0</td><td>601.0</td><td>365</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930117</td><td>1280</td><td>2026-07-11 21:49:02</td><td>31.0</td><td>534.0</td><td>1281</td><td>2026-07-11 21:54:50</td><td>6.0</td><td>534.0</td><td>348</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930120</td><td>1269</td><td>2026-07-11 21:49:17</td><td>0.0</td><td>0.0</td><td>1270</td><td>2026-07-11 21:54:50</td><td>0.0</td><td>0.0</td><td>333</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930118</td><td>1255</td><td>2026-07-11 21:49:17</td><td>0.0</td><td>0.0</td><td>1256</td><td>2026-07-11 21:54:50</td><td>0.0</td><td>0.0</td><td>333</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930122</td><td>1266</td><td>2026-07-11 21:49:17</td><td>62.0</td><td>581.0</td><td>1267</td><td>2026-07-11 21:54:50</td><td>5.0</td><td>581.0</td><td>333</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930153</td><td>1217</td><td>2026-07-11 21:46:46</td><td>22.0</td><td>600.0</td><td>1218</td><td>2026-07-11 21:51:45</td><td>90.0</td><td>600.0</td><td>299</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930106</td><td>1262</td><td>2026-07-11 21:50:17</td><td>978866.0</td><td>0.0</td><td>1263</td><td>2026-07-11 21:54:44</td><td>978866.0</td><td>0.0</td><td>267</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930110</td><td>1273</td><td>2026-07-11 21:50:17</td><td>0.0</td><td>0.0</td><td>1274</td><td>2026-07-11 21:54:44</td><td>0.0</td><td>0.0</td><td>267</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930111</td><td>1291</td><td>2026-07-11 21:50:17</td><td>0.0</td><td>0.0</td><td>1292</td><td>2026-07-11 21:54:44</td><td>0.0</td><td>0.0</td><td>267</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930163</td><td>1830</td><td>2026-07-12 09:32:50</td><td>98.0</td><td>610.0</td><td>1831</td><td>2026-07-12 09:37:17</td><td>130.0</td><td>610.0</td><td>267</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065369593</td><td><span class="badge timeout">不应答</span></td><td>X8625380653695930148</td><td>1038</td><td>2026-07-11 17:09:26</td><td>82.0</td><td>618.0</td><td>1039</td><td>2026-07-11 17:13:49</td><td>108.0</td><td>618.0</td><td>263</td><td>1</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930159</td><td>1267</td><td>2026-07-11 23:07:40</td><td>18.0</td><td>610.0</td><td>1269</td><td>2026-07-11 23:10:39</td><td>194.0</td><td>610.0</td><td>179</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930158</td><td>1256</td><td>2026-07-11 23:07:40</td><td>0.0</td><td>619.0</td><td>1258</td><td>2026-07-11 23:10:21</td><td>143.0</td><td>618.0</td><td>161</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930160</td><td>1308</td><td>2026-07-11 23:07:40</td><td>18.0</td><td>618.0</td><td>1310</td><td>2026-07-11 23:10:21</td><td>161.0</td><td>618.0</td><td>161</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930161</td><td>1335</td><td>2026-07-11 23:07:40</td><td>18.0</td><td>618.0</td><td>1337</td><td>2026-07-11 23:10:21</td><td>39.0</td><td>618.0</td><td>161</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930163</td><td>1330</td><td>2026-07-11 23:07:40</td><td>131.0</td><td>610.0</td><td>1332</td><td>2026-07-11 23:10:21</td><td>39.0</td><td>610.0</td><td>161</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930162</td><td>1321</td><td>2026-07-11 23:07:40</td><td>131.0</td><td>619.0</td><td>1323</td><td>2026-07-11 23:10:21</td><td>39.0</td><td>618.0</td><td>161</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930165</td><td>1312</td><td>2026-07-11 23:07:40</td><td>2.0</td><td>0.0</td><td>1314</td><td>2026-07-11 23:10:21</td><td>2.0</td><td>0.0</td><td>161</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930164</td><td>1278</td><td>2026-07-11 23:07:40</td><td>82.0</td><td>629.0</td><td>1280</td><td>2026-07-11 23:10:21</td><td>39.0</td><td>628.0</td><td>161</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930157</td><td>1289</td><td>2026-07-11 23:07:35</td><td>131.0</td><td>618.0</td><td>1291</td><td>2026-07-11 23:09:58</td><td>89.0</td><td>618.0</td><td>143</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065369593</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380653695930156</td><td>1310</td><td>2026-07-11 23:07:35</td><td>18.0</td><td>618.0</td><td>1312</td><td>2026-07-11 23:09:58</td><td>37.0</td><td>619.0</td><td>143</td><td>2</td></tr>
+
+          </tbody>
+        </table>
+        <p class="note">* 每个网关仅展示前 50 条，完整数据见 anomalies_新疆-朱总_202607121644.xlsx</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+</body>
+</html>
