@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>云端效率分析报告</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; }
+  .header { background:linear-gradient(135deg,#0d47a1,#1565c0); color:#fff; padding:24px 32px; }
+  .header h1 { font-size:22px; }
+  .header .meta { font-size:12px; opacity:.8; margin-top:6px; line-height:1.8; }
+  .container { max-width:1400px; margin:24px auto; padding:0 16px; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+  .card { background:#fff; border-radius:10px; padding:20px 24px; flex:1; min-width:160px;
+           box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:5px solid #ccc; }
+  .card.blue   { border-color:#3498db; }
+  .card.orange { border-color:#f39c12; }
+  .card.red    { border-color:#e74c3c; }
+  .card.purple { border-color:#9b59b6; }
+  .card.green  { border-color:#27ae60; }
+  .card .num   { font-size:34px; font-weight:700; }
+  .card .label { font-size:12px; color:#888; margin-top:4px; }
+  .section { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:16px; }
+  .section h3 { font-size:15px; margin-bottom:14px; color:#555; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f5f5f5; padding:8px 10px; text-align:left; border-bottom:2px solid #ddd; white-space:nowrap; }
+  td { padding:7px 10px; border-bottom:1px solid #eee; vertical-align:middle; }
+  tr:hover td { background:#fafafa; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; margin:1px; }
+  .badge.anomaly  { background:#fde8e8; color:#c0392b; border:1px solid #e74c3c; }
+  .badge.normal   { background:#eafaf1; color:#27ae60; border:1px solid #27ae60; }
+  .badge.restart  { background:#fdf3e7; color:#e67e22; border:1px solid #f39c12; }
+  .badge.msgid    { background:#fef9e7; color:#d68910; border:1px solid #f1c40f; }
+  .badge.jump     { background:#eaf2ff; color:#2471a3; border:1px solid #3498db; }
+  .row-anomaly td { background:#fef5f5; }
+  .row-restart td { background:#fdf6ec; }
+  .row-msgid td   { background:#fefde7; }
+  .row-jump td    { background:#eef6ff; }
+  details > summary::-webkit-details-marker { display:none; }
+  details > summary::before { content:"▶ "; font-size:10px; color:#aaa; }
+  details[open] > summary::before { content:"▼ "; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>云端效率分析报告</h1>
+  <div class="meta">
+    生成时间: 2026-07-15 22:08:07 &nbsp;|&nbsp;
+    班次时间: 2026-07-15 07:00:00 ~ 2026-07-15 19:00:00 &nbsp;|&nbsp;
+    采集器数: 10<br>
+    效率算法: 按 col6（首次记录时间）分组，各组 col11 末值-首值 累加 / 班次总时长
+  </div>
+</div>
+<div class="container">
+
+  <div class="cards">
+    <div class="card blue">
+      <div class="num">10</div>
+      <div class="label">采集器总数</div>
+    </div>
+    <div class="card green">
+      <div class="num">5</div>
+      <div class="label">效率正常（≤100%）</div>
+    </div>
+    <div class="card red">
+      <div class="num">5</div>
+      <div class="label">效率异常（>100%）</div>
+    </div>
+    <div class="card orange">
+      <div class="num">7</div>
+      <div class="label">有重启记录</div>
+    </div>
+    <div class="card purple">
+      <div class="num">205</div>
+      <div class="label">msgid 跳变总次数</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>效率汇总（按采集器）</h3>
+    <table>
+      <thead><tr>
+        <th>采集器编号</th><th>班次效率</th><th>运行时长</th>
+        <th>NORMAL记录/总记录</th><th>状态</th>
+      </tr></thead>
+      <tbody><tr class="row-anomaly">
+          <td style="font-family:monospace;font-size:12px">X8647080678442690217</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:100%;height:100%;background:#e74c3c;border-radius:4px"></div></div><span style="font-size:12px;color:#e74c3c;font-weight:600;white-space:nowrap">11965.5% (!)</span></div></td>
+          <td>1435.86 h</td>
+          <td>401 / 417</td>
+          <td><span class="badge anomaly">数据异常</span> <span class="badge restart">2次重启</span> <span class="badge msgid">9处跳变</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690208</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:91.78%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">91.8%</span></div></td>
+          <td>11.01 h</td>
+          <td>383 / 419</td>
+          <td><span class="badge normal">正常</span>  <span class="badge msgid">2处跳变</span></td>
+        </tr><tr class="row-anomaly">
+          <td style="font-family:monospace;font-size:12px">X8647080678442690210</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:100%;height:100%;background:#e74c3c;border-radius:4px"></div></div><span style="font-size:12px;color:#e74c3c;font-weight:600;white-space:nowrap">15552.9% (!)</span></div></td>
+          <td>1866.35 h</td>
+          <td>401 / 408</td>
+          <td><span class="badge anomaly">数据异常</span> <span class="badge restart">2次重启</span> <span class="badge msgid">65处跳变</span></td>
+        </tr><tr class="row-anomaly">
+          <td style="font-family:monospace;font-size:12px">X8647080678442690206</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:100%;height:100%;background:#e74c3c;border-radius:4px"></div></div><span style="font-size:12px;color:#e74c3c;font-weight:600;white-space:nowrap">100.4% (!)</span></div></td>
+          <td>12.05 h</td>
+          <td>412 / 419</td>
+          <td><span class="badge anomaly">数据异常</span> <span class="badge restart">2次重启</span> <span class="badge msgid">9处跳变</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690254</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:83.11%;height:100%;background:#f39c12;border-radius:4px"></div></div><span style="font-size:12px;color:#f39c12;font-weight:600;white-space:nowrap">83.1%</span></div></td>
+          <td>9.97 h</td>
+          <td>392 / 402</td>
+          <td><span class="badge normal">正常</span>  <span class="badge msgid">26处跳变</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690249</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:96.16%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">96.2%</span></div></td>
+          <td>11.54 h</td>
+          <td>407 / 422</td>
+          <td><span class="badge normal">正常</span>  <span class="badge msgid">1处跳变</span></td>
+        </tr><tr class="row-anomaly">
+          <td style="font-family:monospace;font-size:12px">X8647080678442690253</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:100%;height:100%;background:#e74c3c;border-radius:4px"></div></div><span style="font-size:12px;color:#e74c3c;font-weight:600;white-space:nowrap">6119.2% (!)</span></div></td>
+          <td>734.31 h</td>
+          <td>397 / 406</td>
+          <td><span class="badge anomaly">数据异常</span> <span class="badge restart">1次重启</span> <span class="badge msgid">43处跳变</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690229</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:93.69%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">93.7%</span></div></td>
+          <td>11.24 h</td>
+          <td>396 / 416</td>
+          <td><span class="badge normal">正常</span> <span class="badge restart">1次重启</span> <span class="badge msgid">6处跳变</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690259</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:85.09%;height:100%;background:#f39c12;border-radius:4px"></div></div><span style="font-size:12px;color:#f39c12;font-weight:600;white-space:nowrap">85.1%</span></div></td>
+          <td>10.21 h</td>
+          <td>391 / 406</td>
+          <td><span class="badge normal">正常</span> <span class="badge restart">1次重启</span> <span class="badge msgid">25处跳变</span></td>
+        </tr><tr class="row-anomaly">
+          <td style="font-family:monospace;font-size:12px">X8647080678442690252</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:100%;height:100%;background:#e74c3c;border-radius:4px"></div></div><span style="font-size:12px;color:#e74c3c;font-weight:600;white-space:nowrap">18201.0% (!)</span></div></td>
+          <td>2184.13 h</td>
+          <td>373 / 409</td>
+          <td><span class="badge anomaly">数据异常</span> <span class="badge restart">2次重启</span> <span class="badge msgid">19处跳变</span></td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690217</span>
+        <span style="font-size:22px;font-weight:700;color:#e74c3c">11965.53%</span>
+        <span style="font-size:12px;color:#888">1435.86h / 12h</span>
+        <span class="badge anomaly">效率异常</span>
+        <span class="badge restart">2次重启</span>
+        <span class="badge msgid">9处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 417 条 &nbsp;|&nbsp;
+          NORMAL 401 条 &nbsp;|&nbsp;
+          非NORMAL 16 条 &nbsp;|&nbsp;
+          分组数 3
+        </div>
+        <div style="margin-top:8px;padding:8px 12px;background:#fde8e8;border-radius:6px;
+              font-size:12px;color:#c0392b;border-left:3px solid #e74c3c">
+              数据异常：总运行时长 5169110s 超过班次窗口 43200s，
+              效率超过100%。原因：重启后 col11 首行携带历史累计值，导致分组增量虚高。
+            </div>
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-06-13 12:30:07</td>
+              <td>93</td>
+              <td style="font-size:12px">2026-07-15 07:01:00</td>
+              <td style="font-size:12px">2026-07-15 09:55:14</td>
+              <td style="font-family:monospace">2554596 → 2563703</td>
+              <td>9107 s (2.53 h)</td>
+              <td>21.08% </td>
+            </tr><tr class="row-anomaly">
+              <td style="font-size:12px">2026-07-15 09:56:56</td>
+              <td>23</td>
+              <td style="font-size:12px">2026-07-15 09:56:56</td>
+              <td style="font-size:12px">2026-07-15 10:36:36</td>
+              <td style="font-family:monospace">60 → 2565611</td>
+              <td>2565551 s (712.65 h)</td>
+              <td>5938.78% <span class="badge anomaly">超窗口</span></td>
+            </tr><tr class="row-anomaly">
+              <td style="font-size:12px">2026-07-15 10:38:07</td>
+              <td>285</td>
+              <td style="font-size:12px">2026-07-15 10:38:07</td>
+              <td style="font-size:12px">2026-07-15 18:58:55</td>
+              <td style="font-family:monospace">4 → 2594456</td>
+              <td>2594452 s (720.68 h)</td>
+              <td>6005.68% <span class="badge anomaly">超窗口</span></td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 9 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:39:37</td>
+                  <td style="font-family:monospace">25692873</td>
+                  <td style="font-family:monospace">25692873</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2563264 → 2563264</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:55:14</td>
+                  <td style="font-family:monospace">25696504</td>
+                  <td style="font-family:monospace">25696504</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2563703 → 2563703</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 09:56:56</td>
+                  <td style="font-family:monospace">25696504</td>
+                  <td style="font-family:monospace">607</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">2563703 → 60</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 09:58:37</td>
+                  <td style="font-family:monospace">607</td>
+                  <td style="font-family:monospace">25935724</td>
+                  <td><span class="badge jump">跳增25935117</span></td>
+                  <td style="font-family:monospace;font-size:12px">60 → 2563663</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:09:34</td>
+                  <td style="font-family:monospace">25941157</td>
+                  <td style="font-family:monospace">25941157</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2564200 → 2564200</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:17:01</td>
+                  <td style="font-family:monospace">25944575</td>
+                  <td style="font-family:monospace">25944575</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2564538 → 2564538</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:36:36</td>
+                  <td style="font-family:monospace">25955428</td>
+                  <td style="font-family:monospace">25955428</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2565611 → 2565611</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 10:38:07</td>
+                  <td style="font-family:monospace">25955428</td>
+                  <td style="font-family:monospace">20</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">2565611 → 4</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 10:41:28</td>
+                  <td style="font-family:monospace">1031</td>
+                  <td style="font-family:monospace">25955693</td>
+                  <td><span class="badge jump">跳增25954662</span></td>
+                  <td style="font-family:monospace;font-size:12px">104 → 2565639</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690208</span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">91.78%</span>
+        <span style="font-size:12px;color:#888">11.01h / 12h</span>
+        <span class="badge normal">正常</span>
+        
+        <span class="badge msgid">2处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 419 条 &nbsp;|&nbsp;
+          NORMAL 383 条 &nbsp;|&nbsp;
+          非NORMAL 36 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-14 03:00:24</td>
+              <td>383</td>
+              <td style="font-size:12px">2026-07-15 07:00:06</td>
+              <td style="font-size:12px">2026-07-15 18:58:48</td>
+              <td style="font-family:monospace">82436 → 122086</td>
+              <td>39650 s (11.01 h)</td>
+              <td>91.78% </td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 2 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 09:51:49</td>
+                  <td style="font-family:monospace">911434</td>
+                  <td style="font-family:monospace">914869</td>
+                  <td><span class="badge jump">跳增3435</span></td>
+                  <td style="font-family:monospace;font-size:12px">92047 → 92386</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 15:58:58</td>
+                  <td style="font-family:monospace">1103260</td>
+                  <td style="font-family:monospace">1105280</td>
+                  <td><span class="badge jump">跳增2020</span></td>
+                  <td style="font-family:monospace;font-size:12px">111349 → 111549</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690210</span>
+        <span style="font-size:22px;font-weight:700;color:#e74c3c">15552.91%</span>
+        <span style="font-size:12px;color:#888">1866.35h / 12h</span>
+        <span class="badge anomaly">效率异常</span>
+        <span class="badge restart">2次重启</span>
+        <span class="badge msgid">65处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 408 条 &nbsp;|&nbsp;
+          NORMAL 401 条 &nbsp;|&nbsp;
+          非NORMAL 7 条 &nbsp;|&nbsp;
+          分组数 3
+        </div>
+        <div style="margin-top:8px;padding:8px 12px;background:#fde8e8;border-radius:6px;
+              font-size:12px;color:#c0392b;border-left:3px solid #e74c3c">
+              数据异常：总运行时长 6718858s 超过班次窗口 43200s，
+              效率超过100%。原因：重启后 col11 首行携带历史累计值，导致分组增量虚高。
+            </div>
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr class="row-anomaly">
+              <td style="font-size:12px">2026-07-12 15:17:37</td>
+              <td>80</td>
+              <td style="font-size:12px">2026-07-15 07:00:06</td>
+              <td style="font-size:12px">2026-07-15 09:36:15</td>
+              <td style="font-family:monospace">193325 → 6885592</td>
+              <td>6692267 s (1858.96 h)</td>
+              <td>15491.36% <span class="badge anomaly">超窗口</span></td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-15 09:38:44</td>
+              <td>34</td>
+              <td style="font-size:12px">2026-07-15 09:38:44</td>
+              <td style="font-size:12px">2026-07-15 10:38:07</td>
+              <td style="font-family:monospace">199065 → 200888</td>
+              <td>1823 s (0.51 h)</td>
+              <td>4.22% </td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-15 10:39:48</td>
+              <td>287</td>
+              <td style="font-size:12px">2026-07-15 10:39:48</td>
+              <td style="font-size:12px">2026-07-15 18:58:55</td>
+              <td style="font-family:monospace">40 → 24808</td>
+              <td>24768 s (6.88 h)</td>
+              <td>57.33% </td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 65 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:08:28</td>
+                  <td style="font-family:monospace">1954636</td>
+                  <td style="font-family:monospace">1954636</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">193572 → 193572</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:10:08</td>
+                  <td style="font-family:monospace">1954636</td>
+                  <td style="font-family:monospace">1954636</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">193572 → 193572</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:13:27</td>
+                  <td style="font-family:monospace">1955577</td>
+                  <td style="font-family:monospace">1955577</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">193663 → 193663</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:15:08</td>
+                  <td style="font-family:monospace">1955577</td>
+                  <td style="font-family:monospace">1955577</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">193663 → 193663</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:16:42</td>
+                  <td style="font-family:monospace">1955577</td>
+                  <td style="font-family:monospace">1955577</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">193663 → 193663</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 07:43:01</td>
+                  <td style="font-family:monospace">1957006</td>
+                  <td style="font-family:monospace">1969228</td>
+                  <td><span class="badge jump">跳增12222</span></td>
+                  <td style="font-family:monospace;font-size:12px">193801 → 194980</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:46:20</td>
+                  <td style="font-family:monospace">1970264</td>
+                  <td style="font-family:monospace">1970264</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195080 → 195080</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:48:09</td>
+                  <td style="font-family:monospace">1970264</td>
+                  <td style="font-family:monospace">1970264</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195080 → 195080</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:49:54</td>
+                  <td style="font-family:monospace">1970264</td>
+                  <td style="font-family:monospace">1970264</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195080 → 195080</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:01:45</td>
+                  <td style="font-family:monospace">1975482</td>
+                  <td style="font-family:monospace">1975482</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195584 → 195584</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:03:24</td>
+                  <td style="font-family:monospace">1975482</td>
+                  <td style="font-family:monospace">1975482</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195584 → 195584</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:13:19</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195932 → 195932</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:14:59</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195932 → 195932</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:16:41</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195932 → 195932</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:18:22</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195932 → 195932</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:20:00</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195932 → 195932</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:22:06</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td style="font-family:monospace">1978068</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">195932 → 195932</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:43:49</td>
+                  <td style="font-family:monospace">1989103</td>
+                  <td style="font-family:monospace">1989103</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">196998 → 196998</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:59:17</td>
+                  <td style="font-family:monospace">1996256</td>
+                  <td style="font-family:monospace">1996256</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">197689 → 197689</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:00:54</td>
+                  <td style="font-family:monospace">1996256</td>
+                  <td style="font-family:monospace">1996256</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">197689 → 197689</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:19:14</td>
+                  <td style="font-family:monospace">2005523</td>
+                  <td style="font-family:monospace">2005523</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">198584 → 198584</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:22:06</td>
+                  <td style="font-family:monospace">2006361</td>
+                  <td style="font-family:monospace">2006361</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">198665 → 198665</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:23:44</td>
+                  <td style="font-family:monospace">2006361</td>
+                  <td style="font-family:monospace">2006361</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">198665 → 198665</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 09:34:32</td>
+                  <td style="font-family:monospace">2011936</td>
+                  <td style="font-family:monospace">71326454</td>
+                  <td><span class="badge jump">跳增69314518</span></td>
+                  <td style="font-family:monospace;font-size:12px">199203 → 6885491</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 09:38:44</td>
+                  <td style="font-family:monospace">71327499</td>
+                  <td style="font-family:monospace">2057005</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">6885592 → 199065</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:45:26</td>
+                  <td style="font-family:monospace">2060120</td>
+                  <td style="font-family:monospace">2060120</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">199366 → 199366</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:55:14</td>
+                  <td style="font-family:monospace">2064840</td>
+                  <td style="font-family:monospace">2064840</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">199822 → 199822</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:01:50</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200085 → 200085</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:03:35</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200085 → 200085</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:05:12</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200085 → 200085</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:06:52</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200085 → 200085</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:08:29</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td style="font-family:monospace">2067564</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200085 → 200085</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:25:40</td>
+                  <td style="font-family:monospace">2072232</td>
+                  <td style="font-family:monospace">2072232</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200536 → 200536</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:32:17</td>
+                  <td style="font-family:monospace">2074135</td>
+                  <td style="font-family:monospace">2074135</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200720 → 200720</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:38:07</td>
+                  <td style="font-family:monospace">2075873</td>
+                  <td style="font-family:monospace">2075873</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">200888 → 200888</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 10:39:48</td>
+                  <td style="font-family:monospace">2075873</td>
+                  <td style="font-family:monospace">414</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">200888 → 40</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:57:37</td>
+                  <td style="font-family:monospace">10115</td>
+                  <td style="font-family:monospace">10115</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">977 → 977</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 11:22:09</td>
+                  <td style="font-family:monospace">24473</td>
+                  <td style="font-family:monospace">24473</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2364 → 2364</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 11:51:45</td>
+                  <td style="font-family:monospace">37683</td>
+                  <td style="font-family:monospace">37683</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3678 → 3678</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:11:45</td>
+                  <td style="font-family:monospace">48381</td>
+                  <td style="font-family:monospace">48381</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">4711 → 4711</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:15:06</td>
+                  <td style="font-family:monospace">49302</td>
+                  <td style="font-family:monospace">49302</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">4800 → 4800</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:35:29</td>
+                  <td style="font-family:monospace">60000</td>
+                  <td style="font-family:monospace">60000</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">5833 → 5833</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:37:09</td>
+                  <td style="font-family:monospace">60000</td>
+                  <td style="font-family:monospace">60000</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">5833 → 5833</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:38:48</td>
+                  <td style="font-family:monospace">60000</td>
+                  <td style="font-family:monospace">60000</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">5833 → 5833</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:43:54</td>
+                  <td style="font-family:monospace">61129</td>
+                  <td style="font-family:monospace">61129</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">5942 → 5942</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 13:34:32</td>
+                  <td style="font-family:monospace">89559</td>
+                  <td style="font-family:monospace">89559</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">8689 → 8689</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 13:46:16</td>
+                  <td style="font-family:monospace">94983</td>
+                  <td style="font-family:monospace">94983</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">9213 → 9213</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 14:52:28</td>
+                  <td style="font-family:monospace">133715</td>
+                  <td style="font-family:monospace">133715</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">12957 → 12957</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:17:23</td>
+                  <td style="font-family:monospace">179914</td>
+                  <td style="font-family:monospace">179914</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">17442 → 17442</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:18:58</td>
+                  <td style="font-family:monospace">179914</td>
+                  <td style="font-family:monospace">179914</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">17442 → 17442</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:20:40</td>
+                  <td style="font-family:monospace">179914</td>
+                  <td style="font-family:monospace">179914</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">17442 → 17442</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:28:36</td>
+                  <td style="font-family:monospace">182861</td>
+                  <td style="font-family:monospace">182861</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">17727 → 17727</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:36:53</td>
+                  <td style="font-family:monospace">186905</td>
+                  <td style="font-family:monospace">186905</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">18118 → 18118</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:52:16</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">18847 → 18847</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:54:47</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">18847 → 18847</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:57:16</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">18847 → 18847</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:58:59</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td style="font-family:monospace">194443</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">18847 → 18847</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:09:48</td>
+                  <td style="font-family:monospace">199075</td>
+                  <td style="font-family:monospace">199075</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">19295 → 19295</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:15:41</td>
+                  <td style="font-family:monospace">201649</td>
+                  <td style="font-family:monospace">201649</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">19544 → 19544</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:17:18</td>
+                  <td style="font-family:monospace">201649</td>
+                  <td style="font-family:monospace">201649</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">19544 → 19544</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:20:36</td>
+                  <td style="font-family:monospace">202062</td>
+                  <td style="font-family:monospace">202062</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">19584 → 19584</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:13:57</td>
+                  <td style="font-family:monospace">232773</td>
+                  <td style="font-family:monospace">232773</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">22555 → 22555</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:20:37</td>
+                  <td style="font-family:monospace">235142</td>
+                  <td style="font-family:monospace">235142</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">22784 → 22784</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:21:47</td>
+                  <td style="font-family:monospace">235142</td>
+                  <td style="font-family:monospace">235142</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">22784 → 22784</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:53:51</td>
+                  <td style="font-family:monospace">252657</td>
+                  <td style="font-family:monospace">252657</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">24477 → 24544</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690206</span>
+        <span style="font-size:22px;font-weight:700;color:#e74c3c">100.40%</span>
+        <span style="font-size:12px;color:#888">12.05h / 12h</span>
+        <span class="badge anomaly">效率异常</span>
+        <span class="badge restart">2次重启</span>
+        <span class="badge msgid">9处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 419 条 &nbsp;|&nbsp;
+          NORMAL 412 条 &nbsp;|&nbsp;
+          非NORMAL 7 条 &nbsp;|&nbsp;
+          分组数 3
+        </div>
+        <div style="margin-top:8px;padding:8px 12px;background:#fde8e8;border-radius:6px;
+              font-size:12px;color:#c0392b;border-left:3px solid #e74c3c">
+              数据异常：总运行时长 43372s 超过班次窗口 43200s，
+              效率超过100%。原因：重启后 col11 首行携带历史累计值，导致分组增量虚高。
+            </div>
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-14 18:05:39</td>
+              <td>100</td>
+              <td style="font-size:12px">2026-07-15 07:00:54</td>
+              <td style="font-size:12px">2026-07-15 09:53:33</td>
+              <td style="font-family:monospace">40261 → 50340</td>
+              <td>10079 s (2.80 h)</td>
+              <td>23.33% </td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-15 09:55:06</td>
+              <td>24</td>
+              <td style="font-size:12px">2026-07-15 09:55:06</td>
+              <td style="font-size:12px">2026-07-15 10:36:24</td>
+              <td style="font-family:monospace">27 → 2097</td>
+              <td>2070 s (0.57 h)</td>
+              <td>4.79% </td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-15 10:38:07</td>
+              <td>288</td>
+              <td style="font-size:12px">2026-07-15 10:38:07</td>
+              <td style="font-size:12px">2026-07-15 18:58:48</td>
+              <td style="font-family:monospace">54 → 31277</td>
+              <td>31223 s (8.67 h)</td>
+              <td>72.28% </td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 9 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 09:50:33</td>
+                  <td style="font-family:monospace">498917</td>
+                  <td style="font-family:monospace">501088</td>
+                  <td><span class="badge jump">跳增2171</span></td>
+                  <td style="font-family:monospace;font-size:12px">49950 → 50165</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 09:55:06</td>
+                  <td style="font-family:monospace">502857</td>
+                  <td style="font-family:monospace">272</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">50340 → 27</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:01:50</td>
+                  <td style="font-family:monospace">3304</td>
+                  <td style="font-family:monospace">3304</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">327 → 327</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:36:24</td>
+                  <td style="font-family:monospace">20547</td>
+                  <td style="font-family:monospace">20547</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2097 → 2097</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 10:38:07</td>
+                  <td style="font-family:monospace">20547</td>
+                  <td style="font-family:monospace">545</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">2097 → 54</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 10:39:48</td>
+                  <td style="font-family:monospace">545</td>
+                  <td style="font-family:monospace">20926</td>
+                  <td><span class="badge jump">跳增20381</span></td>
+                  <td style="font-family:monospace;font-size:12px">54 → 2072</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 10:56:45</td>
+                  <td style="font-family:monospace">29242</td>
+                  <td style="font-family:monospace">31265</td>
+                  <td><span class="badge jump">跳增2023</span></td>
+                  <td style="font-family:monospace;font-size:12px">2895 → 3095</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 11:13:25</td>
+                  <td style="font-family:monospace">39350</td>
+                  <td style="font-family:monospace">41373</td>
+                  <td><span class="badge jump">跳增2023</span></td>
+                  <td style="font-family:monospace;font-size:12px">3895 → 4095</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:50:28</td>
+                  <td style="font-family:monospace">97159</td>
+                  <td style="font-family:monospace">97159</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">9742 → 9742</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690254</span>
+        <span style="font-size:22px;font-weight:700;color:#f39c12">83.11%</span>
+        <span style="font-size:12px;color:#888">9.97h / 12h</span>
+        <span class="badge normal">正常</span>
+        
+        <span class="badge msgid">26处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 402 条 &nbsp;|&nbsp;
+          NORMAL 392 条 &nbsp;|&nbsp;
+          非NORMAL 10 条 &nbsp;|&nbsp;
+          分组数 2
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-06-13 12:29:33</td>
+              <td>108</td>
+              <td style="font-size:12px">2026-07-15 07:00:26</td>
+              <td style="font-size:12px">2026-07-15 10:35:04</td>
+              <td style="font-family:monospace">2487194 → 2497222</td>
+              <td>10028 s (2.79 h)</td>
+              <td>23.21% </td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-15 10:36:46</td>
+              <td>284</td>
+              <td style="font-size:12px">2026-07-15 10:38:29</td>
+              <td style="font-size:12px">2026-07-15 18:59:17</td>
+              <td style="font-family:monospace">2497216 → 2523092</td>
+              <td>25876 s (7.19 h)</td>
+              <td>59.90% </td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 26 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:07:10</td>
+                  <td style="font-family:monospace">25720061</td>
+                  <td style="font-family:monospace">25720061</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2487411 → 2487411</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:10:25</td>
+                  <td style="font-family:monospace">25720479</td>
+                  <td style="font-family:monospace">25720479</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2487451 → 2487451</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 07:33:23</td>
+                  <td style="font-family:monospace">25720813</td>
+                  <td style="font-family:monospace">25731059</td>
+                  <td><span class="badge jump">跳增10246</span></td>
+                  <td style="font-family:monospace;font-size:12px">2487483 → 2488462</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:45:53</td>
+                  <td style="font-family:monospace">25737337</td>
+                  <td style="font-family:monospace">25737337</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2489062 → 2489062</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:03:44</td>
+                  <td style="font-family:monospace">25746763</td>
+                  <td style="font-family:monospace">25746763</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2489963 → 2489963</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:05:21</td>
+                  <td style="font-family:monospace">25746763</td>
+                  <td style="font-family:monospace">25746763</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2489963 → 2489963</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:08:42</td>
+                  <td style="font-family:monospace">25747003</td>
+                  <td style="font-family:monospace">25747003</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2489986 → 2489986</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:10:24</td>
+                  <td style="font-family:monospace">25747003</td>
+                  <td style="font-family:monospace">25747003</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2489986 → 2489986</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:12:04</td>
+                  <td style="font-family:monospace">25747003</td>
+                  <td style="font-family:monospace">25747003</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2489986 → 2489986</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:52:06</td>
+                  <td style="font-family:monospace">25768761</td>
+                  <td style="font-family:monospace">25768761</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2492065 → 2492065</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 09:24:09</td>
+                  <td style="font-family:monospace">25784387</td>
+                  <td style="font-family:monospace">25786724</td>
+                  <td><span class="badge jump">跳增2337</span></td>
+                  <td style="font-family:monospace;font-size:12px">2493633 → 2493856</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:01:23</td>
+                  <td style="font-family:monospace">25802954</td>
+                  <td style="font-family:monospace">25802954</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2495415 → 2495415</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:13:27</td>
+                  <td style="font-family:monospace">25808531</td>
+                  <td style="font-family:monospace">25808531</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2495948 → 2495948</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 10:38:29</td>
+                  <td style="font-family:monospace">25821866</td>
+                  <td style="font-family:monospace">26137527</td>
+                  <td><span class="badge jump">跳增315661</span></td>
+                  <td style="font-family:monospace;font-size:12px">2497222 → 2497216</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:43:48</td>
+                  <td style="font-family:monospace">26139610</td>
+                  <td style="font-family:monospace">26139610</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2497415 → 2497415</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:52:08</td>
+                  <td style="font-family:monospace">26142991</td>
+                  <td style="font-family:monospace">26142991</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2497738 → 2497738</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:45:49</td>
+                  <td style="font-family:monospace">26207884</td>
+                  <td style="font-family:monospace">26207884</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2503937 → 2503937</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 15:22:19</td>
+                  <td style="font-family:monospace">26295659</td>
+                  <td style="font-family:monospace">26295659</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2512330 → 2512330</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 15:54:24</td>
+                  <td style="font-family:monospace">26314023</td>
+                  <td style="font-family:monospace">26314023</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2514086 → 2514086</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 15:59:21</td>
+                  <td style="font-family:monospace">26314064</td>
+                  <td style="font-family:monospace">26314064</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2514090 → 2514090</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:12:46</td>
+                  <td style="font-family:monospace">26319679</td>
+                  <td style="font-family:monospace">26319679</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2514627 → 2514627</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:21:01</td>
+                  <td style="font-family:monospace">26323853</td>
+                  <td style="font-family:monospace">26323853</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2515026 → 2515026</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:09:38</td>
+                  <td style="font-family:monospace">26347254</td>
+                  <td style="font-family:monospace">26347254</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2517320 → 2517320</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:06:43</td>
+                  <td style="font-family:monospace">26381381</td>
+                  <td style="font-family:monospace">26381381</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2520584 → 2520584</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:15:08</td>
+                  <td style="font-family:monospace">26384958</td>
+                  <td style="font-family:monospace">26384958</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2520926 → 2520926</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:57:33</td>
+                  <td style="font-family:monospace">26407297</td>
+                  <td style="font-family:monospace">26407297</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2523062 → 2523062</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690249</span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">96.16%</span>
+        <span style="font-size:12px;color:#888">11.54h / 12h</span>
+        <span class="badge normal">正常</span>
+        
+        <span class="badge msgid">1处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 422 条 &nbsp;|&nbsp;
+          NORMAL 407 条 &nbsp;|&nbsp;
+          非NORMAL 15 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-13 07:26:52</td>
+              <td>407</td>
+              <td style="font-size:12px">2026-07-15 07:00:26</td>
+              <td style="font-size:12px">2026-07-15 18:59:10</td>
+              <td style="font-family:monospace">148624 → 190167</td>
+              <td>41543 s (11.54 h)</td>
+              <td>96.16% </td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 1 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 13:52:00</td>
+                  <td style="font-family:monospace">1792347</td>
+                  <td style="font-family:monospace">1794695</td>
+                  <td><span class="badge jump">跳增2348</span></td>
+                  <td style="font-family:monospace;font-size:12px">172644 → 172868</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690253</span>
+        <span style="font-size:22px;font-weight:700;color:#e74c3c">6119.22%</span>
+        <span style="font-size:12px;color:#888">734.31h / 12h</span>
+        <span class="badge anomaly">效率异常</span>
+        <span class="badge restart">1次重启</span>
+        <span class="badge msgid">43处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 406 条 &nbsp;|&nbsp;
+          NORMAL 397 条 &nbsp;|&nbsp;
+          非NORMAL 9 条 &nbsp;|&nbsp;
+          分组数 2
+        </div>
+        <div style="margin-top:8px;padding:8px 12px;background:#fde8e8;border-radius:6px;
+              font-size:12px;color:#c0392b;border-left:3px solid #e74c3c">
+              数据异常：总运行时长 2643503s 超过班次窗口 43200s，
+              效率超过100%。原因：重启后 col11 首行携带历史累计值，导致分组增量虚高。
+            </div>
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-06-19 13:47:59</td>
+              <td>90</td>
+              <td style="font-size:12px">2026-07-15 07:00:26</td>
+              <td style="font-size:12px">2026-07-15 09:59:42</td>
+              <td style="font-family:monospace">2599473 → 2608366</td>
+              <td>8893 s (2.47 h)</td>
+              <td>20.59% </td>
+            </tr><tr class="row-anomaly">
+              <td style="font-size:12px">2026-07-15 10:01:23</td>
+              <td>307</td>
+              <td style="font-size:12px">2026-07-15 10:01:23</td>
+              <td style="font-size:12px">2026-07-15 18:59:10</td>
+              <td style="font-family:monospace">55 → 2634665</td>
+              <td>2634610 s (731.84 h)</td>
+              <td>6098.63% <span class="badge anomaly">超窗口</span></td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 43 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:11:41</td>
+                  <td style="font-family:monospace">26217274</td>
+                  <td style="font-family:monospace">26217274</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2600023 → 2600023</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:12:59</td>
+                  <td style="font-family:monospace">26217274</td>
+                  <td style="font-family:monospace">26217274</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2600023 → 2600023</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 07:41:40</td>
+                  <td style="font-family:monospace">26221130</td>
+                  <td style="font-family:monospace">26231028</td>
+                  <td><span class="badge jump">跳增9898</span></td>
+                  <td style="font-family:monospace;font-size:12px">2600405 → 2601385</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:46:46</td>
+                  <td style="font-family:monospace">26233048</td>
+                  <td style="font-family:monospace">26233048</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2601585 → 2601585</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:11:14</td>
+                  <td style="font-family:monospace">26242784</td>
+                  <td style="font-family:monospace">26242784</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2602549 → 2602549</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:49:10</td>
+                  <td style="font-family:monospace">26259934</td>
+                  <td style="font-family:monospace">26259934</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2604364 → 2604364</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 10:01:23</td>
+                  <td style="font-family:monospace">26300331</td>
+                  <td style="font-family:monospace">554</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">2608366 → 55</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 10:03:27</td>
+                  <td style="font-family:monospace">554</td>
+                  <td style="font-family:monospace">26343626</td>
+                  <td><span class="badge jump">跳增26343072</span></td>
+                  <td style="font-family:monospace;font-size:12px">55 → 2608280</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:14:43</td>
+                  <td style="font-family:monospace">26349310</td>
+                  <td style="font-family:monospace">26349310</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2608843 → 2608843</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:21:47</td>
+                  <td style="font-family:monospace">26351995</td>
+                  <td style="font-family:monospace">26351995</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2609109 → 2609109</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:23:29</td>
+                  <td style="font-family:monospace">26351995</td>
+                  <td style="font-family:monospace">26351995</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2609109 → 2609109</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:35:04</td>
+                  <td style="font-family:monospace">26357097</td>
+                  <td style="font-family:monospace">26357097</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2609615 → 2609615</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:36:46</td>
+                  <td style="font-family:monospace">26357097</td>
+                  <td style="font-family:monospace">26357097</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2609615 → 2609615</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:38:29</td>
+                  <td style="font-family:monospace">26357097</td>
+                  <td style="font-family:monospace">26357097</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2609615 → 2609615</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 11:11:22</td>
+                  <td style="font-family:monospace">26373387</td>
+                  <td style="font-family:monospace">26375407</td>
+                  <td><span class="badge jump">跳增2020</span></td>
+                  <td style="font-family:monospace;font-size:12px">2611230 → 2611430</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:03:44</td>
+                  <td style="font-family:monospace">26404122</td>
+                  <td style="font-family:monospace">26404122</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2614276 → 2614350</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:37:29</td>
+                  <td style="font-family:monospace">26422460</td>
+                  <td style="font-family:monospace">26422460</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2616166 → 2616166</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 13:22:23</td>
+                  <td style="font-family:monospace">26444874</td>
+                  <td style="font-family:monospace">26444874</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2618459 → 2618459</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 13:30:45</td>
+                  <td style="font-family:monospace">26448398</td>
+                  <td style="font-family:monospace">26448398</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2618808 → 2618808</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 13:42:26</td>
+                  <td style="font-family:monospace">26454157</td>
+                  <td style="font-family:monospace">26454157</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2619379 → 2619379</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:11:49</td>
+                  <td style="font-family:monospace">26536861</td>
+                  <td style="font-family:monospace">26536861</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2627775 → 2627775</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:47:15</td>
+                  <td style="font-family:monospace">26556210</td>
+                  <td style="font-family:monospace">26556210</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2629695 → 2629695</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:53:29</td>
+                  <td style="font-family:monospace">26558104</td>
+                  <td style="font-family:monospace">26558104</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2629883 → 2629883</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:01:49</td>
+                  <td style="font-family:monospace">26560170</td>
+                  <td style="font-family:monospace">26560170</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630088 → 2630088</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:03:33</td>
+                  <td style="font-family:monospace">26560170</td>
+                  <td style="font-family:monospace">26560170</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630088 → 2630088</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:06:50</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630168 → 2630168</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:08:30</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630168 → 2630168</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:10:12</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630168 → 2630168</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:11:51</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td style="font-family:monospace">26560976</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630168 → 2630168</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:15:14</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630263 → 2630263</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:16:50</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630263 → 2630263</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:18:32</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630263 → 2630263</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:20:11</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td style="font-family:monospace">26561933</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2630263 → 2630263</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:46:21</td>
+                  <td style="font-family:monospace">26576644</td>
+                  <td style="font-family:monospace">26576644</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2631722 → 2631722</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:08:04</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632667 → 2632667</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:09:58</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632667 → 2632667</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:11:47</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632667 → 2632667</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:13:27</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632667 → 2632667</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:15:08</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632667 → 2632667</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:16:43</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632667 → 2632667</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:18:28</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td style="font-family:monospace">26586175</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632667 → 2632667</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:22:10</td>
+                  <td style="font-family:monospace">26586931</td>
+                  <td style="font-family:monospace">26586931</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2632742 → 2632742</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:59:10</td>
+                  <td style="font-family:monospace">26606032</td>
+                  <td style="font-family:monospace">26606032</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2634665 → 2634665</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690229</span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">93.69%</span>
+        <span style="font-size:12px;color:#888">11.24h / 12h</span>
+        <span class="badge normal">正常</span>
+        <span class="badge restart">1次重启</span>
+        <span class="badge msgid">6处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 416 条 &nbsp;|&nbsp;
+          NORMAL 396 条 &nbsp;|&nbsp;
+          非NORMAL 20 条 &nbsp;|&nbsp;
+          分组数 2
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-14 01:46:59</td>
+              <td>95</td>
+              <td style="font-size:12px">2026-07-15 07:01:39</td>
+              <td style="font-size:12px">2026-07-15 09:50:45</td>
+              <td style="font-family:monospace">126748 → 136238</td>
+              <td>9490 s (2.64 h)</td>
+              <td>21.97% </td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-15 09:54:34</td>
+              <td>301</td>
+              <td style="font-size:12px">2026-07-15 09:56:08</td>
+              <td style="font-size:12px">2026-07-15 18:58:20</td>
+              <td style="font-family:monospace">47 → 31030</td>
+              <td>30983 s (8.61 h)</td>
+              <td>71.72% </td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 6 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 09:56:08</td>
+                  <td style="font-family:monospace">1374446</td>
+                  <td style="font-family:monospace">477</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">136238 → 47</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 10:07:02</td>
+                  <td style="font-family:monospace">5043</td>
+                  <td style="font-family:monospace">7083</td>
+                  <td><span class="badge jump">跳增2040</span></td>
+                  <td style="font-family:monospace;font-size:12px">497 → 698</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:35:42</td>
+                  <td style="font-family:monospace">22494</td>
+                  <td style="font-family:monospace">22494</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2218 → 2218</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:37:23</td>
+                  <td style="font-family:monospace">22494</td>
+                  <td style="font-family:monospace">22494</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">2218 → 2218</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:10:51</td>
+                  <td style="font-family:monospace">216556</td>
+                  <td style="font-family:monospace">216556</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">21480 → 21480</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 17:08:20</td>
+                  <td style="font-family:monospace">248244</td>
+                  <td style="font-family:monospace">250777</td>
+                  <td><span class="badge jump">跳增2533</span></td>
+                  <td style="font-family:monospace;font-size:12px">24607 → 24857</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690259</span>
+        <span style="font-size:22px;font-weight:700;color:#f39c12">85.09%</span>
+        <span style="font-size:12px;color:#888">10.21h / 12h</span>
+        <span class="badge normal">正常</span>
+        <span class="badge restart">1次重启</span>
+        <span class="badge msgid">25处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 406 条 &nbsp;|&nbsp;
+          NORMAL 391 条 &nbsp;|&nbsp;
+          非NORMAL 15 条 &nbsp;|&nbsp;
+          分组数 2
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-14 01:44:58</td>
+              <td>107</td>
+              <td style="font-size:12px">2026-07-15 07:00:26</td>
+              <td style="font-size:12px">2026-07-15 10:36:03</td>
+              <td style="font-family:monospace">88168 → 99083</td>
+              <td>10915 s (3.03 h)</td>
+              <td>25.27% </td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-15 10:37:46</td>
+              <td>284</td>
+              <td style="font-size:12px">2026-07-15 10:37:46</td>
+              <td style="font-size:12px">2026-07-15 18:59:17</td>
+              <td style="font-family:monospace">45 → 25890</td>
+              <td>25845 s (7.18 h)</td>
+              <td>59.83% </td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 25 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:07:10</td>
+                  <td style="font-family:monospace">890051</td>
+                  <td style="font-family:monospace">890051</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">88468 → 88468</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:10:49</td>
+                  <td style="font-family:monospace">890941</td>
+                  <td style="font-family:monospace">890941</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">88557 → 88557</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 07:37:36</td>
+                  <td style="font-family:monospace">894254</td>
+                  <td style="font-family:monospace">904144</td>
+                  <td><span class="badge jump">跳增9890</span></td>
+                  <td style="font-family:monospace;font-size:12px">88888 → 89877</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 07:49:35</td>
+                  <td style="font-family:monospace">910147</td>
+                  <td style="font-family:monospace">910147</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">90477 → 90477</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:48:51</td>
+                  <td style="font-family:monospace">969686</td>
+                  <td style="font-family:monospace">969686</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">96544 → 96544</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:21:47</td>
+                  <td style="font-family:monospace">987268</td>
+                  <td style="font-family:monospace">987268</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">98301 → 98301</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 10:37:46</td>
+                  <td style="font-family:monospace">995094</td>
+                  <td style="font-family:monospace">450</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">99083 → 45</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 11:52:07</td>
+                  <td style="font-family:monospace">41806</td>
+                  <td style="font-family:monospace">41806</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">4249 → 4249</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 11:53:46</td>
+                  <td style="font-family:monospace">41806</td>
+                  <td style="font-family:monospace">41806</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">4249 → 4249</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:52:06</td>
+                  <td style="font-family:monospace">74916</td>
+                  <td style="font-family:monospace">74916</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">7558 → 7558</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 13:34:08</td>
+                  <td style="font-family:monospace">96344</td>
+                  <td style="font-family:monospace">96344</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">9778 → 9778</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 14:53:06</td>
+                  <td style="font-family:monospace">141324</td>
+                  <td style="font-family:monospace">141324</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">14276 → 14276</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 15:51:54</td>
+                  <td style="font-family:monospace">175050</td>
+                  <td style="font-family:monospace">175050</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">17648 → 17648</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:00:36</td>
+                  <td style="font-family:monospace">177538</td>
+                  <td style="font-family:monospace">177538</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">17897 → 17897</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:05:34</td>
+                  <td style="font-family:monospace">178808</td>
+                  <td style="font-family:monospace">178808</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">18024 → 18024</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:28:59</td>
+                  <td style="font-family:monospace">184847</td>
+                  <td style="font-family:monospace">184847</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">18788 → 18788</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:58:35</td>
+                  <td style="font-family:monospace">197777</td>
+                  <td style="font-family:monospace">197777</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">20081 → 20081</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:05:31</td>
+                  <td style="font-family:monospace">199438</td>
+                  <td style="font-family:monospace">199438</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">20247 → 20247</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:08:55</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">20260 → 20260</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:10:12</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">20260 → 20260</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:11:51</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">20260 → 20260</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:13:55</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">20260 → 20260</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:15:14</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td style="font-family:monospace">199568</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">20260 → 20260</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:51:49</td>
+                  <td style="font-family:monospace">218779</td>
+                  <td style="font-family:monospace">218779</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">22181 → 22181</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 18:27:10</td>
+                  <td style="font-family:monospace">237090</td>
+                  <td style="font-family:monospace">237090</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">24012 → 24012</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690252</span>
+        <span style="font-size:22px;font-weight:700;color:#e74c3c">18201.05%</span>
+        <span style="font-size:12px;color:#888">2184.13h / 12h</span>
+        <span class="badge anomaly">效率异常</span>
+        <span class="badge restart">2次重启</span>
+        <span class="badge msgid">19处msgid跳变</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 409 条 &nbsp;|&nbsp;
+          NORMAL 373 条 &nbsp;|&nbsp;
+          非NORMAL 36 条 &nbsp;|&nbsp;
+          分组数 3
+        </div>
+        <div style="margin-top:8px;padding:8px 12px;background:#fde8e8;border-radius:6px;
+              font-size:12px;color:#c0392b;border-left:3px solid #e74c3c">
+              数据异常：总运行时长 7862853s 超过班次窗口 43200s，
+              效率超过100%。原因：重启后 col11 首行携带历史累计值，导致分组增量虚高。
+            </div>
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-14 22:05:50</td>
+              <td>97</td>
+              <td style="font-size:12px">2026-07-15 07:00:26</td>
+              <td style="font-size:12px">2026-07-15 09:53:50</td>
+              <td style="font-family:monospace">3903549 → 3912622</td>
+              <td>9073 s (2.52 h)</td>
+              <td>21.00% </td>
+            </tr><tr class="row-anomaly">
+              <td style="font-size:12px">2026-07-15 09:55:33</td>
+              <td>19</td>
+              <td style="font-size:12px">2026-07-15 09:55:33</td>
+              <td style="font-size:12px">2026-07-15 10:34:13</td>
+              <td style="font-family:monospace">22 → 3914301</td>
+              <td>3914279 s (1087.30 h)</td>
+              <td>9060.83% <span class="badge anomaly">超窗口</span></td>
+            </tr><tr class="row-anomaly">
+              <td style="font-size:12px">2026-07-15 10:36:46</td>
+              <td>257</td>
+              <td style="font-size:12px">2026-07-15 10:36:46</td>
+              <td style="font-size:12px">2026-07-15 18:58:20</td>
+              <td style="font-family:monospace">1 → 3939502</td>
+              <td>3939501 s (1094.31 h)</td>
+              <td>9119.22% <span class="badge anomaly">超窗口</span></td>
+            </tr></tbody>
+        </table>
+        
+            <div style="margin-top:16px">
+              <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:8px">
+                msgid 跳变明细（共 19 处）
+              </div>
+              <table>
+                <thead><tr>
+                  <th>时间</th><th>前一msgid</th><th>当前msgid</th>
+                  <th>类型</th><th>col11变化</th>
+                </tr></thead>
+                <tbody><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 08:11:14</td>
+                  <td style="font-family:monospace">40370602</td>
+                  <td style="font-family:monospace">40370602</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3907202 → 3907202</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:05:24</td>
+                  <td style="font-family:monospace">40399502</td>
+                  <td style="font-family:monospace">40399502</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3910046 → 3910046</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 09:15:27</td>
+                  <td style="font-family:monospace">40403985</td>
+                  <td style="font-family:monospace">40403985</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3910480 → 3910480</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 09:55:33</td>
+                  <td style="font-family:monospace">40425170</td>
+                  <td style="font-family:monospace">227</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">3912622 → 22</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 09:57:13</td>
+                  <td style="font-family:monospace">227</td>
+                  <td style="font-family:monospace">40430613</td>
+                  <td><span class="badge jump">跳增40430386</span></td>
+                  <td style="font-family:monospace;font-size:12px">22 → 3912640</td>
+                </tr><tr class="row-restart">
+                  <td style="font-size:12px">2026-07-15 10:36:46</td>
+                  <td style="font-family:monospace">40446316</td>
+                  <td style="font-family:monospace">8</td>
+                  <td><span class="badge restart">重启</span></td>
+                  <td style="font-family:monospace;font-size:12px">3914301 → 1</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 10:38:29</td>
+                  <td style="font-family:monospace">8</td>
+                  <td style="font-family:monospace">40448301</td>
+                  <td><span class="badge jump">跳增40448293</span></td>
+                  <td style="font-family:monospace;font-size:12px">1 → 3914352</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 10:41:43</td>
+                  <td style="font-family:monospace">40449334</td>
+                  <td style="font-family:monospace">40449334</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3914452 → 3914452</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 11:52:07</td>
+                  <td style="font-family:monospace">40487540</td>
+                  <td style="font-family:monospace">40487540</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3918231 → 3918231</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 11:53:46</td>
+                  <td style="font-family:monospace">40487540</td>
+                  <td style="font-family:monospace">40487540</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3918231 → 3918231</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 12:47:00</td>
+                  <td style="font-family:monospace">40512115</td>
+                  <td style="font-family:monospace">40512115</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3920627 → 3920627</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 15:22:19</td>
+                  <td style="font-family:monospace">40590313</td>
+                  <td style="font-family:monospace">40590313</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3928312 → 3928312</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 16:00:09</td>
+                  <td style="font-family:monospace">40607674</td>
+                  <td style="font-family:monospace">40607674</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3930106 → 3930106</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:10:12</td>
+                  <td style="font-family:monospace">40646798</td>
+                  <td style="font-family:monospace">40646798</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3933898 → 3933898</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:15:14</td>
+                  <td style="font-family:monospace">40648531</td>
+                  <td style="font-family:monospace">40648531</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3934066 → 3934066</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:22:15</td>
+                  <td style="font-family:monospace">40650894</td>
+                  <td style="font-family:monospace">40650894</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3934295 → 3934295</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:35:55</td>
+                  <td style="font-family:monospace">40657393</td>
+                  <td style="font-family:monospace">40657393</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3934925 → 3934925</td>
+                </tr><tr class="row-msgid">
+                  <td style="font-size:12px">2026-07-15 17:56:45</td>
+                  <td style="font-family:monospace">40669416</td>
+                  <td style="font-family:monospace">40669416</td>
+                  <td><span class="badge msgid">重复</span></td>
+                  <td style="font-family:monospace;font-size:12px">3936090 → 3936090</td>
+                </tr><tr class="row-jump">
+                  <td style="font-size:12px">2026-07-15 18:23:00</td>
+                  <td style="font-family:monospace">40671843</td>
+                  <td style="font-family:monospace">40683023</td>
+                  <td><span class="badge jump">跳增11180</span></td>
+                  <td style="font-family:monospace;font-size:12px">3936325 → 3937407</td>
+                </tr></tbody>
+              </table>
+            </div>
+      </div>
+    </details>
+  </div>
+</div>
+</body>
+</html>
