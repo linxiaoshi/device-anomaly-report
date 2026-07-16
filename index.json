@@ -1,5 +1,18 @@
 [
   {
+    "ts": "2026-07-16 18:53",
+    "data_time": "2026-07-15 07:00:00~2026-07-15 19:00:00",
+    "factory": "云端效率分析",
+    "gateways": "",
+    "start_time": "2026-07-15 07:00:00",
+    "end_time": "2026-07-15 19:00:00",
+    "report": "report_efficiency_202607161853.html",
+    "summary": "采集器12台；效率异常5台；正常7台",
+    "timeout_rate": "",
+    "msgid_rate": "",
+    "note": ""
+  },
+  {
     "ts": "2026-07-16 18:39",
     "data_time": "2026-07-15 19:00:00~2026-07-16 07:00:00",
     "factory": "云端效率分析",
@@ -8,19 +21,6 @@
     "end_time": "2026-07-16 07:00:00",
     "report": "report_efficiency_202607161838.html",
     "summary": "采集器12台；效率异常1台；正常11台",
-    "timeout_rate": "",
-    "msgid_rate": "",
-    "note": ""
-  },
-  {
-    "ts": "2026-07-16 18:35",
-    "data_time": "2026-07-15 07:00:00~2026-07-15 19:00:00",
-    "factory": "云端效率分析",
-    "gateways": "",
-    "start_time": "2026-07-15 07:00:00",
-    "end_time": "2026-07-15 19:00:00",
-    "report": "report_efficiency_202607161835.html",
-    "summary": "采集器12台；效率异常5台；正常7台",
     "timeout_rate": "",
     "msgid_rate": "",
     "note": ""
