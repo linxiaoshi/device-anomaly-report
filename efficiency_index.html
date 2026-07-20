@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>云端效率分析 · 报告汇总</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; font-size:14px; }
+  .header { background:linear-gradient(135deg,#0d47a1,#1565c0,#1976d2); color:#fff; padding:24px 32px; }
+  .header h1 { font-size:22px; font-weight:700; }
+  .header .meta { font-size:12px; opacity:.85; margin-top:6px; line-height:1.8; }
+  .header .meta a { color:#fff; opacity:.9; }
+  .container { max-width:1200px; margin:24px auto; padding:0 16px; }
+  .card { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08);
+           border-left:5px solid #1976d2; margin-bottom:20px; }
+  .card .num { font-size:30px; font-weight:700; color:#1565c0; }
+  .card .lbl { font-size:12px; color:#888; margin-top:4px; }
+  .section { background:#fff; border-radius:10px; padding:20px 24px;
+              box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:20px; }
+  .section-title { font-size:15px; font-weight:600; color:#444; border-left:4px solid #1976d2;
+                    padding-left:10px; margin-bottom:16px; }
+  .toolbar { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+  .toolbar input { padding:6px 12px; border:1px solid #ddd; border-radius:6px; font-size:13px; width:220px; }
+  .toolbar select { padding:6px 10px; border:1px solid #ddd; border-radius:6px; font-size:13px; }
+  .toolbar button { padding:6px 14px; border:1px solid #ddd; border-radius:6px; font-size:13px;
+                     background:#f5f5f5; cursor:pointer; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f5f7fa; padding:8px 10px; text-align:center; border-bottom:2px solid #e0e0e0;
+        white-space:nowrap; font-size:11px; color:#666; }
+  td { border-bottom:1px solid #f0f0f0; }
+  tbody tr:hover { background:#fafafa; }
+  .iot-link { display:inline-block; padding:4px 14px; background:#fff3e0; color:#bf360c;
+               border-radius:6px; font-size:12px; font-weight:600; text-decoration:none; margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>☁️ 云端效率分析 · 报告汇总</h1>
+  <div class="meta">
+    更新时间: 2026-07-20 18:04:34 &nbsp;|&nbsp; 报告总数: 13
+    <br>
+    <a href="https://linxiaoshi.github.io/device-anomaly-report/" class="iot-link" target="_blank">→ IoT 报文分析汇总</a>
+  </div>
+</div>
+<div class="container">
+
+  <div class="card" style="display:flex;align-items:center;gap:20px">
+    <div><div class="num">13</div><div class="lbl">效率分析报告</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">报告列表</div>
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="搜索班次、设备、关键词..."
+             oninput="filterTable()">
+      <select id="typeFilter" onchange="filterTable()">
+        <option value="">全部类型</option>
+        <option value="单班效率">单班效率</option>
+        <option value="跳变明细">跳变明细</option>
+        <option value="班次对比">班次对比</option>
+      </select>
+      <button onclick="document.getElementById('search').value='';document.getElementById('typeFilter').value='';filterTable()">重置</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>生成时间</th><th>类型</th><th>班次</th><th>报告</th><th>摘要</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-20 16:29</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0719白班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607201629.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607201629.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常2台(166:47600%、189:9757%)；正常9台；无数据1台(176)<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：166,189</div><div style="font-size:11px;color:#888">无数据：176</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-20 16:34</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0719夜班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607201634.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607201634.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常1台(190:4873%)；正常9台；无数据1台(176)<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：190</div><div style="font-size:11px;color:#888">无数据：176</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-20 16:37</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#fce4ec;color:#880e4f;border:1px solid #c62828">跳变明细</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0719白班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_jump_detail_202607201637.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_jump_detail_202607201637.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">2台设备跳变明细：166(8处跳变)、189(4处跳变)<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：166,189</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-17 10:14</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e8f5e9;color:#1b5e20;border:1px solid #2e7d32">班次对比</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">8班次改前/改后</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_8shift_202607171014.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_8shift_202607171014.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">8班次对比(0702/0712/0713改前 vs 0715改后)，12台采集器，改后2台异常</td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 18:53</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0715白班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161853.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161853.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常5台(115/166/165/139/189)；正常7台<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：115,166,165,139,189</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 18:56</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0715夜班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161856.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161856.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常1台(189)；正常11台<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：189</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 16:45</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0712白班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161645.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161645.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常1台(138)；正常11台<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：138</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 16:49</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0712夜班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161649.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161649.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常2台(138/116)；正常10台<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：138,116</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 17:26</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0702白班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161726.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161726.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常2台(177/138)；正常10台<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：177,138</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 17:29</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0702夜班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161729.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161729.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常1台(190)；正常11台<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：190</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 17:33</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0713白班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161733.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161733.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；异常3台(116/138/189)；正常9台<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：116,138,189</div></td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 17:36</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2">单班效率</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0713夜班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_efficiency_202607161736.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_efficiency_202607161736.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">12台采集器；无异常</td></tr>
+<tr><td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#888">2026-07-16 19:19</td><td style="padding:10px 12px;text-align:center"><span style="display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#fce4ec;color:#880e4f;border:1px solid #c62828">跳变明细</span></td><td style="padding:10px 12px;font-weight:600;font-size:14px;white-space:nowrap">0715白班</td><td style="padding:10px 12px"><a href="https://linxiaoshi.github.io/device-anomaly-report/report_jump_detail_202607161919.html" target="_blank" style="color:#1565c0;font-weight:600;text-decoration:none;font-size:13px">report_jump_detail_202607161919.html<svg style="width:14px;height:14px;margin-left:3px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></td><td style="padding:10px 12px;font-size:13px;color:#555">5台设备跳变明细：115(4处)、166(4处)、165(3处)、139(3处)、189(5处)<div style="margin-top:4px;font-size:11px;color:#c0392b;font-weight:600">⚠ 异常设备：115,166,165,139,189</div></td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<script>
+function filterTable() {
+  var search = document.getElementById('search').value.toLowerCase();
+  var typeVal = document.getElementById('typeFilter').value;
+  var rows = document.getElementById('tableBody').rows;
+  for (var i = 0; i < rows.length; i++) {
+    var text = rows[i].innerText.toLowerCase();
+    var matchSearch = !search || text.indexOf(search) >= 0;
+    var matchType = !typeVal || text.indexOf(typeVal.toLowerCase()) >= 0;
+    rows[i].style.display = (matchSearch && matchType) ? '' : 'none';
+  }
+}
+</script>
+</body>
+</html>
