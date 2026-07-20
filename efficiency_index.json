@@ -1,0 +1,145 @@
+[
+  {
+    "ts": "2026-07-20 16:29",
+    "type": "单班效率",
+    "shift": "0719白班",
+    "start_time": "2026-07-19 07:00:00",
+    "end_time": "2026-07-19 19:00:00",
+    "report": "report_efficiency_202607201629.html",
+    "summary": "12台采集器；异常2台(166:47600%、189:9757%)；正常9台；无数据1台(176)",
+    "anomaly_devs": "166,189",
+    "no_data_devs": "176"
+  },
+  {
+    "ts": "2026-07-20 16:34",
+    "type": "单班效率",
+    "shift": "0719夜班",
+    "start_time": "2026-07-19 19:00:00",
+    "end_time": "2026-07-20 07:00:00",
+    "report": "report_efficiency_202607201634.html",
+    "summary": "12台采集器；异常1台(190:4873%)；正常9台；无数据1台(176)",
+    "anomaly_devs": "190",
+    "no_data_devs": "176"
+  },
+  {
+    "ts": "2026-07-20 16:37",
+    "type": "跳变明细",
+    "shift": "0719白班",
+    "start_time": "2026-07-19 07:00:00",
+    "end_time": "2026-07-19 19:00:00",
+    "report": "report_jump_detail_202607201637.html",
+    "summary": "2台设备跳变明细：166(8处跳变)、189(4处跳变)",
+    "anomaly_devs": "166,189",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-17 10:14",
+    "type": "班次对比",
+    "shift": "8班次改前/改后",
+    "start_time": "",
+    "end_time": "",
+    "report": "report_efficiency_8shift_202607171014.html",
+    "summary": "8班次对比(0702/0712/0713改前 vs 0715改后)，12台采集器，改后2台异常",
+    "anomaly_devs": "",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 18:53",
+    "type": "单班效率",
+    "shift": "0715白班",
+    "start_time": "2026-07-15 07:00:00",
+    "end_time": "2026-07-15 19:00:00",
+    "report": "report_efficiency_202607161853.html",
+    "summary": "12台采集器；异常5台(115/166/165/139/189)；正常7台",
+    "anomaly_devs": "115,166,165,139,189",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 18:56",
+    "type": "单班效率",
+    "shift": "0715夜班",
+    "start_time": "2026-07-15 19:00:00",
+    "end_time": "2026-07-16 07:00:00",
+    "report": "report_efficiency_202607161856.html",
+    "summary": "12台采集器；异常1台(189)；正常11台",
+    "anomaly_devs": "189",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 16:45",
+    "type": "单班效率",
+    "shift": "0712白班",
+    "start_time": "2026-07-12 07:00:00",
+    "end_time": "2026-07-12 19:00:00",
+    "report": "report_efficiency_202607161645.html",
+    "summary": "12台采集器；异常1台(138)；正常11台",
+    "anomaly_devs": "138",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 16:49",
+    "type": "单班效率",
+    "shift": "0712夜班",
+    "start_time": "2026-07-12 19:00:00",
+    "end_time": "2026-07-13 09:00:00",
+    "report": "report_efficiency_202607161649.html",
+    "summary": "12台采集器；异常2台(138/116)；正常10台",
+    "anomaly_devs": "138,116",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 17:26",
+    "type": "单班效率",
+    "shift": "0702白班",
+    "start_time": "2026-07-02 07:00:00",
+    "end_time": "2026-07-02 19:00:00",
+    "report": "report_efficiency_202607161726.html",
+    "summary": "12台采集器；异常2台(177/138)；正常10台",
+    "anomaly_devs": "177,138",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 17:29",
+    "type": "单班效率",
+    "shift": "0702夜班",
+    "start_time": "2026-07-02 19:00:00",
+    "end_time": "2026-07-03 07:00:00",
+    "report": "report_efficiency_202607161729.html",
+    "summary": "12台采集器；异常1台(190)；正常11台",
+    "anomaly_devs": "190",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 17:33",
+    "type": "单班效率",
+    "shift": "0713白班",
+    "start_time": "2026-07-13 07:00:00",
+    "end_time": "2026-07-13 19:00:00",
+    "report": "report_efficiency_202607161733.html",
+    "summary": "12台采集器；异常3台(116/138/189)；正常9台",
+    "anomaly_devs": "116,138,189",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 17:36",
+    "type": "单班效率",
+    "shift": "0713夜班",
+    "start_time": "2026-07-13 19:00:00",
+    "end_time": "2026-07-14 07:00:00",
+    "report": "report_efficiency_202607161736.html",
+    "summary": "12台采集器；无异常",
+    "anomaly_devs": "",
+    "no_data_devs": ""
+  },
+  {
+    "ts": "2026-07-16 19:19",
+    "type": "跳变明细",
+    "shift": "0715白班",
+    "start_time": "2026-07-15 07:00:00",
+    "end_time": "2026-07-15 19:00:00",
+    "report": "report_jump_detail_202607161919.html",
+    "summary": "5台设备跳变明细：115(4处)、166(4处)、165(3处)、139(3处)、189(5处)",
+    "anomaly_devs": "115,166,165,139,189",
+    "no_data_devs": ""
+  }
+]
