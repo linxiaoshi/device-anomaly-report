@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>0715 效率异常设备 · col11跳变报文明细</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; font-size:14px; }
+  .header { background:linear-gradient(135deg,#7b1fa2,#9c27b0,#ba68c8); color:#fff; padding:22px 36px; }
+  .header h1 { font-size:20px; font-weight:700; }
+  .header .sub { font-size:11px; opacity:.85; margin-top:6px; line-height:1.9; }
+  .container { max-width:1100px; margin:24px auto; padding:0 16px; }
+  .cards { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
+  .card { background:#fff; border-radius:10px; padding:16px 20px; flex:1; min-width:130px;
+           box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:5px solid #9c27b0; }
+  .card .num { font-size:28px; font-weight:700; color:#7b1fa2; }
+  .card .lbl { font-size:12px; color:#888; margin-top:4px; }
+  .note { background:#fff8e1; border:1px solid #ffe082; border-radius:8px;
+           padding:14px 18px; margin-bottom:20px; font-size:13px; color:#5d4037; line-height:1.8; }
+  table { border-collapse:collapse; }
+  tbody tr:hover { background:#fafafa !important; }
+  td, th { border-bottom:1px solid #f0f0f0; white-space:nowrap; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>0715 效率异常设备 · col11跳变报文明细</h1>
+  <div class="sub">
+    生成时间：2026-07-21 14:05:13 &nbsp;|&nbsp; 跳变阈值：|Δcol11| &gt; 600s
+    &nbsp;|&nbsp; 显示跳变点前后各 2 行
+  </div>
+</div>
+<div class="container">
+
+  <div class="cards">
+    <div class="card"><div class="num">6</div><div class="lbl">异常设备数</div></div>
+    <div class="card"><div class="num">9</div><div class="lbl">跳变点总数</div></div>
+  </div>
+
+  <div class="note">
+    <strong>数据特征说明：</strong>col11 为设备全局累计运行秒数（正常情况单调递增）。
+    "跳小"表示 col11 突然降到很小的值（如 4、22、60），下一条或几条后恢复到正常累计值——这是数据异常，
+    实际并未发生运行时间重置；"跳大"表示 col11 突然增大到异常大的值后再跳回，同属数据污染。
+    <br>高亮行（红色=跳小，蓝色=跳大）即跳变发生行，阈值±600s。
+  </div>
+
+  
+    <div style="background:#fff;border-radius:10px;padding:20px 24px;
+                box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;
+                  border-left:4px solid #1565c0;padding-left:10px">
+        <span style="font-size:18px;font-weight:800;color:#1565c0">（166）</span>
+        <span style="font-size:13px;color:#888">0720白班 &nbsp;·&nbsp; X8647080678442690210</span>
+        <span style="font-size:12px;color:#666">共308条NORMAL数据，1处跳变</span>
+      </div>
+      <div style="font-size:12px;color:#888;margin-bottom:14px;
+                  background:#f8f9fa;border-radius:6px;padding:8px 12px">
+        跳变位置：第150行 12799→13829(+1,030)
+      </div>
+      
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第150行 &nbsp;
+            <span style="font-family:monospace">12799 → 13829 (diff=+1,030)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">148</td><td style="padding:4px 8px;font-size:12px">8072</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">12799</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:14:22</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">149</td><td style="padding:4px 8px;font-size:12px">8073</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">12799</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:16:04</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">150</td><td style="padding:4px 8px;font-size:12px">8074</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">13829<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +1,030</span></td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:37:14</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">151</td><td style="padding:4px 8px;font-size:12px">8075</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">13922</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:38:58</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">152</td><td style="padding:4px 8px;font-size:12px">8076</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">13922</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:40:30</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+    </div>
+    
+
+    <div style="background:#fff;border-radius:10px;padding:20px 24px;
+                box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;
+                  border-left:4px solid #1565c0;padding-left:10px">
+        <span style="font-size:18px;font-weight:800;color:#1565c0">（139）</span>
+        <span style="font-size:13px;color:#888">0720白班 &nbsp;·&nbsp; X8647080678442690253</span>
+        <span style="font-size:12px;color:#666">共309条NORMAL数据，1处跳变</span>
+      </div>
+      <div style="font-size:12px;color:#888;margin-bottom:14px;
+                  background:#f8f9fa;border-radius:6px;padding:8px 12px">
+        跳变位置：第156行 74003→74991(+988)
+      </div>
+      
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第156行 &nbsp;
+            <span style="font-family:monospace">74003 → 74991 (diff=+988)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">154</td><td style="padding:4px 8px;font-size:12px">8084</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">73903</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:25:02</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">155</td><td style="padding:4px 8px;font-size:12px">8085</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">74003</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:26:43</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">156</td><td style="padding:4px 8px;font-size:12px">8086</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">74991<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +988</span></td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:47:32</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">157</td><td style="padding:4px 8px;font-size:12px">8087</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">75091</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:49:23</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">158</td><td style="padding:4px 8px;font-size:12px">8088</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">75191</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:50:55</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+    </div>
+    
+
+    <div style="background:#fff;border-radius:10px;padding:20px 24px;
+                box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;
+                  border-left:4px solid #1565c0;padding-left:10px">
+        <span style="font-size:18px;font-weight:800;color:#1565c0">（190）</span>
+        <span style="font-size:13px;color:#888">0720白班 &nbsp;·&nbsp; X8647080678442690259</span>
+        <span style="font-size:12px;color:#666">共321条NORMAL数据，2处跳变</span>
+      </div>
+      <div style="font-size:12px;color:#888;margin-bottom:14px;
+                  background:#f8f9fa;border-radius:6px;padding:8px 12px">
+        跳变位置：第101行 2119537→39(-2,119,498)，第158行 3329→4309(+980)
+      </div>
+      
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#e74c3c;font-weight:600;margin-bottom:6px">
+            跳小（大→小→大恢复） &nbsp;·&nbsp; 第101行 &nbsp;
+            <span style="font-family:monospace">2119537 → 39 (diff=-2,119,498)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">99</td><td style="padding:4px 8px;font-size:12px">8006</td><td style="padding:4px 8px;font-size:12px">2026-07-19 12:36:08</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">2119437</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:37:15</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">100</td><td style="padding:4px 8px;font-size:12px">8007</td><td style="padding:4px 8px;font-size:12px">2026-07-19 12:36:08</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">2119537</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:38:45</td></tr>
+<tr style="background:#fff0f0"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">101</td><td style="padding:4px 8px;font-size:12px">8008</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">39<span style="background:#e74c3c;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↓跳小 -2,119,498</span></td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">102</td><td style="padding:4px 8px;font-size:12px">8009</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">108</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:43:34</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">103</td><td style="padding:4px 8px;font-size:12px">8010</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">108</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:45:38</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第158行 &nbsp;
+            <span style="font-family:monospace">3329 → 4309 (diff=+980)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">156</td><td style="padding:4px 8px;font-size:12px">8063</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">3329</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:17:32</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">157</td><td style="padding:4px 8px;font-size:12px">8064</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">3329</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:18:54</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">158</td><td style="padding:4px 8px;font-size:12px">8065</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">4309<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +980</span></td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:40:06</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">159</td><td style="padding:4px 8px;font-size:12px">8066</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">4332</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:41:46</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">160</td><td style="padding:4px 8px;font-size:12px">8067</td><td style="padding:4px 8px;font-size:12px">2026-07-20 11:40:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">4482</td><td style="padding:4px 8px;font-size:12px">2026-07-20 13:44:16</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+    </div>
+    
+
+    <div style="background:#fff;border-radius:10px;padding:20px 24px;
+                box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;
+                  border-left:4px solid #1565c0;padding-left:10px">
+        <span style="font-size:18px;font-weight:800;color:#1565c0">（166）</span>
+        <span style="font-size:13px;color:#888">0720夜班 &nbsp;·&nbsp; X8647080678442690210</span>
+        <span style="font-size:12px;color:#666">共388条NORMAL数据，2处跳变</span>
+      </div>
+      <div style="font-size:12px;color:#888;margin-bottom:14px;
+                  background:#f8f9fa;border-radius:6px;padding:8px 12px">
+        跳变位置：第223行 30246→31359(+1,113)，第285行 33406→34418(+1,012)
+      </div>
+      
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第223行 &nbsp;
+            <span style="font-family:monospace">30246 → 31359 (diff=+1,113)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">221</td><td style="padding:4px 8px;font-size:12px">8456</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">30146</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:30:16</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">222</td><td style="padding:4px 8px;font-size:12px">8457</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">30246</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:31:51</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">223</td><td style="padding:4px 8px;font-size:12px">8458</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">31359<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +1,113</span></td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:53:56</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">224</td><td style="padding:4px 8px;font-size:12px">8459</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">31360</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:55:36</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">225</td><td style="padding:4px 8px;font-size:12px">8460</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">31404</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:57:17</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第285行 &nbsp;
+            <span style="font-family:monospace">33406 → 34418 (diff=+1,012)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">283</td><td style="padding:4px 8px;font-size:12px">8521</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">33406</td><td style="padding:4px 8px;font-size:12px">2026-07-21 03:38:29</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">284</td><td style="padding:4px 8px;font-size:12px">8522</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">33406</td><td style="padding:4px 8px;font-size:12px">2026-07-21 03:40:09</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">285</td><td style="padding:4px 8px;font-size:12px">8523</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">34418<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +1,012</span></td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:02:08</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">286</td><td style="padding:4px 8px;font-size:12px">8524</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">34418</td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:03:53</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">287</td><td style="padding:4px 8px;font-size:12px">8525</td><td style="padding:4px 8px;font-size:12px">2026-07-20 06:03:12</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">34466</td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:05:32</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+    </div>
+    
+
+    <div style="background:#fff;border-radius:10px;padding:20px 24px;
+                box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;
+                  border-left:4px solid #1565c0;padding-left:10px">
+        <span style="font-size:18px;font-weight:800;color:#1565c0">（139）</span>
+        <span style="font-size:13px;color:#888">0720夜班 &nbsp;·&nbsp; X8647080678442690253</span>
+        <span style="font-size:12px;color:#666">共396条NORMAL数据，1处跳变</span>
+      </div>
+      <div style="font-size:12px;color:#888;margin-bottom:14px;
+                  background:#f8f9fa;border-radius:6px;padding:8px 12px">
+        跳变位置：第297行 108264→109381(+1,117)
+      </div>
+      
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第297行 &nbsp;
+            <span style="font-family:monospace">108264 → 109381 (diff=+1,117)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">295</td><td style="padding:4px 8px;font-size:12px">8550</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">108164</td><td style="padding:4px 8px;font-size:12px">2026-07-21 03:47:10</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">296</td><td style="padding:4px 8px;font-size:12px">8551</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">108264</td><td style="padding:4px 8px;font-size:12px">2026-07-21 03:48:51</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">297</td><td style="padding:4px 8px;font-size:12px">8552</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">109381<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +1,117</span></td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:10:02</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">298</td><td style="padding:4px 8px;font-size:12px">8553</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">109481</td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:11:46</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">299</td><td style="padding:4px 8px;font-size:12px">8554</td><td style="padding:4px 8px;font-size:12px">2026-07-19 09:30:20</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">109545</td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:13:21</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+    </div>
+    
+
+    <div style="background:#fff;border-radius:10px;padding:20px 24px;
+                box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px;
+                  border-left:4px solid #1565c0;padding-left:10px">
+        <span style="font-size:18px;font-weight:800;color:#1565c0">（190）</span>
+        <span style="font-size:13px;color:#888">0720夜班 &nbsp;·&nbsp; X8647080678442690259</span>
+        <span style="font-size:12px;color:#666">共383条NORMAL数据，2处跳变</span>
+      </div>
+      <div style="font-size:12px;color:#888;margin-bottom:14px;
+                  background:#f8f9fa;border-radius:6px;padding:8px 12px">
+        跳变位置：第224行 30198→31349(+1,151)，第283行 35581→36607(+1,026)
+      </div>
+      
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第224行 &nbsp;
+            <span style="font-family:monospace">30198 → 31349 (diff=+1,151)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">222</td><td style="padding:4px 8px;font-size:12px">8455</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">30098</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:30:40</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">223</td><td style="padding:4px 8px;font-size:12px">8456</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">30198</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:32:41</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">224</td><td style="padding:4px 8px;font-size:12px">8457</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">31349<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +1,151</span></td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:53:33</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">225</td><td style="padding:4px 8px;font-size:12px">8458</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">31433</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:55:12</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">226</td><td style="padding:4px 8px;font-size:12px">8459</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">31532</td><td style="padding:4px 8px;font-size:12px">2026-07-21 01:57:10</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+        <div style="margin-bottom:18px">
+          <div style="font-size:12px;color:#2980b9;font-weight:600;margin-bottom:6px">
+            跳大（小→大突变） &nbsp;·&nbsp; 第283行 &nbsp;
+            <span style="font-family:monospace">35581 → 36607 (diff=+1,026)</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead><tr style="background:#f5f7fa"><th style="padding:5px 6px;font-size:11px;color:#888">行号</th><th style="padding:5px 8px;font-size:11px;color:#888">msgid(col0)</th><th style="padding:5px 8px;font-size:11px;color:#888">col6(时间)</th><th style="padding:5px 8px;font-size:11px;color:#888">状态</th><th style="padding:5px 8px;font-size:11px;color:#888">col11(累计秒)</th><th style="padding:5px 8px;font-size:11px;color:#888">col13(上报时间)</th></tr></thead><tbody><tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">281</td><td style="padding:4px 8px;font-size:12px">8516</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">35581</td><td style="padding:4px 8px;font-size:12px">2026-07-21 03:35:31</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">282</td><td style="padding:4px 8px;font-size:12px">8517</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">35581</td><td style="padding:4px 8px;font-size:12px">2026-07-21 03:37:29</td></tr>
+<tr style="background:#e8f4ff"><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">283</td><td style="padding:4px 8px;font-size:12px">8518</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">36607<span style="background:#2980b9;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700;margin-left:4px">↑跳大 +1,026</span></td><td style="padding:4px 8px;font-size:12px">2026-07-21 03:58:27</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">284</td><td style="padding:4px 8px;font-size:12px">8519</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">36630</td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:00:04</td></tr>
+<tr style=""><td style="color:#aaa;font-size:11px;text-align:right;padding:4px 6px">285</td><td style="padding:4px 8px;font-size:12px">8520</td><td style="padding:4px 8px;font-size:12px">1970-01-01 08:00:00</td><td style="padding:4px 8px;font-size:12px">NORMAL</td><td style="padding:4px 8px;font-size:12px">36730</td><td style="padding:4px 8px;font-size:12px">2026-07-21 04:02:08</td></tr>
+</tbody>
+          </table>
+        </div>
+        
+    </div>
+    
+
+</div>
+</body>
+</html>
