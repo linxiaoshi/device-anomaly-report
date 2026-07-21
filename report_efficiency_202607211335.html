@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>云端效率分析报告</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; }
+  .header { background:linear-gradient(135deg,#0d47a1,#1565c0); color:#fff; padding:24px 32px; }
+  .header h1 { font-size:22px; }
+  .header .meta { font-size:12px; opacity:.8; margin-top:6px; line-height:1.8; }
+  .container { max-width:1400px; margin:24px auto; padding:0 16px; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+  .card { background:#fff; border-radius:10px; padding:20px 24px; flex:1; min-width:160px;
+           box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:5px solid #ccc; }
+  .card.blue  { border-color:#3498db; }
+  .card.red   { border-color:#e74c3c; }
+  .card.green { border-color:#27ae60; }
+  .card .num   { font-size:34px; font-weight:700; }
+  .card .label { font-size:12px; color:#888; margin-top:4px; }
+  .section { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:16px; }
+  .section h3 { font-size:15px; margin-bottom:14px; color:#555; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f5f5f5; padding:8px 10px; text-align:left; border-bottom:2px solid #ddd; white-space:nowrap; }
+  td { padding:7px 10px; border-bottom:1px solid #eee; vertical-align:middle; }
+  tr:hover td { background:#fafafa; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; margin:1px; }
+  .badge.anomaly { background:#fde8e8; color:#c0392b; border:1px solid #e74c3c; }
+  .badge.normal  { background:#eafaf1; color:#27ae60; border:1px solid #27ae60; }
+  .row-anomaly td { background:#fef5f5; }
+  details > summary::-webkit-details-marker { display:none; }
+  details > summary::before { content:"▶ "; font-size:10px; color:#aaa; }
+  details[open] > summary::before { content:"▼ "; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>云端效率分析报告</h1>
+  <div class="meta">
+    生成时间: 2026-07-21 13:35:06 &nbsp;|&nbsp;
+    班次时间: 2026-07-20 19:00:00 ~ 2026-07-21 07:00:00 &nbsp;|&nbsp;
+    采集器数: 12<br>
+    效率算法: 按 col6（首次记录时间）分组，各组 col11 末值-首值 累加 / 班次总时长
+  </div>
+</div>
+<div class="container">
+
+  <div class="cards">
+    <div class="card blue">
+      <div class="num">12</div>
+      <div class="label">采集器总数</div>
+    </div>
+    <div class="card green">
+      <div class="num">12</div>
+      <div class="label">效率正常（≤100%）</div>
+    </div>
+    <div class="card red">
+      <div class="num">0</div>
+      <div class="label">效率异常（>100%）</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>效率汇总（按采集器）</h3>
+    <table>
+      <thead><tr>
+        <th>采集器编号</th><th>班次效率</th><th>运行时长</th>
+        <th>NORMAL记录/总记录</th><th>状态</th>
+      </tr></thead>
+      <tbody><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690217（115）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:90.2%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">90.2%</span></div></td>
+          <td>10.82 h</td>
+          <td>405 / 418</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690208（116）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:96.05%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">96.0%</span></div></td>
+          <td>11.53 h</td>
+          <td>404 / 418</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690210（166）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:48.87%;height:100%;background:#e67e22;border-radius:4px"></div></div><span style="font-size:12px;color:#e67e22;font-weight:600;white-space:nowrap">48.9%</span></div></td>
+          <td>5.86 h</td>
+          <td>388 / 393</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690206（165）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:89.09%;height:100%;background:#f39c12;border-radius:4px"></div></div><span style="font-size:12px;color:#f39c12;font-weight:600;white-space:nowrap">89.1%</span></div></td>
+          <td>10.69 h</td>
+          <td>376 / 413</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690254（176）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:0%;height:100%;background:#e67e22;border-radius:4px"></div></div><span style="font-size:12px;color:#e67e22;font-weight:600;white-space:nowrap">0.0%</span></div></td>
+          <td>0.00 h</td>
+          <td>0 / 3</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690249（177）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:96.55%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">96.5%</span></div></td>
+          <td>11.59 h</td>
+          <td>404 / 417</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690253（139）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:73.29%;height:100%;background:#f39c12;border-radius:4px"></div></div><span style="font-size:12px;color:#f39c12;font-weight:600;white-space:nowrap">73.3%</span></div></td>
+          <td>8.80 h</td>
+          <td>396 / 409</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690229（138）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:93.91%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">93.9%</span></div></td>
+          <td>11.27 h</td>
+          <td>386 / 409</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690259（190）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:63.97%;height:100%;background:#e67e22;border-radius:4px"></div></div><span style="font-size:12px;color:#e67e22;font-weight:600;white-space:nowrap">64.0%</span></div></td>
+          <td>7.68 h</td>
+          <td>383 / 388</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8647080678442690252（189）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:88.84%;height:100%;background:#f39c12;border-radius:4px"></div></div><span style="font-size:12px;color:#f39c12;font-weight:600;white-space:nowrap">88.8%</span></div></td>
+          <td>10.66 h</td>
+          <td>405 / 417</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8625380635942000130（02）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:95.27%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">95.3%</span></div></td>
+          <td>11.43 h</td>
+          <td>407 / 425</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr><tr>
+          <td style="font-family:monospace;font-size:12px">X8625380635942000149（03）</td>
+          <td><div style="display:flex;align-items:center;gap:8px;min-width:160px"><div style="flex:1;background:#eee;border-radius:4px;height:8px;overflow:hidden"><div style="width:94.61%;height:100%;background:#27ae60;border-radius:4px"></div></div><span style="font-size:12px;color:#27ae60;font-weight:600;white-space:nowrap">94.6%</span></div></td>
+          <td>11.35 h</td>
+          <td>403 / 421</td>
+          <td><span class="badge normal">正常</span></td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690217<span style="color:#888;font-weight:400;font-size:13px">（115）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">90.20%</span>
+        
+        <span style="font-size:12px;color:#888">10.82h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 418 条 &nbsp;|&nbsp;
+          NORMAL 405 条 &nbsp;|&nbsp;
+          非NORMAL 13 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-20 02:37:54</td>
+              <td>405</td>
+              <td style="font-size:12px">2026-07-20 19:01:01</td>
+              <td style="font-size:12px">2026-07-21 06:58:45</td>
+              <td style="font-family:monospace">49149 → 88116</td>
+              <td>38967 s (10.82 h)</td>
+              <td>90.20% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690208<span style="color:#888;font-weight:400;font-size:13px">（116）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">96.05%</span>
+        
+        <span style="font-size:12px;color:#888">11.53h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 418 条 &nbsp;|&nbsp;
+          NORMAL 404 条 &nbsp;|&nbsp;
+          非NORMAL 14 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-14 03:00:24</td>
+              <td>404</td>
+              <td style="font-size:12px">2026-07-20 19:01:01</td>
+              <td style="font-size:12px">2026-07-21 06:57:03</td>
+              <td style="font-family:monospace">496496 → 537988</td>
+              <td>41492 s (11.53 h)</td>
+              <td>96.05% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690210<span style="color:#888;font-weight:400;font-size:13px">（166）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#e67e22">48.87%</span>
+        
+        <span style="font-size:12px;color:#888">5.86h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 393 条 &nbsp;|&nbsp;
+          NORMAL 388 条 &nbsp;|&nbsp;
+          非NORMAL 5 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-20 06:03:12</td>
+              <td>388</td>
+              <td style="font-size:12px">2026-07-20 19:01:01</td>
+              <td style="font-size:12px">2026-07-21 06:59:30</td>
+              <td style="font-family:monospace">16976 → 38086</td>
+              <td>21110 s (5.86 h)</td>
+              <td>48.87% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690206<span style="color:#888;font-weight:400;font-size:13px">（165）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#f39c12">89.09%</span>
+        
+        <span style="font-size:12px;color:#888">10.69h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 413 条 &nbsp;|&nbsp;
+          NORMAL 376 条 &nbsp;|&nbsp;
+          非NORMAL 37 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-15 10:38:07</td>
+              <td>376</td>
+              <td style="font-size:12px">2026-07-20 19:08:27</td>
+              <td style="font-size:12px">2026-07-21 06:58:37</td>
+              <td style="font-family:monospace">404535 → 443021</td>
+              <td>38486 s (10.69 h)</td>
+              <td>89.09% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690254<span style="color:#888;font-weight:400;font-size:13px">（176）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#e67e22">0.00%</span>
+        
+        <span style="font-size:12px;color:#888">0.00h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 3 条 &nbsp;|&nbsp;
+          NORMAL 0 条 &nbsp;|&nbsp;
+          非NORMAL 3 条 &nbsp;|&nbsp;
+          分组数 0
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690249<span style="color:#888;font-weight:400;font-size:13px">（177）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">96.55%</span>
+        
+        <span style="font-size:12px;color:#888">11.59h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 417 条 &nbsp;|&nbsp;
+          NORMAL 404 条 &nbsp;|&nbsp;
+          非NORMAL 13 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-13 07:26:52</td>
+              <td>404</td>
+              <td style="font-size:12px">2026-07-20 19:02:57</td>
+              <td style="font-size:12px">2026-07-21 06:59:04</td>
+              <td style="font-family:monospace">609184 → 650893</td>
+              <td>41709 s (11.59 h)</td>
+              <td>96.55% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690253<span style="color:#888;font-weight:400;font-size:13px">（139）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#f39c12">73.29%</span>
+        
+        <span style="font-size:12px;color:#888">8.80h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 409 条 &nbsp;|&nbsp;
+          NORMAL 396 条 &nbsp;|&nbsp;
+          非NORMAL 13 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-19 09:30:20</td>
+              <td>396</td>
+              <td style="font-size:12px">2026-07-20 19:00:50</td>
+              <td style="font-size:12px">2026-07-21 06:59:51</td>
+              <td style="font-family:monospace">84259 → 115922</td>
+              <td>31663 s (8.80 h)</td>
+              <td>73.29% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690229<span style="color:#888;font-weight:400;font-size:13px">（138）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">93.91%</span>
+        
+        <span style="font-size:12px;color:#888">11.27h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 409 条 &nbsp;|&nbsp;
+          NORMAL 386 条 &nbsp;|&nbsp;
+          非NORMAL 23 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-15 09:54:34</td>
+              <td>386</td>
+              <td style="font-size:12px">2026-07-20 19:01:07</td>
+              <td style="font-size:12px">2026-07-21 06:59:39</td>
+              <td style="font-family:monospace">414944 → 455515</td>
+              <td>40571 s (11.27 h)</td>
+              <td>93.91% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690259<span style="color:#888;font-weight:400;font-size:13px">（190）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#e67e22">63.97%</span>
+        
+        <span style="font-size:12px;color:#888">7.68h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 388 条 &nbsp;|&nbsp;
+          NORMAL 383 条 &nbsp;|&nbsp;
+          非NORMAL 5 条 &nbsp;|&nbsp;
+          分组数 2
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">1970-01-01 08:00:00</td>
+              <td>258</td>
+              <td style="font-size:12px">2026-07-20 22:40:43</td>
+              <td style="font-size:12px">2026-07-21 06:58:15</td>
+              <td style="font-family:monospace">23807 → 42157</td>
+              <td>18350 s (5.10 h)</td>
+              <td>42.48% </td>
+            </tr><tr>
+              <td style="font-size:12px">2026-07-20 11:40:12</td>
+              <td>125</td>
+              <td style="font-size:12px">2026-07-20 19:01:18</td>
+              <td style="font-size:12px">2026-07-20 22:36:04</td>
+              <td style="font-family:monospace">14475 → 23762</td>
+              <td>9287 s (2.58 h)</td>
+              <td>21.50% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8647080678442690252<span style="color:#888;font-weight:400;font-size:13px">（189）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#f39c12">88.84%</span>
+        
+        <span style="font-size:12px;color:#888">10.66h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 417 条 &nbsp;|&nbsp;
+          NORMAL 405 条 &nbsp;|&nbsp;
+          非NORMAL 12 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-07-19 12:38:33</td>
+              <td>405</td>
+              <td style="font-size:12px">2026-07-20 19:02:09</td>
+              <td style="font-size:12px">2026-07-21 06:59:04</td>
+              <td style="font-family:monospace">4261742 → 4300123</td>
+              <td>38381 s (10.66 h)</td>
+              <td>88.84% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8625380635942000130<span style="color:#888;font-weight:400;font-size:13px">（02）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">95.27%</span>
+        
+        <span style="font-size:12px;color:#888">11.43h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 425 条 &nbsp;|&nbsp;
+          NORMAL 407 条 &nbsp;|&nbsp;
+          非NORMAL 18 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-06-13 13:33:22</td>
+              <td>407</td>
+              <td style="font-size:12px">2026-07-20 19:00:19</td>
+              <td style="font-size:12px">2026-07-21 06:59:36</td>
+              <td style="font-family:monospace">3032142 → 3073298</td>
+              <td>41156 s (11.43 h)</td>
+              <td>95.27% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+  <div class="section">
+    <details open>
+      <summary style="cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:12px">
+        <span style="font-size:15px;font-weight:600;color:#333;font-family:monospace">X8625380635942000149<span style="color:#888;font-weight:400;font-size:13px">（03）</span></span>
+        <span style="font-size:22px;font-weight:700;color:#27ae60">94.61%</span>
+        
+        <span style="font-size:12px;color:#888">11.35h / 12h</span>
+        <span class="badge normal">正常</span>
+      </summary>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:#888;margin-bottom:10px">
+          总记录 421 条 &nbsp;|&nbsp;
+          NORMAL 403 条 &nbsp;|&nbsp;
+          非NORMAL 18 条 &nbsp;|&nbsp;
+          分组数 1
+        </div>
+        
+        <table style="margin-top:12px">
+          <thead><tr>
+            <th>首次记录时间（col6）</th><th>记录数</th>
+            <th>上报开始</th><th>上报结束</th>
+            <th>col11 首→末</th><th>运行时长</th><th>组效率</th>
+          </tr></thead>
+          <tbody><tr>
+              <td style="font-size:12px">2026-06-13 13:33:32</td>
+              <td>403</td>
+              <td style="font-size:12px">2026-07-20 19:01:07</td>
+              <td style="font-size:12px">2026-07-21 06:59:14</td>
+              <td style="font-family:monospace">3010426 → 3051299</td>
+              <td>40873 s (11.35 h)</td>
+              <td>94.61% </td>
+            </tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</div>
+</body>
+</html>
