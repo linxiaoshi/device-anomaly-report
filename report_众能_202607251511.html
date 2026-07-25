@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【众能】设备数据异常分析报告（3个网关）</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; }
+  .header { background:linear-gradient(135deg,#1a237e,#283593); color:#fff; padding:24px 32px; }
+  .header h1 { font-size:22px; }
+  .header .meta { font-size:12px; opacity:.8; margin-top:6px; line-height:1.8; }
+  .container { max-width:1400px; margin:24px auto; padding:0 16px; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+  .card { background:#fff; border-radius:10px; padding:20px 24px; flex:1; min-width:160px;
+           box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:5px solid #ccc; }
+  .card.blue   { border-color:#3498db; }
+  .card.orange { border-color:#f39c12; }
+  .card.yellow { border-color:#f1c40f; }
+  .card.red    { border-color:#e74c3c; }
+  .card.purple { border-color:#9b59b6; }
+  .card.green  { border-color:#27ae60; }
+  .card.teal   { border-color:#1abc9c; }
+  .card .num   { font-size:34px; font-weight:700; }
+  .card .label { font-size:12px; color:#888; margin-top:4px; }
+  .card .sub   { font-size:11px; color:#bbb; margin-top:2px; }
+  .gw-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:24px; }
+  .section { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:24px; }
+  .section h3 { font-size:15px; margin-bottom:14px; color:#555; }
+  .gw-label { display:inline-block; padding:2px 10px; border-radius:4px; font-size:12px;
+               font-weight:600; margin-bottom:10px; }
+  .gw1 { background:#dbeafe; color:#1d4ed8; }
+  .gw2 { background:#dcfce7; color:#15803d; }
+  .gw3 { background:#fef9c3; color:#854d0e; }
+  .gw4 { background:#fce7f3; color:#9d174d; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f5f5f5; padding:8px 10px; text-align:left; border-bottom:2px solid #ddd; white-space:nowrap; }
+  td { padding:7px 10px; border-bottom:1px solid #eee; white-space:nowrap; }
+  tr:hover td { background:#fafafa; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; }
+  .badge.both    { background:#e74c3c; color:#fff; }
+  .badge.msgid   { background:#f39c12; color:#fff; }
+  .badge.timeout { background:#f1c40f; color:#333; }
+  .badge.rtdrop  { background:#27ae60; color:#fff; }
+  .row-both td   { background:#fde8e8; }
+  .row-msgid td  { background:#fff8e1; }
+  .row-timeout td{ background:#fffde7; }
+  .row-rtdrop td { background:#f0fff4; }
+  .note { font-size:12px; color:#999; margin-top:8px; }
+  @media(max-width:900px) { .gw-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>【众能】设备数据异常分析报告（3个网关）</h1>
+  <div class="meta">
+    生成时间: 2026-07-25 15:14:45 &nbsp;|&nbsp;
+    数据时间范围: 2026072414 ~ 2026072514 &nbsp;|&nbsp;
+    异常判定: 上报间隔 &gt; 4 分钟 或 msgid 不连续<br>
+    网关1 (862538065269629（塔石V3-关闭通道）): history_data_862538065269629_202607251500.xlsx
+    网关2 (862538065271856（塔石V3-关闭通道）): history_data_862538065271856_202607251500.xlsx
+    网关3 (862538063597617（塔石V3-关闭通道）): history_data_862538063597617_202607251500.xlsx
+  </div>
+</div>
+<div class="container">
+
+  <!-- 汇总卡片 -->
+  <div class="cards">
+    <div class="card blue">
+      <div class="num">194</div>
+      <div class="label">总设备数（所有网关合计）</div>
+    </div>
+    <div class="card orange">
+      <div class="num">10</div>
+      <div class="label">msgid 不连续设备数</div>
+    </div>
+    <div class="card yellow">
+      <div class="num">28</div>
+      <div class="label">不应答设备数</div>
+    </div>
+    <div class="card red">
+      <div class="num">4</div>
+      <div class="label">两种异常同时存在设备数</div>
+    </div>
+    <div class="card purple">
+      <div class="num">100</div>
+      <div class="label">异常记录总数</div>
+      <div class="sub">
+        <span style="color:#e74c3c;font-weight:600">不应答 90 条（0.05%）</span> &nbsp;|&nbsp;
+        <span style="color:#e74c3c;font-weight:600">丢包 10 条（<0.01%）</span> &nbsp;|&nbsp;
+        运行时长跳小 0 条
+      </div>
+    </div>
+    <div class="card teal">
+      <div class="num">0</div>
+      <div class="label">运行时长跳小设备数</div>
+    </div>
+    <div class="card green">
+      <div class="num">0.06%</div>
+      <div class="label">总异常率</div>
+      <div class="sub">异常记录 100 / up/supply 记录 164617</div>
+    </div>
+  </div>
+
+  <!-- 网关设备汇总 -->
+  <div class="gw-grid">
+    
+    <div class="section">
+      <h3>网关1 设备异常汇总</h3>
+      <span class="gw-label gw1">862538065269629（塔石V3-关闭通道）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 62 &nbsp;|&nbsp;
+        异常记录: 52 &nbsp;|&nbsp;
+        msgid不连续: 0 台 &nbsp;|&nbsp;
+        不应答: 10 台 &nbsp;|&nbsp;
+        双异常: 0 台 &nbsp;|&nbsp;
+        运行时长跳小: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 10 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>X8625380652696290026</td><td>37</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290001</td><td>5</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290049</td><td>3</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290007</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290014</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290012</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290024</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290054</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290060</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652696290063</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+    <div class="section">
+      <h3>网关2 设备异常汇总</h3>
+      <span class="gw-label gw2">862538065271856（塔石V3-关闭通道）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 65 &nbsp;|&nbsp;
+        异常记录: 3 &nbsp;|&nbsp;
+        msgid不连续: 0 台 &nbsp;|&nbsp;
+        不应答: 2 台 &nbsp;|&nbsp;
+        双异常: 0 台 &nbsp;|&nbsp;
+        运行时长跳小: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 2 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>X8625380652718560102</td><td>2</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380652718560125</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+    <div class="section">
+      <h3>网关3 设备异常汇总</h3>
+      <span class="gw-label gw3">862538063597617（塔石V3-关闭通道）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 67 &nbsp;|&nbsp;
+        异常记录: 45 &nbsp;|&nbsp;
+        msgid不连续: 10 台 &nbsp;|&nbsp;
+        不应答: 16 台 &nbsp;|&nbsp;
+        双异常: 4 台 &nbsp;|&nbsp;
+        运行时长跳小: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 22 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>X8625380635976170267</td><td>10</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170201</td><td>4</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170235</td><td>3</td><td><span class="badge both">msgid不连续+不应答</span></td></tr>
+<tr><td>X8625380635976170238</td><td>3</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170206</td><td>3</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170210</td><td>2</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170263</td><td>2</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170228</td><td>2</td><td><span class="badge both">msgid不连续+不应答</span></td></tr>
+<tr><td>X8625380635976170232</td><td>2</td><td><span class="badge both">msgid不连续+不应答</span></td></tr>
+<tr><td>X8625380635976170229</td><td>2</td><td><span class="badge both">msgid不连续+不应答</span></td></tr>
+<tr><td>X8625380635976170214</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170211</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170203</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170227</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635976170233</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635976170231</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635976170230</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635976170226</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635976170239</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170236</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635976170251</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635976170265</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+  </div>
+
+  <!-- 异常明细 -->
+  <div class="section">
+    <details>
+      <summary style="cursor:pointer;font-size:15px;font-weight:600;color:#555;padding:4px 0;user-select:none;">
+        异常明细（每个网关按间隔秒数降序前 50 条）
+      </summary>
+      <div style="margin-top:14px;overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>网关</th><th>异常类型</th><th>设备</th>
+              <th>上一次msgid</th><th>上一次上报时间</th><th>上一次运行时长</th><th>上一次转速</th>
+              <th>本次msgid</th><th>本次上报时间</th><th>本次运行时长</th><th>本次转速</th>
+              <th>间隔秒数</th><th>msgid跳号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18972</td><td>2026-07-24 22:59:26</td><td>1864432.0</td><td>0.0</td><td>18973</td><td>2026-07-25 06:15:21</td><td>1889116.0</td><td>658.0</td><td>26155</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18973</td><td>2026-07-25 06:15:21</td><td>1889116.0</td><td>658.0</td><td>18974</td><td>2026-07-25 08:27:28</td><td>1896621.0</td><td>0.0</td><td>7927</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18970</td><td>2026-07-24 21:43:07</td><td>1861941.0</td><td>658.0</td><td>18971</td><td>2026-07-24 22:57:46</td><td>1864432.0</td><td>0.0</td><td>4479</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18954</td><td>2026-07-24 17:34:01</td><td>1850906.0</td><td>659.0</td><td>18955</td><td>2026-07-24 18:32:19</td><td>1854305.0</td><td>660.0</td><td>3498</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18965</td><td>2026-07-24 19:53:12</td><td>1857564.0</td><td>658.0</td><td>18966</td><td>2026-07-24 20:48:11</td><td>1860603.0</td><td>658.0</td><td>3299</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18974</td><td>2026-07-25 08:27:28</td><td>1896621.0</td><td>0.0</td><td>18975</td><td>2026-07-25 09:20:26</td><td>1899333.0</td><td>0.0</td><td>3178</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18968</td><td>2026-07-24 21:11:05</td><td>1861807.0</td><td>0.0</td><td>18969</td><td>2026-07-24 21:40:37</td><td>1861884.0</td><td>0.0</td><td>1772</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18975</td><td>2026-07-25 09:20:26</td><td>1899333.0</td><td>0.0</td><td>18976</td><td>2026-07-25 09:47:44</td><td>1900909.0</td><td>658.0</td><td>1638</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18953</td><td>2026-07-24 17:12:44</td><td>1850050.0</td><td>658.0</td><td>18954</td><td>2026-07-24 17:34:01</td><td>1850906.0</td><td>659.0</td><td>1277</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290060</td><td>20964</td><td>2026-07-25 13:38:39</td><td>762961.0</td><td>0.0</td><td>20965</td><td>2026-07-25 13:59:27</td><td>762961.0</td><td>0.0</td><td>1248</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290007</td><td>21211</td><td>2026-07-25 10:23:59</td><td>4524402.0</td><td>0.0</td><td>21212</td><td>2026-07-25 10:43:37</td><td>4524402.0</td><td>0.0</td><td>1178</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18918</td><td>2026-07-24 15:01:55</td><td>1842738.0</td><td>659.0</td><td>18919</td><td>2026-07-24 15:20:15</td><td>1843838.0</td><td>660.0</td><td>1100</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18955</td><td>2026-07-24 18:32:19</td><td>1854305.0</td><td>660.0</td><td>18956</td><td>2026-07-24 18:50:38</td><td>1855405.0</td><td>659.0</td><td>1099</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18915</td><td>2026-07-24 14:29:49</td><td>1840813.0</td><td>659.0</td><td>18916</td><td>2026-07-24 14:46:29</td><td>1841813.0</td><td>659.0</td><td>1000</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18962</td><td>2026-07-24 19:28:59</td><td>1857040.0</td><td>0.0</td><td>18963</td><td>2026-07-24 19:43:07</td><td>1857103.0</td><td>0.0</td><td>848</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td></td><td>2026-07-24 14:00:00</td><td></td><td></td><td>18912</td><td>2026-07-24 14:13:26</td><td>1839852.0</td><td>659.0</td><td>806</td><td></td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170201</td><td>20217</td><td>2026-07-24 18:39:21</td><td>4480584.0</td><td>650.0</td><td>20218</td><td>2026-07-24 18:52:45</td><td>4481349.0</td><td>650.0</td><td>804</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18966</td><td>2026-07-24 20:48:11</td><td>1860603.0</td><td>658.0</td><td>18967</td><td>2026-07-24 21:00:16</td><td>1861292.0</td><td>0.0</td><td>725</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18916</td><td>2026-07-24 14:46:29</td><td>1841813.0</td><td>659.0</td><td>18917</td><td>2026-07-24 14:57:45</td><td>1842488.0</td><td>659.0</td><td>676</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18967</td><td>2026-07-24 21:00:16</td><td>1861292.0</td><td>0.0</td><td>18968</td><td>2026-07-24 21:11:05</td><td>1861807.0</td><td>0.0</td><td>649</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18961</td><td>2026-07-24 19:18:36</td><td>1856532.0</td><td>0.0</td><td>18962</td><td>2026-07-24 19:28:59</td><td>1857040.0</td><td>0.0</td><td>623</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18948</td><td>2026-07-24 16:39:51</td><td>1848343.0</td><td>659.0</td><td>18949</td><td>2026-07-24 16:49:51</td><td>1848792.0</td><td>659.0</td><td>600</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170229</td><td>21085</td><td>2026-07-25 04:15:10</td><td>4760018.0</td><td>0.0</td><td>21086</td><td>2026-07-25 04:24:19</td><td>4760527.0</td><td>630.0</td><td>549</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290063</td><td>20354</td><td>2026-07-24 17:08:49</td><td>3985881.0</td><td>593.0</td><td>20355</td><td>2026-07-24 17:17:14</td><td>3986381.0</td><td>592.0</td><td>505</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18957</td><td>2026-07-24 18:56:56</td><td>1855780.0</td><td>659.0</td><td>18958</td><td>2026-07-24 19:05:16</td><td>1856280.0</td><td>660.0</td><td>500</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18947</td><td>2026-07-24 16:31:31</td><td>1847843.0</td><td>658.0</td><td>18948</td><td>2026-07-24 16:39:51</td><td>1848343.0</td><td>659.0</td><td>500</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18914</td><td>2026-07-24 14:21:46</td><td>1840329.0</td><td>659.0</td><td>18915</td><td>2026-07-24 14:29:49</td><td>1840813.0</td><td>659.0</td><td>483</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290049</td><td>21057</td><td>2026-07-25 13:17:45</td><td>4537167.0</td><td>615.0</td><td>21058</td><td>2026-07-25 13:25:39</td><td>4537642.0</td><td>615.0</td><td>474</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290049</td><td>21056</td><td>2026-07-25 13:10:15</td><td>4536717.0</td><td>616.0</td><td>21057</td><td>2026-07-25 13:17:45</td><td>4537167.0</td><td>615.0</td><td>450</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170265</td><td>20645</td><td>2026-07-24 16:40:48</td><td>4569236.0</td><td>610.0</td><td>20646</td><td>2026-07-24 16:48:02</td><td>4569253.0</td><td>59.0</td><td>434</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18945</td><td>2026-07-24 16:21:04</td><td>1847218.0</td><td>659.0</td><td>18946</td><td>2026-07-24 16:28:11</td><td>1847643.0</td><td>658.0</td><td>427</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18950</td><td>2026-07-24 16:53:11</td><td>1848992.0</td><td>660.0</td><td>18951</td><td>2026-07-24 17:00:16</td><td>1849417.0</td><td>658.0</td><td>425</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170263</td><td>20521</td><td>2026-07-24 18:49:04</td><td>4739758.0</td><td>620.0</td><td>20522</td><td>2026-07-24 18:55:46</td><td>4740158.0</td><td>620.0</td><td>402</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18960</td><td>2026-07-24 19:11:56</td><td>1856519.0</td><td>0.0</td><td>18961</td><td>2026-07-24 19:18:36</td><td>1856532.0</td><td>0.0</td><td>400</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18951</td><td>2026-07-24 17:00:16</td><td>1849417.0</td><td>658.0</td><td>18952</td><td>2026-07-24 17:06:56</td><td>1849700.0</td><td>659.0</td><td>400</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18922</td><td>2026-07-24 15:31:30</td><td>1844513.0</td><td>660.0</td><td>18923</td><td>2026-07-24 15:38:10</td><td>1844642.0</td><td>659.0</td><td>400</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170210</td><td>20770</td><td>2026-07-24 21:27:19</td><td>4480404.0</td><td>0.0</td><td>20771</td><td>2026-07-24 21:33:58</td><td>4480318.0</td><td>59.0</td><td>399</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170263</td><td>20519</td><td>2026-07-24 18:41:05</td><td>4739258.0</td><td>620.0</td><td>20520</td><td>2026-07-24 18:47:23</td><td>4739658.0</td><td>620.0</td><td>378</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18956</td><td>2026-07-24 18:50:38</td><td>1855405.0</td><td>659.0</td><td>18957</td><td>2026-07-24 18:56:56</td><td>1855780.0</td><td>659.0</td><td>378</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290014</td><td>20658</td><td>2026-07-24 17:53:54</td><td>4786444.0</td><td>612.0</td><td>20659</td><td>2026-07-24 18:00:06</td><td>4786819.0</td><td>612.0</td><td>372</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18987</td><td>2026-07-25 10:09:01</td><td>1902185.0</td><td>658.0</td><td>18988</td><td>2026-07-25 10:15:02</td><td>1902544.0</td><td>658.0</td><td>361</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20918</td><td>2026-07-25 12:27:41</td><td>4584828.0</td><td>620.0</td><td>20919</td><td>2026-07-25 12:33:36</td><td>4585178.0</td><td>620.0</td><td>355</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18921</td><td>2026-07-24 15:25:37</td><td>1844162.0</td><td>659.0</td><td>18922</td><td>2026-07-24 15:31:30</td><td>1844513.0</td><td>660.0</td><td>353</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20544</td><td>2026-07-25 00:32:02</td><td>4544171.0</td><td>620.0</td><td>20545</td><td>2026-07-25 00:37:52</td><td>4544521.0</td><td>620.0</td><td>350</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18952</td><td>2026-07-24 17:06:56</td><td>1849700.0</td><td>659.0</td><td>18953</td><td>2026-07-24 17:12:44</td><td>1850050.0</td><td>658.0</td><td>348</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170211</td><td>20708</td><td>2026-07-24 18:09:30</td><td>4691191.0</td><td>630.0</td><td>20709</td><td>2026-07-24 18:15:17</td><td>4691541.0</td><td>630.0</td><td>347</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170238</td><td>21240</td><td>2026-07-25 08:18:16</td><td>4810768.0</td><td>59.0</td><td>21241</td><td>2026-07-25 08:24:02</td><td>4810768.0</td><td>59.0</td><td>346</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170228</td><td>20639</td><td>2026-07-24 18:09:41</td><td>4256087.0</td><td>610.0</td><td>20640</td><td>2026-07-24 18:15:25</td><td>4256437.0</td><td>610.0</td><td>344</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20872</td><td>2026-07-25 10:54:25</td><td>4579807.0</td><td>620.0</td><td>20873</td><td>2026-07-25 11:00:02</td><td>4580159.0</td><td>620.0</td><td>337</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170238</td><td>21239</td><td>2026-07-25 08:13:05</td><td>4810768.0</td><td>0.0</td><td>21240</td><td>2026-07-25 08:18:16</td><td>4810768.0</td><td>59.0</td><td>311</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170235</td><td>21211</td><td>2026-07-25 08:18:10</td><td>4730717.0</td><td>0.0</td><td>21212</td><td>2026-07-25 08:23:15</td><td>4730717.0</td><td>0.0</td><td>305</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290012</td><td>20709</td><td>2026-07-24 20:04:14</td><td>4187369.0</td><td>654.0</td><td>20710</td><td>2026-07-24 20:09:19</td><td>4187669.0</td><td>654.0</td><td>305</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18963</td><td>2026-07-24 19:43:07</td><td>1857103.0</td><td>0.0</td><td>18964</td><td>2026-07-24 19:48:11</td><td>1857264.0</td><td>658.0</td><td>304</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065271856</td><td><span class="badge timeout">不应答</span></td><td>X8625380652718560125</td><td>20371</td><td>2026-07-24 17:11:13</td><td>1428053.0</td><td>650.0</td><td>20372</td><td>2026-07-24 17:16:16</td><td>1428352.0</td><td>650.0</td><td>303</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18964</td><td>2026-07-24 19:48:11</td><td>1857264.0</td><td>658.0</td><td>18965</td><td>2026-07-24 19:53:12</td><td>1857564.0</td><td>658.0</td><td>301</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290001</td><td>20557</td><td>2026-07-25 01:55:54</td><td>4583931.0</td><td>623.0</td><td>20558</td><td>2026-07-25 02:00:54</td><td>4584231.0</td><td>623.0</td><td>300</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20405</td><td>2026-07-24 19:55:07</td><td>4528864.0</td><td>620.0</td><td>20406</td><td>2026-07-24 20:00:07</td><td>4529164.0</td><td>620.0</td><td>300</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290049</td><td>21053</td><td>2026-07-25 12:59:22</td><td>4536067.0</td><td>616.0</td><td>21054</td><td>2026-07-25 13:04:22</td><td>4536367.0</td><td>615.0</td><td>300</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20947</td><td>2026-07-25 13:24:34</td><td>4587672.0</td><td>0.0</td><td>20948</td><td>2026-07-25 13:29:34</td><td>4587887.0</td><td>620.0</td><td>300</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18912</td><td>2026-07-24 14:13:26</td><td>1839852.0</td><td>659.0</td><td>18913</td><td>2026-07-24 14:18:26</td><td>1840129.0</td><td>659.0</td><td>300</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20554</td><td>2026-07-25 01:01:12</td><td>4545921.0</td><td>620.0</td><td>20555</td><td>2026-07-25 01:06:12</td><td>4546221.0</td><td>620.0</td><td>300</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170232</td><td>20727</td><td>2026-07-24 18:09:41</td><td>4408353.0</td><td>630.0</td><td>20728</td><td>2026-07-24 18:14:40</td><td>4408653.0</td><td>630.0</td><td>299</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065271856</td><td><span class="badge timeout">不应答</span></td><td>X8625380652718560102</td><td>20811</td><td>2026-07-25 01:52:36</td><td>693388.0</td><td>0.0</td><td>20812</td><td>2026-07-25 01:57:35</td><td>693388.0</td><td>0.0</td><td>299</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170239</td><td>20590</td><td>2026-07-24 15:08:50</td><td>4533779.0</td><td>620.0</td><td>20591</td><td>2026-07-24 15:13:47</td><td>4534079.0</td><td>620.0</td><td>297</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170206</td><td>20892</td><td>2026-07-25 00:24:00</td><td>4696643.0</td><td>620.0</td><td>20893</td><td>2026-07-25 00:28:56</td><td>4696943.0</td><td>620.0</td><td>296</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170210</td><td>21030</td><td>2026-07-25 04:45:53</td><td>4496545.0</td><td>0.0</td><td>21031</td><td>2026-07-25 04:50:47</td><td>4496545.0</td><td>0.0</td><td>294</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20563</td><td>2026-07-25 01:24:48</td><td>4547321.0</td><td>620.0</td><td>20564</td><td>2026-07-25 01:29:32</td><td>4547621.0</td><td>620.0</td><td>284</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20853</td><td>2026-07-25 10:13:39</td><td>4577527.0</td><td>620.0</td><td>20854</td><td>2026-07-25 10:18:20</td><td>4577827.0</td><td>620.0</td><td>281</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20533</td><td>2026-07-25 00:06:32</td><td>4542714.0</td><td>620.0</td><td>20534</td><td>2026-07-25 00:11:12</td><td>4543014.0</td><td>620.0</td><td>280</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170267</td><td>20547</td><td>2026-07-25 00:41:32</td><td>4544721.0</td><td>620.0</td><td>20548</td><td>2026-07-25 00:46:12</td><td>4545021.0</td><td>620.0</td><td>280</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290001</td><td>20951</td><td>2026-07-25 13:23:57</td><td>4619854.0</td><td>623.0</td><td>20952</td><td>2026-07-25 13:28:36</td><td>4620129.0</td><td>622.0</td><td>279</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170251</td><td>21277</td><td>2026-07-25 09:56:19</td><td>4803460.0</td><td>620.0</td><td>21278</td><td>2026-07-25 10:00:34</td><td>4803710.0</td><td>620.0</td><td>255</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170206</td><td>20926</td><td>2026-07-25 01:23:56</td><td>4700243.0</td><td>620.0</td><td>20927</td><td>2026-07-25 01:28:11</td><td>4700493.0</td><td>620.0</td><td>255</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290001</td><td>20822</td><td>2026-07-25 09:34:59</td><td>4607648.0</td><td>622.0</td><td>20823</td><td>2026-07-25 09:39:14</td><td>4607898.0</td><td>623.0</td><td>255</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170201</td><td>20552</td><td>2026-07-25 04:30:42</td><td>4512791.0</td><td>650.0</td><td>20553</td><td>2026-07-25 04:34:56</td><td>4513041.0</td><td>650.0</td><td>254</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18959</td><td>2026-07-24 19:07:43</td><td>1856406.0</td><td>0.0</td><td>18960</td><td>2026-07-24 19:11:56</td><td>1856519.0</td><td>0.0</td><td>253</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170238</td><td>20626</td><td>2026-07-24 15:06:14</td><td>4786878.0</td><td>630.0</td><td>20627</td><td>2026-07-24 15:10:27</td><td>4787136.0</td><td>630.0</td><td>253</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170235</td><td>21267</td><td>2026-07-25 09:56:13</td><td>4732094.0</td><td>0.0</td><td>21268</td><td>2026-07-25 10:00:26</td><td>4732094.0</td><td>0.0</td><td>253</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290001</td><td>20152</td><td>2026-07-24 14:02:22</td><td>4541589.0</td><td>623.0</td><td>20153</td><td>2026-07-24 14:06:34</td><td>4541839.0</td><td>623.0</td><td>252</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290001</td><td>20841</td><td>2026-07-25 10:13:58</td><td>4609984.0</td><td>622.0</td><td>20842</td><td>2026-07-25 10:18:10</td><td>4610234.0</td><td>622.0</td><td>252</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170201</td><td>20409</td><td>2026-07-25 00:25:37</td><td>4499954.0</td><td>650.0</td><td>20410</td><td>2026-07-25 00:29:49</td><td>4500204.0</td><td>650.0</td><td>252</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290024</td><td>20767</td><td>2026-07-24 22:38:58</td><td>4901147.0</td><td>592.0</td><td>20768</td><td>2026-07-24 22:43:10</td><td>4901397.0</td><td>593.0</td><td>252</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065269629</td><td><span class="badge timeout">不应答</span></td><td>X8625380652696290026</td><td>18917</td><td>2026-07-24 14:57:45</td><td>1842488.0</td><td>659.0</td><td>18918</td><td>2026-07-24 15:01:55</td><td>1842738.0</td><td>659.0</td><td>250</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170214</td><td>20690</td><td>2026-07-24 17:32:36</td><td>4709265.0</td><td>620.0</td><td>20691</td><td>2026-07-24 17:36:46</td><td>4709515.0</td><td>620.0</td><td>250</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538065271856</td><td><span class="badge timeout">不应答</span></td><td>X8625380652718560102</td><td>20803</td><td>2026-07-25 01:34:21</td><td>693388.0</td><td>0.0</td><td>20804</td><td>2026-07-25 01:38:30</td><td>693388.0</td><td>0.0</td><td>249</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170206</td><td>21148</td><td>2026-07-25 07:37:52</td><td>4722519.0</td><td>620.0</td><td>21149</td><td>2026-07-25 07:42:00</td><td>4722769.0</td><td>620.0</td><td>248</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170201</td><td>20742</td><td>2026-07-25 09:56:52</td><td>4531089.0</td><td>650.0</td><td>20743</td><td>2026-07-25 10:00:59</td><td>4531339.0</td><td>650.0</td><td>247</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063597617</td><td><span class="badge timeout">不应答</span></td><td>X8625380635976170203</td><td>20884</td><td>2026-07-25 00:24:52</td><td>4640288.0</td><td>653.0</td><td>20885</td><td>2026-07-25 00:28:56</td><td>4640538.0</td><td>653.0</td><td>244</td><td>1</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170230</td><td>21026</td><td>2026-07-25 07:11:05</td><td>4573305.0</td><td>655.0</td><td>21028</td><td>2026-07-25 07:14:37</td><td>4573513.0</td><td>655.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170229</td><td>21186</td><td>2026-07-25 07:11:05</td><td>4770219.0</td><td>0.0</td><td>21188</td><td>2026-07-25 07:14:37</td><td>4770299.0</td><td>630.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170232</td><td>21192</td><td>2026-07-25 07:11:05</td><td>4452584.0</td><td>630.0</td><td>21194</td><td>2026-07-25 07:14:37</td><td>4452791.0</td><td>630.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170231</td><td>21204</td><td>2026-07-25 07:11:05</td><td>4609129.0</td><td>620.0</td><td>21206</td><td>2026-07-25 07:14:37</td><td>4609337.0</td><td>620.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170226</td><td>21183</td><td>2026-07-25 07:11:05</td><td>4824261.0</td><td>620.0</td><td>21185</td><td>2026-07-25 07:14:30</td><td>4824468.0</td><td>620.0</td><td>205</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170228</td><td>21102</td><td>2026-07-25 07:11:05</td><td>4300787.0</td><td>610.0</td><td>21104</td><td>2026-07-25 07:14:30</td><td>4300994.0</td><td>610.0</td><td>205</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170227</td><td>21181</td><td>2026-07-25 07:11:05</td><td>4756863.0</td><td>620.0</td><td>21183</td><td>2026-07-25 07:14:30</td><td>4757071.0</td><td>620.0</td><td>205</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170236</td><td>21184</td><td>2026-07-25 07:11:14</td><td>4759646.0</td><td>630.0</td><td>21186</td><td>2026-07-25 07:14:37</td><td>4759854.0</td><td>630.0</td><td>203</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170233</td><td>20957</td><td>2026-07-25 07:11:14</td><td>4461747.0</td><td>591.0</td><td>20959</td><td>2026-07-25 07:14:37</td><td>4461955.0</td><td>591.0</td><td>203</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063597617</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635976170235</td><td>21171</td><td>2026-07-25 07:11:14</td><td>4730717.0</td><td>0.0</td><td>21173</td><td>2026-07-25 07:14:37</td><td>4730717.0</td><td>0.0</td><td>203</td><td>2</td></tr>
+
+          </tbody>
+        </table>
+        <p class="note">* 每个网关仅展示前 50 条，完整数据见 anomalies_众能_202607251511.xlsx</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+</body>
+</html>
