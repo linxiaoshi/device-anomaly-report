@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【众珏(泗阳)纺织科技有限公司】设备数据异常分析报告（双网关）</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; }
+  .header { background:linear-gradient(135deg,#1a237e,#283593); color:#fff; padding:24px 32px; }
+  .header h1 { font-size:22px; }
+  .header .meta { font-size:12px; opacity:.8; margin-top:6px; line-height:1.8; }
+  .container { max-width:1400px; margin:24px auto; padding:0 16px; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+  .card { background:#fff; border-radius:10px; padding:20px 24px; flex:1; min-width:160px;
+           box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:5px solid #ccc; }
+  .card.blue   { border-color:#3498db; }
+  .card.orange { border-color:#f39c12; }
+  .card.yellow { border-color:#f1c40f; }
+  .card.red    { border-color:#e74c3c; }
+  .card.purple { border-color:#9b59b6; }
+  .card.green  { border-color:#27ae60; }
+  .card.teal   { border-color:#1abc9c; }
+  .card .num   { font-size:34px; font-weight:700; }
+  .card .label { font-size:12px; color:#888; margin-top:4px; }
+  .card .sub   { font-size:11px; color:#bbb; margin-top:2px; }
+  .gw-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:24px; }
+  .section { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:24px; }
+  .section h3 { font-size:15px; margin-bottom:14px; color:#555; }
+  .gw-label { display:inline-block; padding:2px 10px; border-radius:4px; font-size:12px;
+               font-weight:600; margin-bottom:10px; }
+  .gw1 { background:#dbeafe; color:#1d4ed8; }
+  .gw2 { background:#dcfce7; color:#15803d; }
+  .gw3 { background:#fef9c3; color:#854d0e; }
+  .gw4 { background:#fce7f3; color:#9d174d; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f5f5f5; padding:8px 10px; text-align:left; border-bottom:2px solid #ddd; white-space:nowrap; }
+  td { padding:7px 10px; border-bottom:1px solid #eee; white-space:nowrap; }
+  tr:hover td { background:#fafafa; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; }
+  .badge.both    { background:#e74c3c; color:#fff; }
+  .badge.msgid   { background:#f39c12; color:#fff; }
+  .badge.timeout { background:#f1c40f; color:#333; }
+  .badge.rtdrop  { background:#27ae60; color:#fff; }
+  .row-both td   { background:#fde8e8; }
+  .row-msgid td  { background:#fff8e1; }
+  .row-timeout td{ background:#fffde7; }
+  .row-rtdrop td { background:#f0fff4; }
+  .note { font-size:12px; color:#999; margin-top:8px; }
+  @media(max-width:900px) { .gw-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>【众珏(泗阳)纺织科技有限公司】设备数据异常分析报告（双网关）</h1>
+  <div class="meta">
+    生成时间: 2026-08-19 15:15:49 &nbsp;|&nbsp;
+    数据时间范围: 2026081714 ~ 2026081814 &nbsp;|&nbsp;
+    异常判定: 上报间隔 &gt; 4 分钟 或 msgid 不连续<br>
+    网关1 (866018081500352（塔石V4）): history_data_866018081500352_202608191505.xlsx
+    网关2 (866018081501814（塔石V4）): history_data_866018081501814_202608191505.xlsx
+  </div>
+</div>
+<div class="container">
+
+  <!-- 汇总卡片 -->
+  <div class="cards">
+    <div class="card blue">
+      <div class="num">165</div>
+      <div class="label">总设备数（所有网关合计）</div>
+    </div>
+    <div class="card orange">
+      <div class="num">25</div>
+      <div class="label">msgid 不连续设备数</div>
+    </div>
+    <div class="card yellow">
+      <div class="num">0</div>
+      <div class="label">不应答设备数</div>
+    </div>
+    <div class="card red">
+      <div class="num">0</div>
+      <div class="label">两种异常同时存在设备数</div>
+    </div>
+    <div class="card purple">
+      <div class="num">25</div>
+      <div class="label">异常记录总数</div>
+      <div class="sub">
+        不应答 0 条（0.00%） &nbsp;|&nbsp;
+        <span style="color:#e74c3c;font-weight:600">丢包 25 条（0.02%）</span> &nbsp;|&nbsp;
+        运行时长跳小 0 条
+      </div>
+    </div>
+    <div class="card teal">
+      <div class="num">0</div>
+      <div class="label">运行时长跳小设备数</div>
+    </div>
+    <div class="card green">
+      <div class="num">0.02%</div>
+      <div class="label">总异常率</div>
+      <div class="sub">异常记录 25 / up/supply 记录 140902</div>
+    </div>
+  </div>
+
+  <!-- 网关设备汇总 -->
+  <div class="gw-grid">
+    
+    <div class="section">
+      <h3>网关1 设备异常汇总</h3>
+      <span class="gw-label gw1">866018081500352（塔石V4）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 83 &nbsp;|&nbsp;
+        异常记录: 0 &nbsp;|&nbsp;
+        msgid不连续: 0 台 &nbsp;|&nbsp;
+        不应答: 0 台 &nbsp;|&nbsp;
+        双异常: 0 台 &nbsp;|&nbsp;
+        运行时长跳小: 0 台
+      </div>
+      <p style='color:#999'>无异常设备</p>
+    </div>
+    <div class="section">
+      <h3>网关2 设备异常汇总</h3>
+      <span class="gw-label gw2">866018081501814（塔石V4）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 82 &nbsp;|&nbsp;
+        异常记录: 25 &nbsp;|&nbsp;
+        msgid不连续: 25 台 &nbsp;|&nbsp;
+        不应答: 0 台 &nbsp;|&nbsp;
+        双异常: 0 台 &nbsp;|&nbsp;
+        运行时长跳小: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 25 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>XSG00002346</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002349</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002353</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002354</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002355</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002363</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002364</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002365</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002366</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002369</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002374</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002376</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002377</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002379</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002382</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002385</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002390</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002394</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002398</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002400</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002405</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002408</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002414</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002421</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>XSG00002424</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+  </div>
+
+  <!-- 异常明细 -->
+  <div class="section">
+    <details>
+      <summary style="cursor:pointer;font-size:15px;font-weight:600;color:#555;padding:4px 0;user-select:none;">
+        异常明细（每个网关按间隔秒数降序前 50 条）
+      </summary>
+      <div style="margin-top:14px;overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>网关</th><th>异常类型</th><th>设备</th>
+              <th>上一次msgid</th><th>上一次上报时间</th><th>上一次运行时长</th><th>上一次转速</th>
+              <th>本次msgid</th><th>本次上报时间</th><th>本次运行时长</th><th>本次转速</th>
+              <th>间隔秒数</th><th>msgid跳号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002414</td><td>6005</td><td>2026-08-17 14:45:05</td><td>1004665.0</td><td>649.0</td><td>6007</td><td>2026-08-17 14:49:23</td><td>1004923.0</td><td>649.0</td><td>258</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002394</td><td>6464</td><td>2026-08-18 03:28:43</td><td>972932.0</td><td>679.0</td><td>6466</td><td>2026-08-18 03:32:48</td><td>973141.0</td><td>679.0</td><td>245</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002408</td><td>6463</td><td>2026-08-18 03:28:43</td><td>1069119.0</td><td>649.0</td><td>6465</td><td>2026-08-18 03:32:48</td><td>1069328.0</td><td>649.0</td><td>245</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002374</td><td>6499</td><td>2026-08-18 05:58:12</td><td>1073004.0</td><td>0.0</td><td>6501</td><td>2026-08-18 06:01:44</td><td>1073004.0</td><td>0.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002385</td><td>6528</td><td>2026-08-18 05:58:12</td><td>1075175.0</td><td>629.0</td><td>6530</td><td>2026-08-18 06:01:44</td><td>1075384.0</td><td>629.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002382</td><td>6551</td><td>2026-08-18 05:58:12</td><td>1061377.0</td><td>629.0</td><td>6553</td><td>2026-08-18 06:01:44</td><td>1061586.0</td><td>629.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002366</td><td>6561</td><td>2026-08-18 05:58:12</td><td>1070711.0</td><td>0.0</td><td>6563</td><td>2026-08-18 06:01:44</td><td>1070842.0</td><td>651.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002346</td><td>6017</td><td>2026-08-17 14:45:05</td><td>1022285.0</td><td>649.0</td><td>6019</td><td>2026-08-17 14:48:34</td><td>1022368.0</td><td>0.0</td><td>209</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002349</td><td>5937</td><td>2026-08-17 14:45:05</td><td>1022283.0</td><td>679.0</td><td>5939</td><td>2026-08-17 14:48:34</td><td>1022491.0</td><td>679.0</td><td>209</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002376</td><td>6007</td><td>2026-08-17 14:45:05</td><td>1033537.0</td><td>649.0</td><td>6009</td><td>2026-08-17 14:48:34</td><td>1033745.0</td><td>649.0</td><td>209</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002390</td><td>5913</td><td>2026-08-17 14:45:05</td><td>1028723.0</td><td>629.0</td><td>5915</td><td>2026-08-17 14:48:34</td><td>1028931.0</td><td>629.0</td><td>209</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002377</td><td>6011</td><td>2026-08-17 14:45:05</td><td>1018693.0</td><td>619.0</td><td>6013</td><td>2026-08-17 14:48:34</td><td>1018902.0</td><td>619.0</td><td>209</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002369</td><td>5987</td><td>2026-08-17 14:45:05</td><td>958553.0</td><td>649.0</td><td>5989</td><td>2026-08-17 14:48:34</td><td>958761.0</td><td>649.0</td><td>209</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002365</td><td>6002</td><td>2026-08-17 14:45:05</td><td>1012179.0</td><td>679.0</td><td>6004</td><td>2026-08-17 14:48:34</td><td>1012388.0</td><td>679.0</td><td>209</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002354</td><td>6016</td><td>2026-08-17 14:44:58</td><td>924986.0</td><td>649.0</td><td>6018</td><td>2026-08-17 14:48:26</td><td>925195.0</td><td>649.0</td><td>208</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002353</td><td>6384</td><td>2026-08-18 05:58:18</td><td>1042081.0</td><td>679.0</td><td>6386</td><td>2026-08-18 06:01:44</td><td>1042290.0</td><td>679.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002355</td><td>6560</td><td>2026-08-18 05:58:18</td><td>1085007.0</td><td>649.0</td><td>6562</td><td>2026-08-18 06:01:44</td><td>1085215.0</td><td>649.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002424</td><td>6554</td><td>2026-08-18 05:58:12</td><td>1048831.0</td><td>629.0</td><td>6556</td><td>2026-08-18 06:01:38</td><td>1049040.0</td><td>629.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002363</td><td>6559</td><td>2026-08-18 05:58:12</td><td>1022705.0</td><td>629.0</td><td>6561</td><td>2026-08-18 06:01:38</td><td>1022913.0</td><td>629.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002421</td><td>6564</td><td>2026-08-18 05:58:18</td><td>1063000.0</td><td>649.0</td><td>6566</td><td>2026-08-18 06:01:44</td><td>1063209.0</td><td>649.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002398</td><td>6553</td><td>2026-08-18 05:58:12</td><td>1073938.0</td><td>649.0</td><td>6555</td><td>2026-08-18 06:01:38</td><td>1074147.0</td><td>649.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002364</td><td>6459</td><td>2026-08-18 03:28:43</td><td>1054885.0</td><td>649.0</td><td>6461</td><td>2026-08-18 03:32:05</td><td>1055093.0</td><td>649.0</td><td>202</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002379</td><td>6447</td><td>2026-08-18 03:28:43</td><td>1065825.0</td><td>684.0</td><td>6449</td><td>2026-08-18 03:32:05</td><td>1066033.0</td><td>684.0</td><td>202</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002405</td><td>6450</td><td>2026-08-18 03:28:43</td><td>1026527.0</td><td>629.0</td><td>6452</td><td>2026-08-18 03:32:05</td><td>1026735.0</td><td>629.0</td><td>202</td><td>2</td></tr>
+<tr class="row-msgid"><td>866018081501814</td><td><span class="badge msgid">msgid不连续</span></td><td>XSG00002400</td><td>6000</td><td>2026-08-17 14:45:05</td><td>971485.0</td><td>649.0</td><td>6002</td><td>2026-08-17 14:48:26</td><td>971693.0</td><td>649.0</td><td>201</td><td>2</td></tr>
+
+          </tbody>
+        </table>
+        <p class="note">* 每个网关仅展示前 50 条，完整数据见 anomalies_众珏泗阳纺织_202608191513.xlsx</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+</body>
+</html>
