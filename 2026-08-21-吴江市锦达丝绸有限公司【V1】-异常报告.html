@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【吴江市锦达丝绸有限公司【V1】】设备数据异常分析报告（双网关）</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Microsoft YaHei",Arial,sans-serif; background:#f0f2f5; color:#333; }
+  .header { background:linear-gradient(135deg,#1a237e,#283593); color:#fff; padding:24px 32px; }
+  .header h1 { font-size:22px; }
+  .header .meta { font-size:12px; opacity:.8; margin-top:6px; line-height:1.8; }
+  .container { max-width:1400px; margin:24px auto; padding:0 16px; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+  .card { background:#fff; border-radius:10px; padding:20px 24px; flex:1; min-width:160px;
+           box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:5px solid #ccc; }
+  .card.blue   { border-color:#3498db; }
+  .card.orange { border-color:#f39c12; }
+  .card.yellow { border-color:#f1c40f; }
+  .card.red    { border-color:#e74c3c; }
+  .card.purple { border-color:#9b59b6; }
+  .card.green  { border-color:#27ae60; }
+  .card.teal   { border-color:#1abc9c; }
+  .card .num   { font-size:34px; font-weight:700; }
+  .card .label { font-size:12px; color:#888; margin-top:4px; }
+  .card .sub   { font-size:11px; color:#bbb; margin-top:2px; }
+  .gw-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:24px; }
+  .section { background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:24px; }
+  .section h3 { font-size:15px; margin-bottom:14px; color:#555; }
+  .gw-label { display:inline-block; padding:2px 10px; border-radius:4px; font-size:12px;
+               font-weight:600; margin-bottom:10px; }
+  .gw1 { background:#dbeafe; color:#1d4ed8; }
+  .gw2 { background:#dcfce7; color:#15803d; }
+  .gw3 { background:#fef9c3; color:#854d0e; }
+  .gw4 { background:#fce7f3; color:#9d174d; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f5f5f5; padding:8px 10px; text-align:left; border-bottom:2px solid #ddd; white-space:nowrap; }
+  td { padding:7px 10px; border-bottom:1px solid #eee; white-space:nowrap; }
+  tr:hover td { background:#fafafa; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; }
+  .badge.both    { background:#e74c3c; color:#fff; }
+  .badge.msgid   { background:#f39c12; color:#fff; }
+  .badge.timeout { background:#f1c40f; color:#333; }
+  .badge.rtdrop  { background:#27ae60; color:#fff; }
+  .row-both td   { background:#fde8e8; }
+  .row-msgid td  { background:#fff8e1; }
+  .row-timeout td{ background:#fffde7; }
+  .row-rtdrop td { background:#f0fff4; }
+  .note { font-size:12px; color:#999; margin-top:8px; }
+  @media(max-width:900px) { .gw-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>【吴江市锦达丝绸有限公司【V1】】设备数据异常分析报告（双网关）</h1>
+  <div class="meta">
+    生成时间: 2026-08-21 15:30:54 &nbsp;|&nbsp;
+    数据时间范围: 2026082014 ~ 2026082114 &nbsp;|&nbsp;
+    异常判定: 上报间隔 &gt; 4 分钟 或 msgid 不连续<br>
+    网关1 (862538063596098（塔石V3）): history_data_862538063596098_202608211525.xlsx
+    网关2 (862538065271484（塔石V3）): history_data_862538065271484_202608211525.xlsx
+  </div>
+</div>
+<div class="container">
+
+  <!-- 汇总卡片 -->
+  <div class="cards">
+    <div class="card blue">
+      <div class="num">179</div>
+      <div class="label">总设备数（所有网关合计）</div>
+    </div>
+    <div class="card orange">
+      <div class="num">64</div>
+      <div class="label">msgid 不连续设备数</div>
+    </div>
+    <div class="card yellow">
+      <div class="num">12</div>
+      <div class="label">不应答设备数</div>
+    </div>
+    <div class="card red">
+      <div class="num">1</div>
+      <div class="label">两种异常同时存在设备数</div>
+    </div>
+    <div class="card purple">
+      <div class="num">93</div>
+      <div class="label">异常记录总数</div>
+      <div class="sub">
+        <span style="color:#e74c3c;font-weight:600">不应答 13 条（<0.01%）</span> &nbsp;|&nbsp;
+        <span style="color:#e74c3c;font-weight:600">丢包 80 条（0.05%）</span> &nbsp;|&nbsp;
+        运行时长跳小 0 条
+      </div>
+    </div>
+    <div class="card teal">
+      <div class="num">0</div>
+      <div class="label">运行时长跳小设备数</div>
+    </div>
+    <div class="card green">
+      <div class="num">0.06%</div>
+      <div class="label">总异常率</div>
+      <div class="sub">异常记录 93 / up/supply 记录 146293</div>
+    </div>
+  </div>
+
+  <!-- 网关设备汇总 -->
+  <div class="gw-grid">
+    
+    <div class="section">
+      <h3>网关1 设备异常汇总</h3>
+      <span class="gw-label gw1">862538063596098（塔石V3）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 89 &nbsp;|&nbsp;
+        异常记录: 72 &nbsp;|&nbsp;
+        msgid不连续: 44 台 &nbsp;|&nbsp;
+        不应答: 11 台 &nbsp;|&nbsp;
+        双异常: 1 台 &nbsp;|&nbsp;
+        运行时长跳小: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 54 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>X8625380635960980001</td><td>3</td><td><span class="badge both">msgid不连续+不应答</span></td></tr>
+<tr><td>X8625380635960980015</td><td>3</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980020</td><td>3</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980016</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980010</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980019</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980022</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980023</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980024</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980009</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980017</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980018</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980029</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980032</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980034</td><td>2</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980006</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980004</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980007</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980012</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980005</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980002</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980003</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980021</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980008</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980013</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980025</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980028</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980027</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980030</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980026</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980031</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980033</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980035</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980036</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980037</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980039</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980048</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980050</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980051</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980053</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980056</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980057</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980058</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980059</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980060</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980061</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980062</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980063</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380635960980064</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980066</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980068</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980070</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980072</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+<tr><td>X8625380635960980074</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+    <div class="section">
+      <h3>网关2 设备异常汇总</h3>
+      <span class="gw-label gw2">862538065271484（塔石V3）</span>
+      <div style="margin-bottom:8px;font-size:13px;color:#666">
+        设备数: 90 &nbsp;|&nbsp;
+        异常记录: 21 &nbsp;|&nbsp;
+        msgid不连续: 20 台 &nbsp;|&nbsp;
+        不应答: 1 台 &nbsp;|&nbsp;
+        双异常: 0 台 &nbsp;|&nbsp;
+        运行时长跳小: 0 台
+      </div>
+      <details>
+      <summary style="cursor:pointer;font-size:13px;color:#555;padding:4px 0;user-select:none;">
+        展开设备明细（共 21 台）
+      </summary>
+      <div style="margin-top:10px;">
+        <table>
+          <thead><tr><th>设备ID</th><th>异常次数</th><th>异常类型</th></tr></thead>
+          <tbody><tr><td>X8625380652714840103</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840105</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840106</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840109</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840110</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840111</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840113</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840115</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840116</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840117</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840133</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840134</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840135</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840136</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840137</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840138</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840139</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840140</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840141</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840143</td><td>1</td><td><span class="badge msgid">msgid不连续</span></td></tr>
+<tr><td>X8625380652714840161</td><td>1</td><td><span class="badge timeout">不应答</span></td></tr>
+</tbody>
+        </table>
+      </div>
+    </details>
+    </div>
+  </div>
+
+  <!-- 异常明细 -->
+  <div class="section">
+    <details>
+      <summary style="cursor:pointer;font-size:15px;font-weight:600;color:#555;padding:4px 0;user-select:none;">
+        异常明细（每个网关按间隔秒数降序前 50 条）
+      </summary>
+      <div style="margin-top:14px;overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>网关</th><th>异常类型</th><th>设备</th>
+              <th>上一次msgid</th><th>上一次上报时间</th><th>上一次运行时长</th><th>上一次转速</th>
+              <th>本次msgid</th><th>本次上报时间</th><th>本次运行时长</th><th>本次转速</th>
+              <th>间隔秒数</th><th>msgid跳号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-timeout"><td>862538065271484</td><td><span class="badge timeout">不应答</span></td><td>X8625380652714840161</td><td>50324</td><td>2026-08-20 15:44:15</td><td>7685429.0</td><td>0.0</td><td>50325</td><td>2026-08-20 16:08:59</td><td>7685431.0</td><td>600.0</td><td>1484</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980056</td><td>51394</td><td>2026-08-20 17:50:11</td><td>7691458.0</td><td>549.0</td><td>51395</td><td>2026-08-20 18:06:36</td><td>7691514.0</td><td>551.0</td><td>985</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980060</td><td>51384</td><td>2026-08-20 17:50:11</td><td>7410062.0</td><td>570.0</td><td>51385</td><td>2026-08-20 18:06:36</td><td>7410119.0</td><td>0.0</td><td>985</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980058</td><td>51387</td><td>2026-08-20 17:50:11</td><td>7539128.0</td><td>606.0</td><td>51388</td><td>2026-08-20 18:06:36</td><td>7539197.0</td><td>0.0</td><td>985</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980062</td><td>51273</td><td>2026-08-20 17:50:11</td><td>7373053.0</td><td>619.0</td><td>51274</td><td>2026-08-20 18:06:36</td><td>7373098.0</td><td>0.0</td><td>985</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980074</td><td>51198</td><td>2026-08-20 17:50:24</td><td>6557272.0</td><td>630.0</td><td>51199</td><td>2026-08-20 18:06:47</td><td>6557297.0</td><td>0.0</td><td>983</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980072</td><td>50253</td><td>2026-08-20 17:50:24</td><td>7228503.0</td><td>599.0</td><td>50254</td><td>2026-08-20 18:06:42</td><td>7228538.0</td><td>0.0</td><td>978</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980070</td><td>51355</td><td>2026-08-20 17:50:24</td><td>8021591.0</td><td>588.0</td><td>51356</td><td>2026-08-20 18:06:42</td><td>8021492.0</td><td>0.0</td><td>978</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980066</td><td>51276</td><td>2026-08-20 17:50:24</td><td>7478682.0</td><td>622.0</td><td>51277</td><td>2026-08-20 18:06:42</td><td>7478634.0</td><td>0.0</td><td>978</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980064</td><td>51296</td><td>2026-08-20 17:50:24</td><td>7780098.0</td><td>569.0</td><td>51297</td><td>2026-08-20 18:06:42</td><td>7780143.0</td><td>0.0</td><td>978</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980068</td><td>51417</td><td>2026-08-20 17:51:04</td><td>6988548.0</td><td>591.0</td><td>51418</td><td>2026-08-20 18:06:42</td><td>6988417.0</td><td>0.0</td><td>938</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980001</td><td>43835</td><td>2026-08-20 22:21:17</td><td>6713306.0</td><td>0.0</td><td>43836</td><td>2026-08-20 22:34:32</td><td>6713306.0</td><td>0.0</td><td>795</td><td>1</td></tr>
+<tr class="row-timeout"><td>862538063596098</td><td><span class="badge timeout">不应答</span></td><td>X8625380635960980001</td><td>43702</td><td>2026-08-20 15:50:45</td><td>6713306.0</td><td>0.0</td><td>43703</td><td>2026-08-20 16:02:08</td><td>6713306.0</td><td>0.0</td><td>683</td><td>1</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980061</td><td>51672</td><td>2026-08-21 02:36:23</td><td>7515069.0</td><td>566.0</td><td>51674</td><td>2026-08-21 02:41:34</td><td>7515378.0</td><td>566.0</td><td>311</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980031</td><td>51707</td><td>2026-08-21 02:42:08</td><td>8033342.0</td><td>0.0</td><td>51709</td><td>2026-08-21 02:47:17</td><td>8033492.0</td><td>620.0</td><td>309</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980033</td><td>51559</td><td>2026-08-21 02:42:08</td><td>7965635.0</td><td>630.0</td><td>51561</td><td>2026-08-21 02:47:17</td><td>7965943.0</td><td>629.0</td><td>309</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840110</td><td>50533</td><td>2026-08-21 05:24:48</td><td>3506810.0</td><td>0.0</td><td>50535</td><td>2026-08-21 05:29:37</td><td>3506810.0</td><td>0.0</td><td>289</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840111</td><td>50831</td><td>2026-08-21 05:24:48</td><td>5548355.0</td><td>0.0</td><td>50833</td><td>2026-08-21 05:29:37</td><td>5548355.0</td><td>0.0</td><td>289</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980048</td><td>51648</td><td>2026-08-21 02:36:15</td><td>3835163.0</td><td>118.0</td><td>51650</td><td>2026-08-21 02:40:37</td><td>3835163.0</td><td>118.0</td><td>262</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980063</td><td>51522</td><td>2026-08-21 02:36:23</td><td>7542999.0</td><td>579.0</td><td>51524</td><td>2026-08-21 02:40:45</td><td>7543258.0</td><td>579.0</td><td>262</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980020</td><td>51628</td><td>2026-08-21 02:42:00</td><td>7051936.0</td><td>619.0</td><td>51630</td><td>2026-08-21 02:46:20</td><td>7052195.0</td><td>619.0</td><td>260</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980006</td><td>51726</td><td>2026-08-21 02:55:49</td><td>6487726.0</td><td>0.0</td><td>51728</td><td>2026-08-21 03:00:08</td><td>6487726.0</td><td>0.0</td><td>259</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980057</td><td>51617</td><td>2026-08-21 02:36:23</td><td>8016328.0</td><td>596.0</td><td>51619</td><td>2026-08-21 02:40:37</td><td>8016586.0</td><td>596.0</td><td>254</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980029</td><td>51685</td><td>2026-08-21 02:36:15</td><td>6505139.0</td><td>574.0</td><td>51687</td><td>2026-08-21 02:40:23</td><td>6505397.0</td><td>575.0</td><td>248</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840103</td><td>50723</td><td>2026-08-21 05:24:39</td><td>3452998.0</td><td>0.0</td><td>50725</td><td>2026-08-21 05:28:43</td><td>3452998.0</td><td>0.0</td><td>244</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840106</td><td>50800</td><td>2026-08-21 05:24:39</td><td>4565039.0</td><td>611.0</td><td>50802</td><td>2026-08-21 05:28:43</td><td>4565280.0</td><td>611.0</td><td>244</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840105</td><td>50669</td><td>2026-08-21 05:24:39</td><td>3952781.0</td><td>0.0</td><td>50671</td><td>2026-08-21 05:28:43</td><td>3952781.0</td><td>0.0</td><td>244</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840117</td><td>50862</td><td>2026-08-21 05:24:48</td><td>6814998.0</td><td>579.0</td><td>50864</td><td>2026-08-21 05:28:48</td><td>6815239.0</td><td>579.0</td><td>240</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840113</td><td>50794</td><td>2026-08-21 05:24:48</td><td>3591484.0</td><td>0.0</td><td>50796</td><td>2026-08-21 05:28:48</td><td>3591484.0</td><td>0.0</td><td>240</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840116</td><td>50732</td><td>2026-08-21 05:24:48</td><td>5960173.0</td><td>600.0</td><td>50734</td><td>2026-08-21 05:28:48</td><td>5960415.0</td><td>600.0</td><td>240</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840115</td><td>50787</td><td>2026-08-21 05:24:48</td><td>7799407.0</td><td>589.0</td><td>50789</td><td>2026-08-21 05:28:48</td><td>7799649.0</td><td>590.0</td><td>240</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840109</td><td>50731</td><td>2026-08-21 05:24:48</td><td>4471442.0</td><td>0.0</td><td>50733</td><td>2026-08-21 05:28:43</td><td>4471442.0</td><td>0.0</td><td>235</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980015</td><td>51641</td><td>2026-08-21 02:47:06</td><td>7566614.0</td><td>639.0</td><td>51643</td><td>2026-08-21 02:50:54</td><td>7566839.0</td><td>639.0</td><td>228</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980024</td><td>51634</td><td>2026-08-21 01:02:57</td><td>7825197.0</td><td>569.0</td><td>51636</td><td>2026-08-21 01:06:41</td><td>7825416.0</td><td>569.0</td><td>224</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980022</td><td>51647</td><td>2026-08-21 01:02:57</td><td>7529183.0</td><td>599.0</td><td>51649</td><td>2026-08-21 01:06:41</td><td>7529401.0</td><td>599.0</td><td>224</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980013</td><td>51653</td><td>2026-08-21 02:48:02</td><td>7924217.0</td><td>619.0</td><td>51655</td><td>2026-08-21 02:51:45</td><td>7924434.0</td><td>620.0</td><td>223</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980037</td><td>51627</td><td>2026-08-21 02:48:14</td><td>7786640.0</td><td>609.0</td><td>51629</td><td>2026-08-21 02:51:54</td><td>7786858.0</td><td>609.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980029</td><td>51691</td><td>2026-08-21 02:48:14</td><td>6505865.0</td><td>574.0</td><td>51693</td><td>2026-08-21 02:51:54</td><td>6506082.0</td><td>574.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980028</td><td>51715</td><td>2026-08-21 02:48:14</td><td>8130767.0</td><td>609.0</td><td>51717</td><td>2026-08-21 02:51:54</td><td>8130984.0</td><td>609.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980026</td><td>51739</td><td>2026-08-21 02:48:14</td><td>6309241.0</td><td>629.0</td><td>51741</td><td>2026-08-21 02:51:54</td><td>6309459.0</td><td>630.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980027</td><td>51681</td><td>2026-08-21 02:48:14</td><td>7759239.0</td><td>569.0</td><td>51683</td><td>2026-08-21 02:51:54</td><td>7759456.0</td><td>569.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980034</td><td>51657</td><td>2026-08-21 02:42:08</td><td>8046660.0</td><td>579.0</td><td>51659</td><td>2026-08-21 02:45:48</td><td>8046869.0</td><td>579.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980036</td><td>51696</td><td>2026-08-21 02:42:08</td><td>7760400.0</td><td>579.0</td><td>51698</td><td>2026-08-21 02:45:48</td><td>7760609.0</td><td>579.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980032</td><td>51671</td><td>2026-08-21 02:48:14</td><td>7594542.0</td><td>620.0</td><td>51673</td><td>2026-08-21 02:51:54</td><td>7594759.0</td><td>620.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980030</td><td>51704</td><td>2026-08-21 02:42:08</td><td>8136965.0</td><td>609.0</td><td>51706</td><td>2026-08-21 02:45:48</td><td>8137173.0</td><td>609.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980034</td><td>51660</td><td>2026-08-21 02:48:14</td><td>8047027.0</td><td>579.0</td><td>51662</td><td>2026-08-21 02:51:54</td><td>8047244.0</td><td>579.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980035</td><td>51447</td><td>2026-08-21 02:48:14</td><td>7901838.0</td><td>649.0</td><td>51449</td><td>2026-08-21 02:51:54</td><td>7902055.0</td><td>650.0</td><td>220</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980024</td><td>51693</td><td>2026-08-21 02:48:08</td><td>7831509.0</td><td>569.0</td><td>51695</td><td>2026-08-21 02:51:45</td><td>7831726.0</td><td>569.0</td><td>217</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980050</td><td>51693</td><td>2026-08-21 02:36:15</td><td>4158639.0</td><td>0.0</td><td>51695</td><td>2026-08-21 02:39:50</td><td>4158639.0</td><td>0.0</td><td>215</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980051</td><td>51580</td><td>2026-08-21 02:36:15</td><td>4079173.0</td><td>0.0</td><td>51582</td><td>2026-08-21 02:39:50</td><td>4079173.0</td><td>0.0</td><td>215</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980039</td><td>51699</td><td>2026-08-21 02:48:22</td><td>5822286.0</td><td>0.0</td><td>51701</td><td>2026-08-21 02:51:54</td><td>5822286.0</td><td>0.0</td><td>212</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840143</td><td>50808</td><td>2026-08-21 06:00:31</td><td>6631713.0</td><td>0.0</td><td>50810</td><td>2026-08-21 06:04:01</td><td>6631713.0</td><td>0.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840140</td><td>50726</td><td>2026-08-21 06:00:31</td><td>6768373.0</td><td>0.0</td><td>50728</td><td>2026-08-21 06:04:01</td><td>6768373.0</td><td>0.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840139</td><td>50806</td><td>2026-08-21 06:00:31</td><td>7660702.0</td><td>610.0</td><td>50808</td><td>2026-08-21 06:04:01</td><td>7660920.0</td><td>610.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840136</td><td>50869</td><td>2026-08-21 06:00:31</td><td>7813175.0</td><td>0.0</td><td>50871</td><td>2026-08-21 06:04:01</td><td>7813175.0</td><td>0.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840138</td><td>50877</td><td>2026-08-21 06:00:31</td><td>7040525.0</td><td>605.0</td><td>50879</td><td>2026-08-21 06:04:01</td><td>7040743.0</td><td>605.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840137</td><td>50803</td><td>2026-08-21 06:00:31</td><td>8055271.0</td><td>0.0</td><td>50805</td><td>2026-08-21 06:04:01</td><td>8055345.0</td><td>628.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840141</td><td>50866</td><td>2026-08-21 06:00:31</td><td>6299476.0</td><td>563.0</td><td>50868</td><td>2026-08-21 06:04:01</td><td>6299694.0</td><td>563.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840135</td><td>50724</td><td>2026-08-21 06:00:31</td><td>7973803.0</td><td>582.0</td><td>50726</td><td>2026-08-21 06:04:01</td><td>7974021.0</td><td>582.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840134</td><td>50847</td><td>2026-08-21 06:00:31</td><td>7921359.0</td><td>618.0</td><td>50849</td><td>2026-08-21 06:04:01</td><td>7921577.0</td><td>617.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538065271484</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380652714840133</td><td>50902</td><td>2026-08-21 06:00:31</td><td>6536043.0</td><td>579.0</td><td>50904</td><td>2026-08-21 06:04:01</td><td>6536261.0</td><td>579.0</td><td>210</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980059</td><td>51654</td><td>2026-08-21 02:36:23</td><td>7797137.0</td><td>0.0</td><td>51656</td><td>2026-08-21 02:39:50</td><td>7797137.0</td><td>0.0</td><td>207</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980009</td><td>51532</td><td>2026-08-21 02:42:00</td><td>7830322.0</td><td>610.0</td><td>51534</td><td>2026-08-21 02:45:27</td><td>7830531.0</td><td>609.0</td><td>207</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980015</td><td>51638</td><td>2026-08-21 02:42:00</td><td>7566305.0</td><td>640.0</td><td>51640</td><td>2026-08-21 02:45:27</td><td>7566514.0</td><td>640.0</td><td>207</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980010</td><td>51652</td><td>2026-08-21 02:42:00</td><td>7998548.0</td><td>615.0</td><td>51654</td><td>2026-08-21 02:45:27</td><td>7998711.0</td><td>0.0</td><td>207</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980017</td><td>51632</td><td>2026-08-21 02:42:00</td><td>7874221.0</td><td>660.0</td><td>51634</td><td>2026-08-21 02:45:27</td><td>7874430.0</td><td>660.0</td><td>207</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980053</td><td>51562</td><td>2026-08-21 02:36:23</td><td>6671912.0</td><td>0.0</td><td>51564</td><td>2026-08-21 02:39:50</td><td>6671912.0</td><td>0.0</td><td>207</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980008</td><td>50399</td><td>2026-08-21 02:55:49</td><td>7665450.0</td><td>0.0</td><td>50401</td><td>2026-08-21 02:59:15</td><td>7665450.0</td><td>0.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980002</td><td>52243</td><td>2026-08-21 02:55:49</td><td>6748066.0</td><td>0.0</td><td>52245</td><td>2026-08-21 02:59:15</td><td>6748066.0</td><td>0.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980003</td><td>51128</td><td>2026-08-21 02:55:49</td><td>5783865.0</td><td>0.0</td><td>51130</td><td>2026-08-21 02:59:15</td><td>5783865.0</td><td>0.0</td><td>206</td><td>2</td></tr>
+<tr class="row-msgid"><td>862538063596098</td><td><span class="badge msgid">msgid不连续</span></td><td>X8625380635960980004</td><td>51732</td><td>2026-08-21 02:55:49</td><td>6724807.0</td><td>0.0</td><td>51734</td><td>2026-08-21 02:59:15</td><td>6724807.0</td><td>0.0</td><td>206</td><td>2</td></tr>
+
+          </tbody>
+        </table>
+        <p class="note">* 每个网关仅展示前 50 条，完整数据见 anomalies_吴江市锦达丝_202608211527.xlsx</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+</body>
+</html>
